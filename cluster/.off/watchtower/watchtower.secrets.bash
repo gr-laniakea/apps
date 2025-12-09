@@ -1,0 +1,1 @@
+export WATCHTOWER_API_KEY=CA2udJ7onp2UKyxys8reVnB7QJED8Jsu

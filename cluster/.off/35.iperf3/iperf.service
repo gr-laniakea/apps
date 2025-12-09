@@ -1,0 +1,16 @@
+[Unit]
+Description=Iperf  Service
+After=network.target
+
+[Service]
+User=root
+Group=root
+Type=simple
+KillMode=process
+ExecStart=/usr/bin/iperf3 -s -p 7871 --rsa-private-key-path /etc/iperf/rsa/private-iperf.pem --authorized-users-path /etc/iperf/passwords --logfile /var/log/iperf.log
+
+Restart=on-failure
+RestartSec=3d
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,2 @@
+0 0 * * * root bash /opt/perdido/config/foundryvtt/backup | logger -t backup-foundryvtt
+0 * * * * root bash /opt/perdido/config/foundryvtt/prune | logger -t backup-foundryvtt

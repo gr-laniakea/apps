@@ -1,0 +1,5 @@
+#!/bin/bash
+set -ex
+echo YOU ARE $(id -un)
+cd /opt/perdido/config/minecraft
+docker compose down || true

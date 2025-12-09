@@ -1,0 +1,9 @@
+title: Perdido
+description: HALLO WELOME TO PERDIDO
+theme: dark
+color: indigo
+language: en
+layout:
+  Media:
+    style: row
+    columns: 4

@@ -1,0 +1,16 @@
+{
+    "extends": "../tsconfig.base.json",
+
+    "compilerOptions": {
+        "outDir": "../dist/cluster",
+        "tsBuildInfoFile": "../dist/.cluster.tsbuildinfo",
+        "rootDir": ".",
+        "noEmit": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["*"]
+        }
+    },
+    "include": ["**/*.ts"],
+    "exclude": ["**/node_modules"]
+}

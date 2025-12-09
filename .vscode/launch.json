@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Build Manifests",
+            "runtimeExecutable": "tsx",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": ["<node_internals>/**"],
+            "runtimeArgs": [
+                "--async-stack-traces",
+                "--stack-trace-limit=1000",
+                "--tsconfig=./cluster/tsconfig.json"
+            ],
+            "program": "${workspaceFolder}/cluster/run.ts",
+            "env": {
+                "ROARR_LOG": "true"
+            }
+        }
+    ]
+}

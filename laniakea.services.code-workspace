@@ -1,0 +1,43 @@
+{
+    "folders": [
+        {
+            "path": "cluster",
+            "name": "cluster"
+        },
+        {
+            "path": ".",
+            "name": "root"
+        }
+    ],
+    "settings": {
+        "files.exclude": {
+            "cluster": true,
+            "code2": true,
+            "**/.git": true,
+            "**/.svn": true,
+            "**/.hg": true,
+            "**/.nyc_output": true,
+            "**/coverage": true,
+            "**/dist-spec": true,
+            "**/CVS": true,
+            "**/.DS_Store": true,
+            "**/Thumbs.db": true,
+            "**/*.aux": true,
+            "**/*.bbl": true,
+            "**/*.fdb_latexmk": true,
+            "**/*.fls": true,
+            "**/*.synctex.gz": true,
+            "**/.idea": true,
+            "**/.mypy_cache": true,
+            "**/__pycache__": true,
+            "**/dist_aux": true,
+            ".nyc_output": true,
+            "coverage": true,
+            "docs": true,
+            "**/node_modules": true,
+            "code": true,
+            "**/k8s.out/": false
+        },
+        "typescript.tsserver.experimental.enableProjectDiagnostics": true
+    }
+}

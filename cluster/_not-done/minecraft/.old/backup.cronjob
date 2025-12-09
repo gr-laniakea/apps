@@ -1,0 +1,2 @@
+*/4 * * * * root bash /opt/perdido/config/minecraft/backup | logger -t backup-minecraft
+0 * * * * root bash/opt/perdido/config/minecraft/prune | logger -t backup-minecraft

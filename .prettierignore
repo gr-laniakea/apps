@@ -1,0 +1,7 @@
+package-lock.json
+node_modules/
+yarn.lock
+.obsidian/
+.idea/
+dist/
+.gitlab-ci.yml

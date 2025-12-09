@@ -1,0 +1,13 @@
+import { User } from "@k8ts/instruments"
+export const userMumble = User.makeSync(2100, "mumble")
+export const userFactorio = User.makeSync(845, "factorio")
+export const userSyncthing = User.makeSync(2101, "syncthing")
+export const userWikiJs = User.makeSync(2102, "wikijs")
+export const userTheLounge = User.makeSync(2103, "thelounge")
+export const userMedia = User.makeSync(2104, "media")
+export const userScrutiny = User.makeSync(2105, "scrutiny")
+export const userGlances = User.makeSync(2106, "glances")
+export const userSyncthingDiscovery = User.makeSync(2107, "syncthing-discovery")
+export const userMinecraft = User.makeSync(2109, "minecraft")
+export const userMinecraftPack = User.makeSync(2110, "minecraft-pack")
+export const userGrb = User.makeSync(2111, "grb")
