@@ -41,7 +41,7 @@ export default W.Scope(namespaces[`Namespace/${name}`])
                         VERSION: "1.20.1",
                         INIT_MEMORY: "1G",
                         MAX_MEMORY: "6G",
-                        PACKWIZ_URL: "https://mc-pack.laniakea.boo/pack.toml",
+                        PACKWIZ_URL: "https://minecraft-pack.laniakea.boo/pack.toml",
                         DATAPACKS: "https://www.stardustlabs.net/s/Terralith_120_v240.zip"
                     },
                     $mounts: {
