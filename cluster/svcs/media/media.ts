@@ -10,4 +10,9 @@ export default W.Scope(namespaces["Namespace/media"])
             $bind: Public["PersistentVolume/media"],
             $storage: "=1Gi"
         })
+        yield FILE.Claim("nfs-media", {
+            $accessModes: "ROX",
+            $bind: Public["PersistentVolume/nfs-media"],
+            $storage: "=1Gi"
+        })
     })

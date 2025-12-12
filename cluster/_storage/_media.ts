@@ -16,6 +16,17 @@ export default W.Scope("cluster")
             reclaimPolicy: "Retain",
             nodeAffinity
         })
+
+        yield FILE.PersistentVolume("nfs-media", {
+            $accessModes: ["ROX"],
+            $capacity: T(10),
+            $backend: {
+                type: "NFS",
+                path: "/data/media",
+                server: "hdd.laniakea.boo"
+            },
+            mountOptions: ["ro", "nfsvers=4.2"]
+        })
     })
 // /media/downs/going
 // /media/downs/done

@@ -938,7 +938,7 @@ __metadata:
     husky: "npm:^9.1.7"
     immutable: "npm:^5.0.3"
     jest: "npm:^29.7.0"
-    k8ts: "npm:^0.5.6"
+    k8ts: "npm:^0.7.2"
     lint-staged: "npm:^15.4.3"
     lodash: "npm:^4.17.21"
     npm-run-all: "npm:^4.1.5"
@@ -2178,6 +2178,13 @@ __metadata:
   version: 5.0.0-beta.16
   resolution: "doddle@npm:5.0.0-beta.16"
   checksum: 10c0/db3c6abc9c367f4af96c4d5f9449550634d57cc9b0ebe38e9787844e4dc0e83c65f98fbe00c11d99d7964bf10743ed8ee0a75a7e8443bdd90a51b4d62722b1e2
+  languageName: node
+  linkType: hard
+
+"doddle@npm:^5.2.0":
+  version: 5.2.1
+  resolution: "doddle@npm:5.2.1"
+  checksum: 10c0/7508249a4d7fa8301b4e947a88ad5587573b60f89f74207d2da270778ffd1a7a7e8bda9b645465d924588ac6323071e72461c5453fd73c13cb85167fb43dc431
   languageName: node
   linkType: hard
 
@@ -4028,15 +4035,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"k8ts@npm:^0.5.6":
-  version: 0.5.6
-  resolution: "k8ts@npm:0.5.6"
+"k8ts@npm:^0.7.2":
+  version: 0.7.2
+  resolution: "k8ts@npm:0.7.2"
   dependencies:
     cdk8s: "npm:^2.69.48"
     chalk: "npm:4.1.2"
     constructs: "npm:^10.4.2"
     dayjs: "npm:^1.11.13"
-    doddle: "npm:^5.0.0-beta.16"
+    doddle: "npm:^5.2.0"
     emittery: "npm:0.13.1"
     immutable: "npm:^5.0.3"
     ip-address: "npm:^10.0.1"
@@ -4046,10 +4053,11 @@ __metadata:
     parjs: "npm:^1.3.9"
     simple-git: "npm:^3.27.0"
     stacktracey: "npm:^2.1.8"
+    what-are-you: "npm:^0.1.12"
   peerDependencies:
-    "@k8ts/instruments": ^0.4.13
-    "@k8ts/metadata": ^0.4.8
-  checksum: 10c0/e77fc42fdd0e623fe99a8a5fb5f7d328c016a4f3814ed8e41c0ee8df9723ab2aa19a2f2a3d96b8008bb949720cc72527b1f40d4ba78c1b114971e081985d6b11
+    "@k8ts/instruments": ^0.5.2
+    "@k8ts/metadata": ^0.4.14
+  checksum: 10c0/bb2c98955c65175d8f39aa2eba52a0176cd800831d023da2e2cab539012ddcba48c8d1c921a1aa291d12d7fe05ae6562930ee18cf26a7eb96156d2a0fe48c041
   languageName: node
   linkType: hard
 
@@ -6370,6 +6378,13 @@ __metadata:
   dependencies:
     defaults: "npm:^1.0.3"
   checksum: 10c0/5b61ca583a95e2dd85d7078400190efd452e05751a64accb8c06ce4db65d7e0b0cde9917d705e826a2e05cc2548f61efde115ffa374c3e436d04be45c889e5b4
+  languageName: node
+  linkType: hard
+
+"what-are-you@npm:^0.1.12":
+  version: 0.1.13
+  resolution: "what-are-you@npm:0.1.13"
+  checksum: 10c0/a39c1e47fe6aaf8bfe1b248d4a1804f9524c7d22a3c7b7b0f050028d8756e9b494a2894fcae5121a39fb04d12bf1d21273c86dcc4561118e00fc1af1d9ba1b1e
   languageName: node
   linkType: hard
 
