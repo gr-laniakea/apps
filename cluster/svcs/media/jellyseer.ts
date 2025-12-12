@@ -34,12 +34,7 @@ export default W.Scope(namespaces["Namespace/media"])
                                 $storageClass: topolvm,
                                 $storage: "=7Gi"
                             }).with(setBackupMode("pvc-main-schedule"))
-                        }).Mount(),
-                        "/media": POD.Volume("media", {
-                            $backend: Media["PersistentVolumeClaim/media"]
-                        }).Mount({
-                            readOnly: true
-                        })
+                        }).Mount()
                     }
                 })
             })

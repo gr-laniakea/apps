@@ -6,23 +6,21 @@ export namespace Images {
             export const docker = Image.host("docker.io")
             export const ghcr = Image.host("ghcr.io")
             export const lscr = Image.host("lscr.io")
-            export const myGitlab = Image.host("registry.host")
         }
         export const nicolargo = Host.docker.author("nicolargo")
         export const linuxserver = Host.lscr.author("linuxserver")
         export const mumblevoip = Host.docker.author("mumblevoip")
         export const analogj = Host.ghcr.author("analogj")
         export const thelounge = Host.ghcr.author("thelounge")
-        export const grb = Host.myGitlab.author("grb")
         export const requarks = Host.docker.author("requarks")
         export const syncthing = Host.docker.author("syncthing")
         export const fallenbagel = Host.docker.author("fallenbagel")
-        export const mySvc = Host.myGitlab.author("svc")
         export const itzg = Host.docker.author("itzg")
+        export const laniakea = Host.ghcr.author("gr-laniakea")
         export const _ = Host.docker.author("_")
     }
 
-    export const factorio = Authors.mySvc.image("my-factorio").tag("latest")
+    export const factorio = Authors.laniakea.image("factorio-image").tag("latest")
     export const glances = Authors.nicolargo.image("glances").tag("latest-full")
     export const sabnzbd = Authors.linuxserver.image("sabnzbd").tag("latest")
     export const syncthing = Authors.linuxserver.image("syncthing").tag("latest")
@@ -36,9 +34,6 @@ export namespace Images {
     export const jellyfin = Authors.linuxserver.image("jellyfin").tag("latest")
     export const prowlarr = Authors.linuxserver.image("prowlarr").tag("latest")
     export const thelounge = Authors.thelounge.image("thelounge").tag("latest")
-
-    export const grb_api = Authors.grb.image("grb-api").tag("latest")
-    export const grb_frontend = Authors.grb.image("grb-frontend").tag("latest")
 
     export const wiki_js = Authors.requarks.image("wiki").tag("latest")
     export const jellyseer = Authors.fallenbagel.image("jellyseerr").tag("latest")
