@@ -23,7 +23,7 @@ export default W.Scope("cluster")
             $backend: {
                 type: "NFS",
                 path: "/data/media",
-                server: "hdd.laniakea.boo"
+                server: "10.0.10.18"
             },
             mountOptions: ["ro", "nfsvers=4.2"]
         })
