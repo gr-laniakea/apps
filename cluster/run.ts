@@ -14,6 +14,7 @@ import minecraft from "./svcs/minecraft"
 import mumble from "./svcs/mumble"
 import Public from "./_storage/_media"
 import { Syncthing } from "./svcs/syncthing"
+import _devices from "./svcs/_devices"
 async function main() {
     const runner = new Runner({
         cwd: ".",
@@ -86,7 +87,8 @@ async function main() {
         jellyseer,
         media,
         factorio,
-        minecraft
+        minecraft,
+        _devices
     ])
 }
 main()
