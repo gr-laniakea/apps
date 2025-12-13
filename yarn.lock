@@ -938,7 +938,7 @@ __metadata:
     husky: "npm:^9.1.7"
     immutable: "npm:^5.0.3"
     jest: "npm:^29.7.0"
-    k8ts: "npm:^0.7.2"
+    k8ts: "npm:^0.7.3"
     lint-staged: "npm:^15.4.3"
     lodash: "npm:^4.17.21"
     npm-run-all: "npm:^4.1.5"
@@ -4035,9 +4035,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"k8ts@npm:^0.7.2":
-  version: 0.7.2
-  resolution: "k8ts@npm:0.7.2"
+"k8ts@npm:^0.7.3":
+  version: 0.7.3
+  resolution: "k8ts@npm:0.7.3"
   dependencies:
     cdk8s: "npm:^2.69.48"
     chalk: "npm:4.1.2"
@@ -4055,9 +4055,9 @@ __metadata:
     stacktracey: "npm:^2.1.8"
     what-are-you: "npm:^0.1.12"
   peerDependencies:
-    "@k8ts/instruments": ^0.5.2
-    "@k8ts/metadata": ^0.4.14
-  checksum: 10c0/bb2c98955c65175d8f39aa2eba52a0176cd800831d023da2e2cab539012ddcba48c8d1c921a1aa291d12d7fe05ae6562930ee18cf26a7eb96156d2a0fe48c041
+    "@k8ts/instruments": ^0.5.3
+    "@k8ts/metadata": ^0.4.15
+  checksum: 10c0/747cc7f7962014f4219881fbd8414adfb19f838c2013c13ec41ad2e7c0b4f94ebfb17c503310c07baff3d694d0dd1a3c924190528aeb2bf9d100c76ddce62016
   languageName: node
   linkType: hard
 

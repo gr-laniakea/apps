@@ -20,6 +20,12 @@ export default W.Scope(namespaces["Namespace/media"])
                     $ports: {
                         web: "8096"
                     },
+                    securityContext: {
+                        privileged: true,
+                        seccompProfile: {
+                            type: "Unconfined"
+                        }
+                    },
                     $resources: {
                         cpu: "100m -> 2000m",
                         memory: "500Mi -> 4Gi"
