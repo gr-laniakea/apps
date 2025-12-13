@@ -874,13 +874,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@k8ts/instruments@npm:^0.4.13":
-  version: 0.4.13
-  resolution: "@k8ts/instruments@npm:0.4.13"
+"@k8ts/instruments@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@k8ts/instruments@npm:0.6.0"
   dependencies:
     chalk: "npm:4.1.2"
     dayjs: "npm:^1.11.13"
-    doddle: "npm:^5.0.0-beta.16"
+    doddle: "npm:^5.2.0"
     immutable: "npm:^5.0.3"
     ip-address: "npm:^10.0.1"
     lodash: "npm:^4.17.21"
@@ -888,22 +888,24 @@ __metadata:
     simple-git: "npm:^3.27.0"
     stacktracey: "npm:^2.1.8"
     timezone-enum: "npm:^1.0.4"
+    what-are-you: "npm:^0.1.12"
   peerDependencies:
-    "@k8ts/metadata": ^0.4.8
-  checksum: 10c0/e87fcf8b0790983cdcc9cbec36a9789ecab4b894275070a09204661ace319e9f87ba925f6702116e0dcb98778e3585687c08702b9386625f61a00df54a0974af
+    "@k8ts/metadata": ^0.4.15
+  checksum: 10c0/38799e9bc4cc16acb66bbad908552809b1f84f8f2cfe8f933995d2abe26950900eafc02de005b46c79258d235c687bf4a457603648a5b2b75fbfb1619a102717
   languageName: node
   linkType: hard
 
-"@k8ts/metadata@npm:^0.4.8":
-  version: 0.4.8
-  resolution: "@k8ts/metadata@npm:0.4.8"
+"@k8ts/metadata@npm:^0.4.15":
+  version: 0.4.15
+  resolution: "@k8ts/metadata@npm:0.4.15"
   dependencies:
-    doddle: "npm:^5.0.0-beta.16"
+    doddle: "npm:^5.2.0"
     immutable: "npm:^5.0.3"
     ip-address: "npm:^10.0.1"
     lodash: "npm:^4.17.21"
     parjs: "npm:^1.3.9"
-  checksum: 10c0/3c97fd2fa5efc305d2a2c7395b7573ac43342c31b5d31827c9a96c663c3626440cee9166d314db89c1e83722f0c6c49d2c37803881a2eec1ce04136b28d033a4
+    what-are-you: "npm:^0.1.12"
+  checksum: 10c0/1ecacea054dd7b4fef24a04691437fe5454a906aea0f1d10bd9781d4fea0e2b5c5d1213574f7ff40280ad6e98bd1249b4c1d6394483d21b15256cd386bb073bb
   languageName: node
   linkType: hard
 
@@ -927,18 +929,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@laniakea/apps@workspace:."
   dependencies:
-    "@k8ts/instruments": "npm:^0.4.13"
-    "@k8ts/metadata": "npm:^0.4.8"
+    "@k8ts/instruments": "npm:^0.6.0"
+    "@k8ts/metadata": "npm:^0.4.15"
     "@swc/core": "npm:^1.10.11"
     "@types/jest": "npm:^29.5.14"
     "@types/lodash": "npm:^4.17.15"
     "@types/node": "npm:^22.12.0"
     constructs: "npm:^10.4.2"
     declare-it: "npm:^2.1.0"
+    doddle: "npm:^7.1.6"
     husky: "npm:^9.1.7"
     immutable: "npm:^5.0.3"
     jest: "npm:^29.7.0"
-    k8ts: "npm:^0.7.3"
+    k8ts: "npm:^0.8.1"
     lint-staged: "npm:^15.4.3"
     lodash: "npm:^4.17.21"
     npm-run-all: "npm:^4.1.5"
@@ -2174,17 +2177,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"doddle@npm:^5.0.0-beta.16":
-  version: 5.0.0-beta.16
-  resolution: "doddle@npm:5.0.0-beta.16"
-  checksum: 10c0/db3c6abc9c367f4af96c4d5f9449550634d57cc9b0ebe38e9787844e4dc0e83c65f98fbe00c11d99d7964bf10743ed8ee0a75a7e8443bdd90a51b4d62722b1e2
-  languageName: node
-  linkType: hard
-
 "doddle@npm:^5.2.0":
   version: 5.2.1
   resolution: "doddle@npm:5.2.1"
   checksum: 10c0/7508249a4d7fa8301b4e947a88ad5587573b60f89f74207d2da270778ffd1a7a7e8bda9b645465d924588ac6323071e72461c5453fd73c13cb85167fb43dc431
+  languageName: node
+  linkType: hard
+
+"doddle@npm:^7.1.6":
+  version: 7.1.6
+  resolution: "doddle@npm:7.1.6"
+  dependencies:
+    tslib: "npm:^2.8.1"
+  checksum: 10c0/fba4315dff85935b784d0bced91dab0655d04c051b4e7e52f5cca7f4151f9d91232f207172b591b08c106198ddcf0ac6a0a9a40b04c035bfb36a40b05c4b7c7b
   languageName: node
   linkType: hard
 
@@ -4035,9 +4040,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"k8ts@npm:^0.7.3":
-  version: 0.7.3
-  resolution: "k8ts@npm:0.7.3"
+"k8ts@npm:^0.8.1":
+  version: 0.8.1
+  resolution: "k8ts@npm:0.8.1"
   dependencies:
     cdk8s: "npm:^2.69.48"
     chalk: "npm:4.1.2"
@@ -4055,9 +4060,9 @@ __metadata:
     stacktracey: "npm:^2.1.8"
     what-are-you: "npm:^0.1.12"
   peerDependencies:
-    "@k8ts/instruments": ^0.5.3
+    "@k8ts/instruments": ^0.6.0
     "@k8ts/metadata": ^0.4.15
-  checksum: 10c0/747cc7f7962014f4219881fbd8414adfb19f838c2013c13ec41ad2e7c0b4f94ebfb17c503310c07baff3d694d0dd1a3c924190528aeb2bf9d100c76ddce62016
+  checksum: 10c0/f3cec3d58bdf90008c99e9d124372271d495f8449cdbf09c849143a05033e29f2c2c10bd263aa5c4091b97ab26f34a384c33033f0e5379e6e063bb8895fb2c3a
   languageName: node
   linkType: hard
 
@@ -6165,7 +6170,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.6.2":
+"tslib@npm:^2.6.2, tslib@npm:^2.8.1":
   version: 2.8.1
   resolution: "tslib@npm:2.8.1"
   checksum: 10c0/9c4759110a19c53f992d9aae23aac5ced636e99887b51b9e61def52611732872ff7668757d4e4c61f19691e36f4da981cd9485e869b4a7408d689f6bf1f14e62

@@ -5,7 +5,6 @@ import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
 import { setBackupMode, topolvm, W } from "@/root"
 import Media from "./media"
-import _devices from "../_devices"
 export default W.Scope(namespaces["Namespace/media"])
     .File("jellyfin.yaml")
     .metadata(getAppMeta("jellyfin"))
@@ -13,34 +12,28 @@ export default W.Scope(namespaces["Namespace/media"])
         const deploy = FILE.Deployment("jellyfin", {
             replicas: 1
         })
-            .Template({})
+            .Template({
+                securityContext: {
+                    supplementalGroups: [105, 44]
+                }
+            })
             .POD(function* POD(POD) {
                 yield POD.Container("jellyfin", {
                     $image: Images.jellyfin,
                     $ports: {
                         web: "8096"
                     },
-                    securityContext: {
-                        privileged: true,
-                        seccompProfile: {
-                            type: "Unconfined"
-                        }
-                    },
+                    securityContext: {},
                     $resources: {
                         cpu: "100m -> 2000m",
-                        memory: "500Mi -> 4Gi"
+                        memory: "500Mi -> 4Gi",
+                        "gpu.intel.com/i915": "=1"
                     },
                     $env: {
                         ...userMedia.toDockerEnv()
                     },
+
                     $mounts: {
-                        "/dev/dri": POD.Volume("dri", {
-                            $backend: FILE.Claim("gpu-dri", {
-                                $accessModes: ["RWO"],
-                                $storage: "=1Gi",
-                                $bind: _devices["PersistentVolume/gpu-dri"]
-                            })
-                        }).Mount({}),
                         "/config": POD.Volume("var", {
                             $backend: FILE.Claim("jellyfin-var", {
                                 $accessModes: "RWO",

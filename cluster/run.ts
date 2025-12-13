@@ -14,7 +14,6 @@ import minecraft from "./svcs/minecraft"
 import mumble from "./svcs/mumble"
 import Public from "./_storage/_media"
 import { Syncthing } from "./svcs/syncthing"
-import _devices from "./svcs/_devices"
 async function main() {
     const runner = new Runner({
         cwd: ".",
@@ -58,7 +57,7 @@ async function main() {
                 type: "Recreate"
             }
             const hasTopolvmPvc = entity.node.recursiveRelationsSubtree
-                .find(x => {
+                .first(x => {
                     const ent = x.needed._entity
                     return ent instanceof Pvc.Pvc && ent.props.$storageClass === topolvm
                 })
@@ -87,8 +86,7 @@ async function main() {
         jellyseer,
         media,
         factorio,
-        minecraft,
-        _devices
+        minecraft
     ])
 }
 main()
