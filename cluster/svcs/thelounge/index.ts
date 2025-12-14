@@ -20,8 +20,8 @@ export default W.Scope(namespaces["Namespace/thelounge"])
                         web: 9000
                     },
                     $resources: {
-                        cpu: "100m -> 500m",
-                        memory: "500Mi -> 1Gi"
+                        cpu: "300m -> 500m",
+                        memory: "1Gi -> 2Gi"
                     },
                     $env: {
                         ...userTheLounge.toDockerEnv()

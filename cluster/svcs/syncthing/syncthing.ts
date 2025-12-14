@@ -40,8 +40,8 @@ export default W.Scope(namespaces["Namespace/syncthing"])
                         ...userSyncthing.toDockerEnv()
                     },
                     $resources: {
-                        cpu: "100m -> 500m",
-                        memory: "500Mi -> 1Gi"
+                        cpu: "300m -> 1000m",
+                        memory: "500Mi -> 8Gi"
                     },
                     $mounts: {
                         "/config": POD.Volume("config", {

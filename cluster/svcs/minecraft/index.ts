@@ -32,7 +32,7 @@ export default W.Scope(namespaces[`Namespace/${name}`])
                     },
                     $resources: {
                         cpu: "200m -> 4000m",
-                        memory: "500Mi -> 8000Mi"
+                        memory: "1Gi -> 12Gi"
                     },
                     $env: {
                         ...userMinecraft.toDockerEnv(""),
@@ -40,7 +40,7 @@ export default W.Scope(namespaces[`Namespace/${name}`])
                         TYPE: "FABRIC",
                         VERSION: "1.20.1",
                         INIT_MEMORY: "1G",
-                        MAX_MEMORY: "6G",
+                        MAX_MEMORY: "12G",
                         PACKWIZ_URL: "https://minecraft-pack.laniakea.boo/pack.toml",
                         DATAPACKS: "https://www.stardustlabs.net/s/Terralith_120_v240.zip"
                     },

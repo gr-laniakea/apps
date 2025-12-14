@@ -37,8 +37,8 @@ export default W.Scope(namespaces["Namespace/media"])
                         ...userMedia.toDockerEnv()
                     },
                     $resources: {
-                        cpu: "100m -> 500m",
-                        memory: "500Mi -> 1Gi"
+                        cpu: "500m -> 1000m",
+                        memory: "2Gi -> 3Gi"
                     },
                     $mounts: {
                         "/media": POD.Volume("media", {

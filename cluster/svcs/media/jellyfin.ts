@@ -25,8 +25,8 @@ export default W.Scope(namespaces["Namespace/media"])
                     },
                     securityContext: {},
                     $resources: {
-                        cpu: "100m -> 2000m",
-                        memory: "500Mi -> 4Gi",
+                        cpu: "100m -> 6000m",
+                        memory: "1Gi -> 12Gi",
                         "gpu.intel.com/i915": "=1"
                     },
                     $env: {

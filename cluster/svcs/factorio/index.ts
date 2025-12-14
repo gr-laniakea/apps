@@ -35,8 +35,8 @@ export default W.Scope(namespaces[`Namespace/${name}`])
                         ...userFactorio.toDockerEnv()
                     },
                     $resources: {
-                        cpu: "100m -> 2000m",
-                        memory: "500Mi -> 4Gi"
+                        cpu: "100m -> 3000m",
+                        memory: "2Gi -> 8Gi"
                     },
                     $mounts: {
                         "/factorio": vol.Mount()

@@ -45,8 +45,8 @@ export default W.Scope(namespaces["Namespace/mumble"])
                         MUMBLE_SUPERUSER_PASSWORD: "thechickensarecoming"
                     },
                     $resources: {
-                        cpu: "100m -> 500m",
-                        memory: "500Mi -> 1Gi"
+                        cpu: "300m -> 600m",
+                        memory: "1Gi -> 4Gi"
                     },
                     $mounts: {
                         "/data": vol.Mount()

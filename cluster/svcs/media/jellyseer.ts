@@ -21,8 +21,8 @@ export default W.Scope(namespaces["Namespace/media"])
                         web: "5055"
                     },
                     $resources: {
-                        cpu: "100m -> 400m",
-                        memory: "100Mi -> 1Gi"
+                        cpu: "400m -> 1000m",
+                        memory: "1Gi -> 2Gi"
                     },
                     $env: {
                         ...userMedia.toDockerEnv()
