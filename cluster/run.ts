@@ -27,20 +27,7 @@ async function main() {
     const targetPvcs = [] as Pvc[]
 
     runner.on("load", ({ resource }) => {
-        resource.when(Pv.Pv, entity => {
-            if (resource.origin.name !== "var.yaml") {
-                return
-            }
-            entity.name += "-legacy"
-            // @ts-expect-error bad thing
-            entity.node.key.name = entity.name
-            entity.meta.overwrite("name", entity.name)
-        })
-
         resource.when(Pvc.Pvc, entity => {
-            if (entity.namespace === "storage-migration") {
-                sourcePvcs.push(entity)
-            }
             if (entity.props.$storageClass?.name === "topolvm") {
                 targetPvcs.push(entity)
                 entity.name += "-topo"

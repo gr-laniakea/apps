@@ -17,6 +17,7 @@ export namespace Images {
         export const fallenbagel = Host.docker.author("fallenbagel")
         export const itzg = Host.docker.author("itzg")
         export const laniakea = Host.ghcr.author("gr-laniakea")
+        export const ajmandourah = Host.ghcr.author("ajmandourah")
         export const _ = Host.docker.author("_")
     }
 
@@ -31,6 +32,7 @@ export namespace Images {
     export const sonarr = Authors.linuxserver.image("sonarr").tag("latest")
     export const radarr = Authors.linuxserver.image("radarr").tag("latest")
     export const bazarr = Authors.linuxserver.image("bazarr").tag("latest")
+    export const bazarrSync = Authors.ajmandourah.image("bazarr-sync").tag("latest")
     export const jellyfin = Authors.linuxserver.image("jellyfin").tag("latest")
     export const prowlarr = Authors.linuxserver.image("prowlarr").tag("latest")
     export const thelounge = Authors.thelounge.image("thelounge").tag("latest")
