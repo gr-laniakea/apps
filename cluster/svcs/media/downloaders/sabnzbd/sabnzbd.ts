@@ -7,44 +7,49 @@ import { setBackupMode, topolvm, W } from "@/root"
 import media from "../../media"
 import { scheduleOnHdd } from "@/_hdd-node"
 import { ipSabnzbd } from "@/_ips"
+import { Deployment, Service, Pvc } from "k8ts"
 
-export default W.Scope(namespaces["Namespace/media"])
-    .File("sabnzbd.yaml")
-    .metadata(getAppMeta("sabnzbd"))
-    .Resources(function* FILE(FILE) {
-        const deploy = FILE.Deployment("sabnzbd", {
-            replicas: 1
+export default W.File("sabnzbd.yaml", {
+    namespace: namespaces["Namespace/media"],
+    meta: getAppMeta("sabnzbd"),
+    *FILE() {
+        const deploy = new Deployment("sabnzbd", {
+            replicas: 1,
+            $template: {
+                ...scheduleOnHdd,
+                *$POD(POD) {
+                    yield POD.Container("sabnzbd", {
+                        $image: Images.sabnzbd,
+                        $ports: {
+                            http: 8080
+                        },
+                        $env: {
+                            ...userMedia.toDockerEnv()
+                        },
+                        $resources: {
+                            cpu: "500m -> 2000m",
+                            memory: "2Gi -> 4Gi"
+                        },
+                        $mounts: {
+                            "/media": POD.Volume("downs", {
+                                $backend: media["PersistentVolumeClaim/media"]
+                            }).Mount(),
+                            "/config": POD.Volume("var", {
+                                $backend: new Pvc("sabnzbd-var", {
+                                    $accessModes: "RWO",
+                                    $storageClass: topolvm,
+                                    $storage: "=5Gi"
+                                }).with(setBackupMode("pvc-main-schedule"))
+                            }).Mount()
+                        }
+                    })
+                }
+            }
         })
-            .Template({ ...scheduleOnHdd })
-            .POD(function* POD(POD) {
-                yield POD.Container("sabnzbd", {
-                    $image: Images.sabnzbd,
-                    $ports: {
-                        http: 8080
-                    },
-                    $env: {
-                        ...userMedia.toDockerEnv()
-                    },
-                    $resources: {
-                        cpu: "500m -> 2000m",
-                        memory: "2Gi -> 4Gi"
-                    },
-                    $mounts: {
-                        "/media": POD.Volume("downs", {
-                            $backend: media["PersistentVolumeClaim/media"]
-                        }).Mount(),
-                        "/config": POD.Volume("var", {
-                            $backend: FILE.Claim("sabnzbd-var", {
-                                $accessModes: "RWO",
-                                $storageClass: topolvm,
-                                $storage: "=5Gi"
-                            }).with(setBackupMode("pvc-main-schedule"))
-                        }).Mount()
-                    }
-                })
-            })
 
-        const svc = FILE.Service("sabnzbd", {
+        yield deploy
+
+        const svc = new Service("sabnzbd", {
             $backend: deploy,
             $ports: {
                 http: 80
@@ -54,4 +59,7 @@ export default W.Scope(namespaces["Namespace/media"])
                 loadBalancerIP: ipSabnzbd
             }
         })
-    })
+
+        yield svc
+    }
+})

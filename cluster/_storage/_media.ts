@@ -2,11 +2,12 @@ import { Gi, T } from "@k8ts/instruments"
 import { W } from "@/root"
 import { nodeAffinity } from "@/_hdd-node"
 import { getAppMeta } from "@/_meta/app-meta"
+import { Pv } from "k8ts"
 
-export default W.Scope("cluster")
-    .File("libraries.yaml")
-    .Resources(function* FILE(FILE) {
-        yield FILE.PersistentVolume("media", {
+export default W.File("libraries.yaml", {
+    meta: {},
+    *FILE() {
+        yield new Pv("media", {
             $accessModes: ["RWO"],
             $capacity: T(10),
             $backend: {
@@ -17,7 +18,7 @@ export default W.Scope("cluster")
             nodeAffinity
         })
 
-        yield FILE.PersistentVolume("nfs-media", {
+        yield new Pv("nfs-media", {
             $accessModes: ["ROX"],
             $capacity: T(10),
             $backend: {
@@ -27,7 +28,8 @@ export default W.Scope("cluster")
             },
             mountOptions: ["ro", "nfsvers=4.2"]
         })
-    })
+    }
+})
 // /media/downs/going
 // /media/downs/done
 // /media/arr/tv

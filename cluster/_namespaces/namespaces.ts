@@ -1,15 +1,17 @@
 import { W } from "@/root"
+import { Namespace } from "k8ts"
 
-export default W.Scope("cluster")
-    .File("namespaces.yaml")
-    .Resources(function* FILE(FILE) {
-        yield FILE.Namespace("glances")
-        yield FILE.Namespace("media")
-        yield FILE.Namespace("mumble")
-        yield FILE.Namespace("syncthing")
-        yield FILE.Namespace("scrutiny")
-        yield FILE.Namespace("thelounge")
-        yield FILE.Namespace("factorio")
-        yield FILE.Namespace("minecraft")
-        yield FILE.Namespace("wiki-js")
-    })
+export default W.File("namespaces.yaml", {
+    meta: {},
+    *FILE() {
+        yield new Namespace("glances")
+        yield new Namespace("media")
+        yield new Namespace("mumble")
+        yield new Namespace("syncthing")
+        yield new Namespace("scrutiny")
+        yield new Namespace("thelounge")
+        yield new Namespace("factorio")
+        yield new Namespace("minecraft")
+        yield new Namespace("wiki-js")
+    }
+})

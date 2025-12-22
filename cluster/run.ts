@@ -23,11 +23,11 @@ async function main() {
         }
     })
 
-    const sourcePvcs = [] as Pvc[]
-    const targetPvcs = [] as Pvc[]
+    const sourcePvcs = [] as Pvc<any>[]
+    const targetPvcs = [] as Pvc<any>[]
 
     runner.on("load", ({ resource }) => {
-        resource.when(Pvc.Pvc, entity => {
+        resource.when(Pvc, entity => {
             if (entity.props.$storageClass?.name === "topolvm") {
                 targetPvcs.push(entity)
                 entity.name += "-topo"
@@ -39,14 +39,14 @@ async function main() {
         })
     })
     runner.on("manifest", ({ resource }) => {
-        resource.when(Deployment.Deployment, entity => {
+        resource.when(Deployment, entity => {
             entity.props.$strategy = {
                 type: "Recreate"
             }
             const hasTopolvmPvc = entity.node.recursiveRelationsSubtree
                 .first(x => {
-                    const ent = x.needed._entity
-                    return ent instanceof Pvc.Pvc && ent.props.$storageClass === topolvm
+                    const ent = x.needed.entity
+                    return ent instanceof Pvc && ent.props.$storageClass === topolvm
                 })
                 .pull()
             if (hasTopolvmPvc) {

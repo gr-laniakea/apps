@@ -7,43 +7,49 @@ import { setBackupMode, topolvm, W } from "@/root"
 import Media from "../media"
 import { scheduleOnHdd } from "@/_hdd-node"
 import { ipSonarr } from "@/_ips"
-export default W.Scope(namespaces["Namespace/media"])
-    .File("sonarr.yaml")
-    .metadata(getAppMeta("sonarr"))
-    .Resources(function* FILE(FILE) {
-        const deploy = FILE.Deployment("sonarr", {
-            replicas: 1
-        })
-            .Template({ ...scheduleOnHdd })
-            .POD(function* POD(POD) {
-                yield POD.Container("sonarr", {
-                    $image: Images.sonarr,
-                    $ports: {
-                        web: 8989
-                    },
-                    $env: {
-                        ...userMedia.toDockerEnv()
-                    },
-                    $resources: {
-                        cpu: "300m -> 1000m",
-                        memory: "2Gi -> 3Gi"
-                    },
-                    $mounts: {
-                        "/config": POD.Volume("var", {
-                            $backend: FILE.Claim("sonarr-var", {
-                                $accessModes: "RWO",
-                                $storageClass: topolvm,
-                                $storage: "=10Gi"
-                            }).with(setBackupMode("pvc-main-schedule"))
-                        }).Mount(),
-                        "/media": POD.Volume("media", {
-                            $backend: Media["PersistentVolumeClaim/media"]
-                        }).Mount()
-                    }
-                })
-            })
+import { Deployment, Service, Pvc } from "k8ts"
 
-        const svc = FILE.Service("sonarr", {
+export default W.File("sonarr.yaml", {
+    namespace: namespaces["Namespace/media"],
+    meta: getAppMeta("sonarr"),
+    *FILE() {
+        const deploy = new Deployment("sonarr", {
+            replicas: 1,
+            $template: {
+                ...scheduleOnHdd,
+                *$POD(POD) {
+                    yield POD.Container("sonarr", {
+                        $image: Images.sonarr,
+                        $ports: {
+                            web: 8989
+                        },
+                        $env: {
+                            ...userMedia.toDockerEnv()
+                        },
+                        $resources: {
+                            cpu: "300m -> 1000m",
+                            memory: "2Gi -> 3Gi"
+                        },
+                        $mounts: {
+                            "/config": POD.Volume("var", {
+                                $backend: new Pvc("sonarr-var", {
+                                    $accessModes: "RWO",
+                                    $storageClass: topolvm,
+                                    $storage: "=10Gi"
+                                }).with(setBackupMode("pvc-main-schedule"))
+                            }).Mount(),
+                            "/media": POD.Volume("media", {
+                                $backend: Media["PersistentVolumeClaim/media"]
+                            }).Mount()
+                        }
+                    })
+                }
+            }
+        })
+
+        yield deploy
+
+        const svc = new Service("sonarr", {
             $backend: deploy,
             $ports: {
                 web: 80
@@ -53,4 +59,7 @@ export default W.Scope(namespaces["Namespace/media"])
                 loadBalancerIP: ipSonarr
             }
         })
-    })
+
+        yield svc
+    }
+})

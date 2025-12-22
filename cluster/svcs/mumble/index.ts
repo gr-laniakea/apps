@@ -4,53 +4,58 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMumble } from "@/_users"
 import { setBackupMode, topolvm, W } from "@/root"
+import { Deployment, Pvc } from "k8ts"
 
-export default W.Scope(namespaces["Namespace/mumble"])
-    .File("mumble.yaml")
-    .metadata(getAppMeta("mumble"))
-    .Resources(function* FILE(FILE) {
-        const deploy = FILE.Deployment("mumble", {
-            replicas: 1
-        })
-            .Template({})
-            .POD(function* POD(POD) {
-                const vol = POD.Volume("var", {
-                    $backend: FILE.Claim("mumble-var", {
-                        $accessModes: "RWO",
-                        $storageClass: topolvm,
-                        $storage: "=3Gi"
-                    }).with(setBackupMode("pvc-main-schedule"))
-                })
-                yield POD.Container("mumble", {
-                    $image: Images.mumble,
-                    $ports: {
-                        tcp: {
-                            port: 64738,
-                            protocol: "TCP",
-                            hostIp: ssdNodePublicIp,
-                            hostPort: 64738
+export default W.File("mumble.yaml", {
+    namespace: namespaces["Namespace/mumble"],
+    meta: getAppMeta("mumble"),
+    *FILE() {
+        const deploy = new Deployment("mumble", {
+            replicas: 1,
+            $template: {
+                *$POD(POD) {
+                    const vol = POD.Volume("var", {
+                        $backend: new Pvc("mumble-var", {
+                            $accessModes: "RWO",
+                            $storageClass: topolvm,
+                            $storage: "=3Gi"
+                        }).with(setBackupMode("pvc-main-schedule"))
+                    })
+                    yield POD.Container("mumble", {
+                        $image: Images.mumble,
+                        $ports: {
+                            tcp: {
+                                port: 64738,
+                                protocol: "TCP",
+                                hostIp: ssdNodePublicIp,
+                                hostPort: 64738
+                            },
+                            udp: {
+                                port: 64738,
+                                protocol: "UDP",
+                                hostIp: ssdNodePublicIp,
+                                hostPort: 64738
+                            }
                         },
-                        udp: {
-                            port: 64738,
-                            protocol: "UDP",
-                            hostIp: ssdNodePublicIp,
-                            hostPort: 64738
+                        $env: {
+                            ...userMumble.toDockerEnv(),
+                            MUMBLE_CONFIG_SERVER_PASSWORD: "superspecialawesomegame",
+                            MUMBLE_SERVER_USERNAME: "greg",
+                            MUMBLE_SERVER_ADMIN_KEY: "atroposwasneveratropos",
+                            MUMBLE_SUPERUSER_PASSWORD: "thechickensarecoming"
+                        },
+                        $resources: {
+                            cpu: "300m -> 600m",
+                            memory: "1Gi -> 4Gi"
+                        },
+                        $mounts: {
+                            "/data": vol.Mount()
                         }
-                    },
-                    $env: {
-                        ...userMumble.toDockerEnv(),
-                        MUMBLE_CONFIG_SERVER_PASSWORD: "superspecialawesomegame",
-                        MUMBLE_SERVER_USERNAME: "greg",
-                        MUMBLE_SERVER_ADMIN_KEY: "atroposwasneveratropos",
-                        MUMBLE_SUPERUSER_PASSWORD: "thechickensarecoming"
-                    },
-                    $resources: {
-                        cpu: "300m -> 600m",
-                        memory: "1Gi -> 4Gi"
-                    },
-                    $mounts: {
-                        "/data": vol.Mount()
-                    }
-                })
-            })
-    })
+                    })
+                }
+            }
+        })
+
+        yield deploy
+    }
+})

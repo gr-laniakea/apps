@@ -7,44 +7,49 @@ import { setBackupMode, topolvm, W } from "@/root"
 import media from "../media"
 import { scheduleOnHdd } from "@/_hdd-node"
 import { ipRadarr } from "@/_ips"
+import { Deployment, Service, Pvc } from "k8ts"
 
-export default W.Scope(namespaces["Namespace/media"])
-    .File("radarr.yaml")
-    .metadata(getAppMeta("radarr"))
-    .Resources(function* FILE(FILE) {
-        const deploy = FILE.Deployment("radarr", {
-            replicas: 1
+export default W.File("radarr.yaml", {
+    namespace: namespaces["Namespace/media"],
+    meta: getAppMeta("radarr"),
+    *FILE() {
+        const deploy = new Deployment("radarr", {
+            replicas: 1,
+            $template: {
+                ...scheduleOnHdd,
+                *$POD(POD) {
+                    yield POD.Container("radarr", {
+                        $image: Images.radarr,
+                        $ports: {
+                            web: 7878
+                        },
+                        $env: {
+                            ...userMedia.toDockerEnv()
+                        },
+                        $resources: {
+                            cpu: "300m -> 1000m",
+                            memory: "2Gi -> 3Gi"
+                        },
+                        $mounts: {
+                            "/config": POD.Volume("var", {
+                                $backend: new Pvc("radarr-var", {
+                                    $accessModes: "RWO",
+                                    $storageClass: topolvm,
+                                    $storage: "=10Gi"
+                                }).with(setBackupMode("pvc-main-schedule"))
+                            }).Mount(),
+                            "/media": POD.Volume("media", {
+                                $backend: media["PersistentVolumeClaim/media"]
+                            }).Mount()
+                        }
+                    })
+                }
+            }
         })
-            .Template({ ...scheduleOnHdd })
-            .POD(function* POD(POD) {
-                yield POD.Container("radarr", {
-                    $image: Images.radarr,
-                    $ports: {
-                        web: 7878
-                    },
-                    $env: {
-                        ...userMedia.toDockerEnv()
-                    },
-                    $resources: {
-                        cpu: "300m -> 1000m",
-                        memory: "2Gi -> 3Gi"
-                    },
-                    $mounts: {
-                        "/config": POD.Volume("var", {
-                            $backend: FILE.Claim("radarr-var", {
-                                $accessModes: "RWO",
-                                $storageClass: topolvm,
-                                $storage: "=10Gi"
-                            }).with(setBackupMode("pvc-main-schedule"))
-                        }).Mount(),
-                        "/media": POD.Volume("media", {
-                            $backend: media["PersistentVolumeClaim/media"]
-                        }).Mount()
-                    }
-                })
-            })
 
-        const svc = FILE.Service("radarr", {
+        yield deploy
+
+        const svc = new Service("radarr", {
             $backend: deploy,
             $ports: {
                 web: 80
@@ -54,4 +59,7 @@ export default W.Scope(namespaces["Namespace/media"])
                 loadBalancerIP: ipRadarr
             }
         })
-    })
+
+        yield svc
+    }
+})

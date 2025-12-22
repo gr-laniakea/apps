@@ -1,13 +1,13 @@
-import { ManifestResource, World } from "k8ts"
-import { api } from "k8ts/kinds"
-export const W = World.make({
-    name: "laniakea"
-})
-export const topolvm = W.External(api.storage_.v1_.StorageClass, "topolvm")
+import { K8ts } from "k8ts"
+import { Resource_Top } from "@k8ts/instruments"
+import { storage } from "k8ts/kinds"
+
+export const W = K8ts()
+export const topolvm = W.External(storage.v1.StorageClass._, "topolvm")
 
 export type BackupMode = "pvc-main-schedule" | "pvc-data-schedule"
 export function setBackupMode(mode: BackupMode) {
-    return <X extends ManifestResource>(x: X) => {
+    return <X extends Resource_Top>(x: X) => {
         x.meta.add({
             "%backup-mode": mode
         })
