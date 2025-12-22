@@ -38,9 +38,6 @@
         "*.{ts,mts,cts,js,mjs,cjs}": "node_modules/.bin/eslint --cache --fix",
         "src/**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts,ctsx,mtsx,html,htm,yaml,yml,json,scss,css}": "node_modules/.bin/prettier --write"
     },
-    "resolutions": {
-        "@k8ts/imports": "portal:/C:/codegr/k8ts/packages/imports"
-    },
     "dependencies": {
         "@k8ts/instruments": "^0.6.2",
         "@k8ts/metadata": "^0.5.2",
@@ -74,6 +71,6 @@
         "tsx": "^4.19.2",
         "typescript": "^5.7.3"
     },
-    "packageManager": "yarn@4.6.0",
+    "packageManager": "yarn@4.12.0",
     "sourcesRoot": "src"
 }
