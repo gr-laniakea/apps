@@ -1,8 +1,9 @@
-import { K8ts } from "k8ts"
+import { Deployment, K8ts, Pvc, Service, type CDK } from "k8ts"
 import { Resource_Top } from "@k8ts/instruments"
 import { storage } from "k8ts/kinds"
-
+import { applyHooks } from "./fix-output"
 export const W = K8ts()
+applyHooks(W)
 export const topolvm = W.External(storage.v1.StorageClass._, "topolvm")
 
 export type BackupMode = "pvc-main-schedule" | "pvc-data-schedule"
