@@ -3,9 +3,10 @@ import { Images } from "@/_images"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
-import { setBackupMode, topolvm, W } from "@/root"
+import { scTopolvm } from "@/externals"
+import { setBackupMode, W } from "@/root"
+import { Deployment, HttpRoute, Pvc, Service } from "k8ts"
 import Media from "./media"
-import { Deployment, Service, HttpRoute, Pvc } from "k8ts"
 
 export default W.File("jellyfin.yaml", {
     namespace: namespaces["Namespace/media"],
@@ -37,7 +38,7 @@ export default W.File("jellyfin.yaml", {
                             "/config": POD.Volume("var", {
                                 $backend: new Pvc("jellyfin-var", {
                                     $accessModes: "RWO",
-                                    $storageClass: topolvm,
+                                    $storageClass: scTopolvm,
                                     $storage: "=25Gi"
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount(),

@@ -3,8 +3,9 @@ import { ipSyncthingWebUi } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userSyncthing } from "@/_users"
-import { setBackupMode, topolvm, W } from "@/root"
-import { Deployment, Service, Pvc } from "k8ts"
+import { scTopolvm } from "@/externals"
+import { setBackupMode, W } from "@/root"
+import { Deployment, Pvc, Service } from "k8ts"
 
 /*
 Remember: we don't needd discovery service because everything is on the VPN with static IPs
@@ -47,14 +48,14 @@ export default W.File("syncthing.yaml", {
                             "/config": POD.Volume("config", {
                                 $backend: new Pvc("syncthing-config", {
                                     $accessModes: "RWO",
-                                    $storageClass: topolvm,
+                                    $storageClass: scTopolvm,
                                     $storage: "=5Gi"
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount(),
                             "/data": POD.Volume("data", {
                                 $backend: new Pvc("data", {
                                     $accessModes: "RWO",
-                                    $storageClass: topolvm,
+                                    $storageClass: scTopolvm,
                                     $storage: "=200Gi"
                                 }).with(setBackupMode("pvc-data-schedule"))
                             }).Mount()

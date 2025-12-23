@@ -1,5 +1,5 @@
 import { Deployment, Pvc, Service, type CDK, type World } from "k8ts"
-import { topolvm } from "./root"
+import { scTopolvm } from "./externals"
 export function applyHooks(W: World) {
     W.on("resource/manifested", ({ resource, manifest }) => {
         resource.node.when(Service, svc => {
@@ -24,7 +24,7 @@ export function applyHooks(W: World) {
             const hasTopolvmPvc = entity.node.recursiveRelationsSubtree
                 .first(x => {
                     const ent = x.needed.entity
-                    return ent instanceof Pvc && ent.props.$storageClass === topolvm
+                    return ent instanceof Pvc && ent.props.$storageClass === scTopolvm
                 })
                 .pull()
             if (hasTopolvmPvc) {

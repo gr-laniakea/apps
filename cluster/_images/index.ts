@@ -23,6 +23,7 @@ export namespace Images {
 
     export const factorio = Authors.laniakea.image("factorio-image").tag("latest")
     export const glances = Authors.nicolargo.image("glances").tag("latest-full")
+    export const homepage = Authors.laniakea.image("homepage").tag("v1.8.0")
     export const sabnzbd = Authors.linuxserver.image("sabnzbd").tag("latest")
     export const syncthing = Authors.linuxserver.image("syncthing").tag("latest")
     export const syncthingDiscovery = Authors.syncthing.image("discosrv").tag("latest")
@@ -32,6 +33,7 @@ export namespace Images {
     export const sonarr = Authors.linuxserver.image("sonarr").tag("latest")
     export const radarr = Authors.linuxserver.image("radarr").tag("latest")
     export const bazarr = Authors.linuxserver.image("bazarr").tag("latest")
+    export const speedtestTracker = Authors.linuxserver.image("speedtest-tracker").tag("latest")
     export const bazarrSync = Authors.ajmandourah.image("bazarr-sync").tag("latest")
     export const jellyfin = Authors.linuxserver.image("jellyfin").tag("latest")
     export const prowlarr = Authors.linuxserver.image("prowlarr").tag("latest")

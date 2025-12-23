@@ -5,8 +5,10 @@ export default W.File("namespaces.yaml", {
     meta: {},
     *FILE() {
         yield new Namespace("glances")
+        yield new Namespace("homepage")
         yield new Namespace("media")
         yield new Namespace("mumble")
+        yield new Namespace("speedtest-tracker")
         yield new Namespace("syncthing")
         yield new Namespace("scrutiny")
         yield new Namespace("thelounge")

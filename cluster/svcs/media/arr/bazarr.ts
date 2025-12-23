@@ -1,13 +1,13 @@
-import { Gateways } from "@/_externals/gateways"
+import { scheduleOnHdd } from "@/_hdd-node"
 import { Images } from "@/_images"
+import { ipBazarr } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
-import { setBackupMode, topolvm, W } from "@/root"
+import { scTopolvm } from "@/externals"
+import { setBackupMode, W } from "@/root"
+import { Deployment, Pvc, Service } from "k8ts"
 import media from "../media"
-import { scheduleOnHdd } from "@/_hdd-node"
-import { ipBazarr } from "@/_ips"
-import { Deployment, Service, Pvc } from "k8ts"
 
 export default W.File("bazarr.yaml", {
     namespace: namespaces["Namespace/media"],
@@ -34,7 +34,7 @@ export default W.File("bazarr.yaml", {
                             "/config": POD.Volume("var", {
                                 $backend: new Pvc("bazarr-var", {
                                     $accessModes: "RWO",
-                                    $storageClass: topolvm,
+                                    $storageClass: scTopolvm,
                                     $storage: "=3Gi"
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount(),

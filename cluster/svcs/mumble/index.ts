@@ -1,9 +1,10 @@
 import { Images } from "@/_images"
-import { hddNodePublicIp, ssdNodePublicIp } from "@/_ips"
+import { ssdNodePublicIp } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMumble } from "@/_users"
-import { setBackupMode, topolvm, W } from "@/root"
+import { scTopolvm } from "@/externals"
+import { setBackupMode, W } from "@/root"
 import { Deployment, Pvc } from "k8ts"
 
 export default W.File("mumble.yaml", {
@@ -17,7 +18,7 @@ export default W.File("mumble.yaml", {
                     const vol = POD.Volume("var", {
                         $backend: new Pvc("mumble-var", {
                             $accessModes: "RWO",
-                            $storageClass: topolvm,
+                            $storageClass: scTopolvm,
                             $storage: "=3Gi"
                         }).with(setBackupMode("pvc-main-schedule"))
                     })

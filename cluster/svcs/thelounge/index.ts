@@ -3,8 +3,9 @@ import { Images } from "@/_images"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userTheLounge } from "@/_users"
-import { setBackupMode, topolvm, W } from "@/root"
-import { Deployment, Service, HttpRoute, Pvc } from "k8ts"
+import { scTopolvm } from "@/externals"
+import { setBackupMode, W } from "@/root"
+import { Deployment, HttpRoute, Pvc, Service } from "k8ts"
 
 export default W.File("thelounge.yaml", {
     namespace: namespaces["Namespace/thelounge"],
@@ -30,7 +31,7 @@ export default W.File("thelounge.yaml", {
                             "/var/opt/thelounge": POD.Volume("var", {
                                 $backend: new Pvc("thelounge-var", {
                                     $accessModes: "RWO",
-                                    $storageClass: topolvm,
+                                    $storageClass: scTopolvm,
                                     $storage: "=7Gi"
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount()

@@ -1,41 +1,40 @@
-import { scheduleOnHdd } from "@/_hdd-node"
 import { Images } from "@/_images"
-import { ipSabnzbd } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
-import { userMedia } from "@/_users"
+import { userSpeedtestTracker } from "@/_users"
 import { scTopolvm } from "@/externals"
 import { setBackupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
-import media from "../../media"
 
-export default W.File("sabnzbd.yaml", {
-    namespace: namespaces["Namespace/media"],
-    meta: getAppMeta("sabnzbd"),
+const name = "speedtest-tracker"
+const ipSpeedtestTracker = "10.0.12.72"
+
+export default W.File(`${name}.yaml`, {
+    namespace: namespaces[`Namespace/${name}`],
+    meta: getAppMeta(name),
     *FILE() {
-        const deploy = new Deployment("sabnzbd", {
+        const deploy = new Deployment(name, {
             replicas: 1,
             $template: {
-                ...scheduleOnHdd,
                 *$POD(POD) {
-                    yield POD.Container("sabnzbd", {
-                        $image: Images.sabnzbd,
+                    yield POD.Container(name, {
+                        $image: Images.speedtestTracker,
                         $ports: {
-                            http: 8080
+                            web: 80
                         },
                         $env: {
-                            ...userMedia.toDockerEnv()
+                            ...userSpeedtestTracker.toDockerEnv(),
+                            APP_KEY: "base64:ikmuscnwBKR3Fhnqs7sy4eHBC8IGTPCQZAN7CmOVVbI=",
+                            DB_CONNECTION: "sqlite",
+                            SPEEDTEST_SCHEDULE: "6 */2 * * *"
                         },
                         $resources: {
-                            cpu: "500m -> 2000m",
-                            memory: "2Gi -> 4Gi"
+                            cpu: "100m -> 500m",
+                            memory: "128Mi -> 512Mi"
                         },
                         $mounts: {
-                            "/media": POD.Volume("downs", {
-                                $backend: media["PersistentVolumeClaim/media"]
-                            }).Mount(),
-                            "/config": POD.Volume("var", {
-                                $backend: new Pvc("sabnzbd-var", {
+                            "/config": POD.Volume("config", {
+                                $backend: new Pvc(`${name}-config`, {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $storage: "=5Gi"
@@ -49,14 +48,14 @@ export default W.File("sabnzbd.yaml", {
 
         yield deploy
 
-        const svc = new Service("sabnzbd", {
+        const svc = new Service(`${name}-web`, {
             $backend: deploy,
             $ports: {
-                http: 80
+                web: 80
             },
             $frontend: {
                 type: "LoadBalancer",
-                loadBalancerIP: ipSabnzbd
+                loadBalancerIP: ipSpeedtestTracker
             }
         })
 

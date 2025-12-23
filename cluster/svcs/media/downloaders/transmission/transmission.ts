@@ -1,13 +1,13 @@
-import { Gateways } from "@/_externals/gateways"
+import { scheduleOnHdd } from "@/_hdd-node"
 import { Images } from "@/_images"
 import { hddNodePublicIp, ipTransmission } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
-import { setBackupMode, topolvm, W } from "@/root"
+import { scTopolvm } from "@/externals"
+import { setBackupMode, W } from "@/root"
+import { Deployment, Pvc, Service } from "k8ts"
 import Media from "../../media"
-import { scheduleOnHdd } from "@/_hdd-node"
-import { Deployment, Service, Pvc } from "k8ts"
 
 export default W.File("transmission.yaml", {
     namespace: namespaces["Namespace/media"],
@@ -49,7 +49,7 @@ export default W.File("transmission.yaml", {
                             "/config": POD.Volume("var", {
                                 $backend: new Pvc("transmission-var", {
                                     $accessModes: "RWO",
-                                    $storageClass: topolvm,
+                                    $storageClass: scTopolvm,
                                     $storage: "=5Gi"
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount()

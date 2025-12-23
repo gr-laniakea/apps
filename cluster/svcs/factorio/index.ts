@@ -1,9 +1,10 @@
 import { Images } from "@/_images"
-import { hddNodePublicIp, ssdNodePublicIp } from "@/_ips"
+import { ssdNodePublicIp } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userFactorio } from "@/_users"
-import { setBackupMode, topolvm, W } from "@/root"
+import { scTopolvm } from "@/externals"
+import { setBackupMode, W } from "@/root"
 import { Deployment, Pvc } from "k8ts"
 
 const name = "factorio"
@@ -19,7 +20,7 @@ export default W.File(`${name}.yaml`, {
                     const vol = POD.Volume("var", {
                         $backend: new Pvc(`${name}-var`, {
                             $accessModes: "RWO",
-                            $storageClass: topolvm,
+                            $storageClass: scTopolvm,
                             $storage: "=25Gi"
                         }).with(setBackupMode("pvc-main-schedule"))
                     })

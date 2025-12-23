@@ -888,9 +888,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@k8ts/instruments@npm:^0.6.2":
-  version: 0.6.2
-  resolution: "@k8ts/instruments@npm:0.6.2"
+"@k8ts/instruments@portal:/C:/codegr/k8ts/packages/instruments::locator=%40laniakea%2Fapps%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@k8ts/instruments@portal:/C:/codegr/k8ts/packages/instruments::locator=%40laniakea%2Fapps%40workspace%3A."
   dependencies:
     chalk: "npm:4.1.2"
     dayjs: "npm:^1.11.13"
@@ -899,47 +899,38 @@ __metadata:
     ip-address: "npm:^10.0.1"
     lodash: "npm:^4.17.21"
     parjs: "npm:^1.3.9"
+    pathlib-js: "npm:^1.5.0"
+    pathlib-ts: "npm:^0.1.2"
     simple-git: "npm:^3.27.0"
     stacktracey: "npm:^2.1.8"
     timezone-enum: "npm:^1.0.4"
-    what-are-you: "npm:^0.1.12"
+    what-are-you: "npm:^0.2.0"
   peerDependencies:
-    "@k8ts/metadata": ^0.5.2
-  checksum: 10c0/913917cf5c78521895594d5d81aeeaee98abecec4b75c577ddb75962dcd08490b1ef69a4b57581e07fdb2a72afbd9af0f4566a703763f019c67d5fa224e640fb
+    "@k8ts/metadata": "workspace:^"
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@k8ts/metadata@npm:^0.5.2":
-  version: 0.5.2
-  resolution: "@k8ts/metadata@npm:0.5.2"
+"@k8ts/metadata@portal:/C:/codegr/k8ts/packages/metadata::locator=%40laniakea%2Fapps%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@k8ts/metadata@portal:/C:/codegr/k8ts/packages/metadata::locator=%40laniakea%2Fapps%40workspace%3A."
   dependencies:
     doddle: "npm:^7.2.0"
     parjs: "npm:^1.3.9"
-    what-are-you: "npm:^0.1.12"
-  checksum: 10c0/f18c6fb87d3b2cb77347f9e052a8678cbc00e2ececbd9f6db135fe01beffdcd3fef606682940574528bca453f36226c6b576017344b7dfb63a6693077112f043
+    what-are-you: "npm:^0.2.0"
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@k8ts/sample-interfaces@npm:0.1.2":
-  version: 0.1.2
-  resolution: "@k8ts/sample-interfaces@npm:0.1.2"
-  dependencies:
-    doddle: "npm:^7.2.0"
-  checksum: 10c0/ae24c96713f52203b57e0ab1e6bee58415ac2be94b4163afeaf3cdb53aac637712c3584c0515790455e8311ebe5f9829718e9160229cdf6cc23bf8fa6950fd89
-  languageName: node
-  linkType: hard
-
-"@k8ts/sample-interfaces@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "@k8ts/sample-interfaces@npm:0.1.3"
+"@k8ts/sample-interfaces@portal:/C:/codegr/k8ts/packages/sample-interfaces::locator=%40laniakea%2Fapps%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@k8ts/sample-interfaces@portal:/C:/codegr/k8ts/packages/sample-interfaces::locator=%40laniakea%2Fapps%40workspace%3A."
   dependencies:
     "@datreeio/datree-cdk8s": "npm:^1.3.5"
     cdk8s: "npm:^2.69.48"
     constructs: "npm:^10.4.2"
     doddle: "npm:^7.2.0"
-  checksum: 10c0/98ce56b870a9c0e0462e2f08a99acd96b468513b369d657d35988b9a68fe39cccc66c05129a01c436172817d31f1e9e60c12a8247562821750bd8e4ecc30a03e
+    what-are-you: "npm:^0.2.0"
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "@kwsites/file-exists@npm:^1.1.1":
   version: 1.1.1
@@ -970,7 +961,7 @@ __metadata:
     "@types/node": "npm:^22.12.0"
     constructs: "npm:^10.4.2"
     declare-it: "npm:^2.1.0"
-    doddle: "npm:^7.1.6"
+    doddle: "npm:^7.2.0"
     husky: "npm:^9.1.7"
     jest: "npm:^29.7.0"
     k8ts: "npm:^0.9.2"
@@ -1652,7 +1643,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"anymatch@npm:^3.0.3":
+"anymatch@npm:^3.0.3, anymatch@npm:~3.1.2":
   version: 3.1.3
   resolution: "anymatch@npm:3.1.3"
   dependencies:
@@ -1905,6 +1896,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"binary-extensions@npm:^2.0.0":
+  version: 2.3.0
+  resolution: "binary-extensions@npm:2.3.0"
+  checksum: 10c0/75a59cafc10fb12a11d510e77110c6c7ae3f4ca22463d52487709ca7f18f69d886aa387557cc9864fbdb10153d0bdb4caacabf11541f55e89ed6e18d12ece2b5
+  languageName: node
+  linkType: hard
+
 "binary-searching@npm:^2.0.5":
   version: 2.0.5
   resolution: "binary-searching@npm:2.0.5"
@@ -1958,7 +1956,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"braces@npm:^3.0.3":
+"braces@npm:^3.0.3, braces@npm:~3.0.2":
   version: 3.0.3
   resolution: "braces@npm:3.0.3"
   dependencies:
@@ -2249,6 +2247,25 @@ __metadata:
   version: 0.7.0
   resolution: "chardet@npm:0.7.0"
   checksum: 10c0/96e4731b9ec8050cbb56ab684e8c48d6c33f7826b755802d14e3ebfdc51c57afeece3ea39bc6b09acc359e4363525388b915e16640c1378053820f5e70d0f27d
+  languageName: node
+  linkType: hard
+
+"chokidar@npm:^3.5.3":
+  version: 3.6.0
+  resolution: "chokidar@npm:3.6.0"
+  dependencies:
+    anymatch: "npm:~3.1.2"
+    braces: "npm:~3.0.2"
+    fsevents: "npm:~2.3.2"
+    glob-parent: "npm:~5.1.2"
+    is-binary-path: "npm:~2.1.0"
+    is-glob: "npm:~4.0.1"
+    normalize-path: "npm:~3.0.0"
+    readdirp: "npm:~3.6.0"
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  checksum: 10c0/8361dcd013f2ddbe260eacb1f3cb2f2c6f2b0ad118708a343a5ed8158941a39cb8fb1d272e0f389712e74ee90ce8ba864eece9e0e62b9705cb468a2f6d917462
   languageName: node
   linkType: hard
 
@@ -2850,15 +2867,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"doddle@npm:^7.1.6":
-  version: 7.1.6
-  resolution: "doddle@npm:7.1.6"
-  dependencies:
-    tslib: "npm:^2.8.1"
-  checksum: 10c0/fba4315dff85935b784d0bced91dab0655d04c051b4e7e52f5cca7f4151f9d91232f207172b591b08c106198ddcf0ac6a0a9a40b04c035bfb36a40b05c4b7c7b
-  languageName: node
-  linkType: hard
-
 "doddle@npm:^7.2.0":
   version: 7.2.0
   resolution: "doddle@npm:7.2.0"
@@ -3398,7 +3406,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fast-glob@npm:^3.2.9":
+"fast-glob@npm:^3.2.11, fast-glob@npm:^3.2.9":
   version: 3.3.3
   resolution: "fast-glob@npm:3.3.3"
   dependencies:
@@ -3590,6 +3598,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fs-extra@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "fs-extra@npm:10.1.0"
+  dependencies:
+    graceful-fs: "npm:^4.2.0"
+    jsonfile: "npm:^6.0.1"
+    universalify: "npm:^2.0.0"
+  checksum: 10c0/5f579466e7109719d162a9249abbeffe7f426eb133ea486e020b89bc6d67a741134076bf439983f2eb79276ceaf6bd7b7c1e43c3fd67fe889863e69072fb0a5e
+  languageName: node
+  linkType: hard
+
 "fs-minipass@npm:^3.0.0":
   version: 3.0.3
   resolution: "fs-minipass@npm:3.0.3"
@@ -3606,7 +3625,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@npm:^2.3.2, fsevents@npm:~2.3.3":
+"fsevents@npm:^2.3.2, fsevents@npm:~2.3.2, fsevents@npm:~2.3.3":
   version: 2.3.3
   resolution: "fsevents@npm:2.3.3"
   dependencies:
@@ -3616,7 +3635,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fsevents@patch:fsevents@npm%3A^2.3.2#optional!builtin<compat/fsevents>, fsevents@patch:fsevents@npm%3A~2.3.3#optional!builtin<compat/fsevents>":
+"fsevents@patch:fsevents@npm%3A^2.3.2#optional!builtin<compat/fsevents>, fsevents@patch:fsevents@npm%3A~2.3.2#optional!builtin<compat/fsevents>, fsevents@patch:fsevents@npm%3A~2.3.3#optional!builtin<compat/fsevents>":
   version: 2.3.3
   resolution: "fsevents@patch:fsevents@npm%3A2.3.3#optional!builtin<compat/fsevents>::version=2.3.3&hash=df0bf1"
   dependencies:
@@ -3801,7 +3820,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob-parent@npm:^5.1.2":
+"glob-parent@npm:^5.1.2, glob-parent@npm:~5.1.2":
   version: 5.1.2
   resolution: "glob-parent@npm:5.1.2"
   dependencies:
@@ -3938,7 +3957,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.2.4, graceful-fs@npm:^4.2.6, graceful-fs@npm:^4.2.9":
+"graceful-fs@npm:^4.1.2, graceful-fs@npm:^4.1.6, graceful-fs@npm:^4.2.0, graceful-fs@npm:^4.2.4, graceful-fs@npm:^4.2.6, graceful-fs@npm:^4.2.9":
   version: 4.2.11
   resolution: "graceful-fs@npm:4.2.11"
   checksum: 10c0/386d011a553e02bc594ac2ca0bd6d9e4c22d7fa8cfbfc448a6d148c59ea881b092db9dbe3547ae4b88e55f1b01f7c4a2ecc53b310c042793e63aa44cf6c257f2
@@ -4406,6 +4425,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-binary-path@npm:~2.1.0":
+  version: 2.1.0
+  resolution: "is-binary-path@npm:2.1.0"
+  dependencies:
+    binary-extensions: "npm:^2.0.0"
+  checksum: 10c0/a16eaee59ae2b315ba36fad5c5dcaf8e49c3e27318f8ab8fa3cdb8772bf559c8d1ba750a589c2ccb096113bb64497084361a25960899cb6172a6925ab6123d38
+  languageName: node
+  linkType: hard
+
 "is-boolean-object@npm:^1.2.1":
   version: 1.2.2
   resolution: "is-boolean-object@npm:1.2.2"
@@ -4547,7 +4575,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-glob@npm:^4.0.1":
+"is-glob@npm:^4.0.1, is-glob@npm:~4.0.1":
   version: 4.0.3
   resolution: "is-glob@npm:4.0.3"
   dependencies:
@@ -5493,6 +5521,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jsonfile@npm:^6.0.1":
+  version: 6.2.0
+  resolution: "jsonfile@npm:6.2.0"
+  dependencies:
+    graceful-fs: "npm:^4.1.6"
+    universalify: "npm:^2.0.0"
+  dependenciesMeta:
+    graceful-fs:
+      optional: true
+  checksum: 10c0/7f4f43b08d1869ded8a6822213d13ae3b99d651151d77efd1557ced0889c466296a7d9684e397bd126acf5eb2cfcb605808c3e681d0fdccd2fe5a04b47e76c0d
+  languageName: node
+  linkType: hard
+
 "jsprim@npm:^1.2.2":
   version: 1.4.2
   resolution: "jsprim@npm:1.4.2"
@@ -5505,11 +5546,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"k8ts@npm:^0.9.2":
-  version: 0.9.2
-  resolution: "k8ts@npm:0.9.2"
+"k8ts@portal:/C:/codegr/k8ts/packages/k8ts::locator=%40laniakea%2Fapps%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "k8ts@portal:/C:/codegr/k8ts/packages/k8ts::locator=%40laniakea%2Fapps%40workspace%3A."
   dependencies:
-    "@k8ts/sample-interfaces": "npm:0.1.2"
+    "@k8ts/sample-interfaces": "workspace:^"
     chalk: "npm:4.1.2"
     dayjs: "npm:^1.11.13"
     doddle: "npm:^7.2.0"
@@ -5521,13 +5562,12 @@ __metadata:
     parjs: "npm:^1.3.9"
     simple-git: "npm:^3.27.0"
     stacktracey: "npm:^2.1.8"
-    what-are-you: "npm:^0.1.12"
+    what-are-you: "npm:^0.2.0"
   peerDependencies:
-    "@k8ts/instruments": ^0.6.2
-    "@k8ts/metadata": ^0.5.2
-  checksum: 10c0/273abf32a82fa2e6140acdae599d7ebec78e04e0da824c07f2b9ff095635e13f62cf32a628722c91b21f8b023553e7ef6ec53cdbd7a2e89a1328d2b0e65a60a1
+    "@k8ts/instruments": "workspace:^"
+    "@k8ts/metadata": "workspace:^"
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "keyv@npm:^3.0.0":
   version: 3.1.0
@@ -6568,7 +6608,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"normalize-path@npm:^3.0.0":
+"normalize-path@npm:^3.0.0, normalize-path@npm:~3.0.0":
   version: 3.0.0
   resolution: "normalize-path@npm:3.0.0"
   checksum: 10c0/e008c8142bcc335b5e38cf0d63cfd39d6cf2d97480af9abdbe9a439221fd4d749763bab492a8ee708ce7a194bb00c9da6d0a115018672310850489137b3da046
@@ -7144,6 +7184,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pathlib-js@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "pathlib-js@npm:1.5.0"
+  dependencies:
+    chokidar: "npm:^3.5.3"
+    fast-glob: "npm:^3.2.11"
+    fs-extra: "npm:^10.1.0"
+    normalize-path: "npm:^3.0.0"
+  checksum: 10c0/d930d9f803b82db9ff602be7d71081838fee93c599d8dd6a1eb747f6dba3ccfc2a5a061bf2a502aaecac7e69c3550d5b2ab94d4111845ec1a73a532f7930069a
+  languageName: node
+  linkType: hard
+
+"pathlib-ts@npm:^0.1.2":
+  version: 0.1.2
+  resolution: "pathlib-ts@npm:0.1.2"
+  checksum: 10c0/f5091ee4db66aee6bbc8f226ae95d168294c6bdd11b874d80b19ac913cd4c3a70fcacfc2e18d690ca1d899dbb6f29f7965a7227449392930fe3a56ca057ec16f
+  languageName: node
+  linkType: hard
+
 "pend@npm:~1.2.0":
   version: 1.2.0
   resolution: "pend@npm:1.2.0"
@@ -7165,7 +7224,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:^2.0.4, picomatch@npm:^2.2.3, picomatch@npm:^2.3.1":
+"picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.3, picomatch@npm:^2.3.1":
   version: 2.3.1
   resolution: "picomatch@npm:2.3.1"
   checksum: 10c0/26c02b8d06f03206fc2ab8d16f19960f2ff9e81a658f831ecb656d8f17d9edc799e8364b1f4a7873e89d9702dff96204be0fa26fe4181f6843f040f819dac4be
@@ -7465,6 +7524,15 @@ __metadata:
     string_decoder: "npm:^1.1.1"
     util-deprecate: "npm:^1.0.1"
   checksum: 10c0/e37be5c79c376fdd088a45fa31ea2e423e5d48854be7a22a58869b4e84d25047b193f6acb54f1012331e1bcd667ffb569c01b99d36b0bd59658fb33f513511b7
+  languageName: node
+  linkType: hard
+
+"readdirp@npm:~3.6.0":
+  version: 3.6.0
+  resolution: "readdirp@npm:3.6.0"
+  dependencies:
+    picomatch: "npm:^2.2.1"
+  checksum: 10c0/6fa848cf63d1b82ab4e985f4cf72bd55b7dcfd8e0a376905804e48c3634b7e749170940ba77b32804d5fe93b3cc521aa95a8d7e7d725f830da6d93f3669ce66b
   languageName: node
   linkType: hard
 
@@ -8955,6 +9023,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"universalify@npm:^2.0.0":
+  version: 2.0.1
+  resolution: "universalify@npm:2.0.1"
+  checksum: 10c0/73e8ee3809041ca8b818efb141801a1004e3fc0002727f1531f4de613ea281b494a40909596dae4a042a4fb6cd385af5d4db2e137b1362e0e91384b828effd3a
+  languageName: node
+  linkType: hard
+
 "update-browserslist-db@npm:^1.1.1":
   version: 1.1.3
   resolution: "update-browserslist-db@npm:1.1.3"
@@ -9103,10 +9178,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"what-are-you@npm:^0.1.12":
-  version: 0.1.13
-  resolution: "what-are-you@npm:0.1.13"
-  checksum: 10c0/a39c1e47fe6aaf8bfe1b248d4a1804f9524c7d22a3c7b7b0f050028d8756e9b494a2894fcae5121a39fb04d12bf1d21273c86dcc4561118e00fc1af1d9ba1b1e
+"what-are-you@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "what-are-you@npm:0.2.0"
+  checksum: 10c0/37eba53f1caf788372cd2bb28de46f39ca201fb1406a488798bfe6ee9bf5f78fc4fed6d90efe5aceb282eb6c82ffda8f0eac65903206789a32206f19177d85eb
   languageName: node
   linkType: hard
 
