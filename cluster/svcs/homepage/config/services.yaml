@@ -6,14 +6,14 @@
         widget:
           type: scrutiny
           url: http://scrutiny.lk.host
-    - speedtest-tracker:
+    - speedtest:
         icon: speedtest
         href: http://speedtest.lk.host
         description: Speedtest Tracker
         widget:
           type: speedtest
           url: http://speedtest.lk.host
-          version: 1
+          version: 2
           key: "{{HOMEPAGE_VAR_SPEEDTEST_API_KEY}}"
     - traefik:
         icon: traefik
@@ -29,26 +29,7 @@
         widget:
           type: netdata
           url: http://netdata.lk.host
-    - kubernetes:
-        cluster:
-          # Shows cluster-wide statistics
-          show: true
-          # Shows the aggregate CPU stats
-          cpu: true
-          # Shows the aggregate memory stats
-          memory: true
-          # Shows a custom label
-          showLabel: true
-          label: "cluster"
-        nodes:
-          # Shows node-specific statistics
-          show: true
-          # Shows the CPU for each node
-          cpu: true
-          # Shows the memory for each node
-          memory: true
-          # Shows the label, which is always the node name
-          showLabel: true
+
 - acquisition:
     - transmission:
         icon: transmission
@@ -57,8 +38,8 @@
         app: transmission
         description: Torrent Downloader
         widget:
-          type: trans
-          url: http://localhost:9091
+          type: transmission
+          url: http://trans.lk.host
           rpcUrl: /transmission/
 
     - sabnzbd:
@@ -125,7 +106,7 @@
           key: "{{HOMEPAGE_VAR_JELLYFIN_API_KEY}}"
           url: https://see.laniakea.boo
     - jellyseer:
-        icon: jellyseer
+        icon: jellyseerr
         href: https://over.laniakea.boo
         description: Jellyseer Media Search
         namespace: media

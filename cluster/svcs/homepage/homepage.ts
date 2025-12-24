@@ -66,7 +66,9 @@ export default W.File(`${name}.yaml`, {
             $data: {
                 "settings.yaml": localRefFile("./config/settings.yaml").as("text"),
                 "services.yaml": localRefFile("./config/services.yaml").as("text"),
-                "kubernetes.yaml": localRefFile("./config/kubernetes.yaml").as("text")
+                "kubernetes.yaml": localRefFile("./config/kubernetes.yaml").as("text"),
+                "widgets.yaml": localRefFile("./config/widgets.yaml").as("text"),
+                "bookmarks.yaml": localRefFile("./config/bookmarks.yaml").as("text")
             }
         })
 
@@ -125,6 +127,9 @@ export default W.File(`${name}.yaml`, {
                         //     periodSeconds: 20
                         // },
                         $mounts: {
+                            "/app/config/bookmarks.yaml": configVol.Mount({
+                                subPath: "bookmarks.yaml"
+                            }),
                             "/app/config/services.yaml": configVol.Mount({
                                 subPath: "services.yaml"
                             }),
@@ -133,6 +138,9 @@ export default W.File(`${name}.yaml`, {
                             }),
                             "/app/config/kubernetes.yaml": configVol.Mount({
                                 subPath: "kubernetes.yaml"
+                            }),
+                            "/app/config/widgets.yaml": configVol.Mount({
+                                subPath: "widgets.yaml"
                             }),
                             "/app/config/logs": logsVol.Mount()
                         }
