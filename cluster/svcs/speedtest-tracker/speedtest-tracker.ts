@@ -4,7 +4,8 @@ import namespaces from "@/_namespaces/namespaces"
 import { userSpeedtestTracker } from "@/_users"
 import { scTopolvm } from "@/externals"
 import { setBackupMode, W } from "@/root"
-import { Deployment, Pvc, Service } from "k8ts"
+import { Cron } from "@k8ts/instruments"
+import { Deployment, Pvc, Secret, Service } from "k8ts"
 
 const name = "speedtest-tracker"
 const ipSpeedtestTracker = "10.0.12.72"
@@ -13,6 +14,12 @@ export default W.File(`${name}.yaml`, {
     namespace: namespaces[`Namespace/${name}`],
     meta: getAppMeta(name),
     *FILE() {
+        const extSecret = new Secret("speedtest-tracker", {
+            $data: {
+                API_KEY: ""
+            }
+        })
+        extSecret.disabled = true
         const deploy = new Deployment(name, {
             replicas: 1,
             $template: {
@@ -24,9 +31,12 @@ export default W.File(`${name}.yaml`, {
                         },
                         $env: {
                             ...userSpeedtestTracker.toDockerEnv(),
-                            APP_KEY: "base64:ikmuscnwBKR3Fhnqs7sy4eHBC8IGTPCQZAN7CmOVVbI=",
+                            APP_KEY: {
+                                $backend: extSecret,
+                                key: "API_KEY"
+                            },
                             DB_CONNECTION: "sqlite",
-                            SPEEDTEST_SCHEDULE: "6 */2 * * *"
+                            SPEEDTEST_SCHEDULE: Cron.parse("6 */2 * * *").string
                         },
                         $resources: {
                             cpu: "100m -> 500m",
@@ -48,7 +58,7 @@ export default W.File(`${name}.yaml`, {
 
         yield deploy
 
-        const svc = new Service(`${name}-web`, {
+        const svc = new Service(name, {
             $backend: deploy,
             $ports: {
                 web: 80

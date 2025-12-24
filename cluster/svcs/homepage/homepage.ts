@@ -1,12 +1,22 @@
 import { Images } from "@/_images"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
+import { userHomepage } from "@/_users"
 import { scTopolvm } from "@/externals"
 import { W } from "@/root"
-import { local_file } from "@k8ts/instruments"
-import { ClusterRole, ClusterRoleBinding, ConfigMap, Deployment, Pvc, ServiceAccount } from "k8ts"
-import { v1 } from "k8ts/kinds"
-import { ext_Secret } from "./secret-structure"
+import { localRefFile } from "@k8ts/instruments"
+import {
+    ClusterRole,
+    ClusterRoleBinding,
+    ConfigMap,
+    Deployment,
+    Pvc,
+    Secret,
+    Service,
+    ServiceAccount
+} from "k8ts"
+import { gateway, metrics, v1 } from "k8ts/kinds"
+import { homepageApiKeys } from "./secret-structure"
 
 const name = "homepage"
 
@@ -20,54 +30,57 @@ export default W.File(`${name}.yaml`, {
 
         yield serviceAccount
 
-        const secret = v1.Secret._.External({
-            name: "homepage",
-            namespace: namespaces[`Namespace/${name}`]
+        const secret = new Secret("homepage-account", {
+            $type: "kubernetes.io/service-account-token"
         })
 
         // Set annotations for service account token secret
-        secret.meta.add("^kubernetes.io/service-account.name", name)
+        secret.meta.add({
+            "^kubernetes.io/service-account.name": serviceAccount.name
+        })
 
         yield secret
 
         const clusterRole = new ClusterRole(name, {
-            rules: () => [
-                {
-                    resources: [] as any,
-                    verbs: ["get", "list"]
-                }
-            ]
-        })
+            *rules(ROLE) {
+                // Core API group: namespaces, pods, nodes
+                yield ROLE.Rule(v1.Namespace._, v1.Pod._, v1.Node._).verbs("get", "list")
 
-        yield clusterRole
+                // gateway.networking.k8s.io: httproutes, gateways
+                yield ROLE.Rule(gateway.v1.HttpRoute._, gateway.v1.Gateway._).verbs("get", "list")
+
+                // metrics.k8s.io: nodes, pods
+                yield ROLE.Rule(metrics.v1beta1.NodeMetrics._, metrics.v1beta1.PodMetrics._).verbs(
+                    "get",
+                    "list"
+                )
+            }
+        })
 
         const clusterRoleBinding = new ClusterRoleBinding(name, {
             $role: clusterRole,
             $subjects: [serviceAccount]
         })
 
-        yield clusterRoleBinding
-
-        const configMap = new ConfigMap(name, {
+        const settingsFilesConfigMap = new ConfigMap(name, {
             $data: {
-                "settings.yaml": local_file("./settings.yaml").as("text"),
-                "services.yaml": local_file("./services.yaml").as("text"),
-                "bookmarks.yaml": local_file("./bookmarks.yaml").as("text"),
-                "widgets.yaml": local_file("./widgets.yaml").as("text"),
-                "kubernetes.yaml": local_file("./kubernetes.yaml").as("text")
+                "settings.yaml": localRefFile("./config/settings.yaml").as("text"),
+                "services.yaml": localRefFile("./config/services.yaml").as("text"),
+                "widgets.yaml": localRefFile("./config/widgets.yaml").as("text"),
+                "kubernetes.yaml": localRefFile("./config/kubernetes.yaml").as("text")
             }
         })
-
-        yield configMap
 
         const deploy = new Deployment(name, {
             replicas: 1,
             $template: {
                 serviceAccountName: name,
+                dnsPolicy: "ClusterFirst",
+                enableServiceLinks: true,
                 automountServiceAccountToken: true,
                 *$POD(POD) {
                     const configVol = POD.Volume("homepage-config", {
-                        $backend: configMap
+                        $backend: settingsFilesConfigMap
                     })
                     const logsVol = POD.Volume("logs", {
                         $backend: new Pvc("homepage-logs", {
@@ -83,7 +96,8 @@ export default W.File(`${name}.yaml`, {
                             http: 3000
                         },
                         $env: {
-                            HOMEPAGE_ALLOWED_HOSTS: ""
+                            HOMEPAGE_ALLOWED_HOSTS: "",
+                            ...userHomepage.toDockerEnv()
                         },
                         $resources: {
                             cpu: "50m -> 500m",
@@ -91,7 +105,7 @@ export default W.File(`${name}.yaml`, {
                         },
                         $envFrom: [
                             {
-                                source: ext_Secret
+                                source: homepageApiKeys
                             }
                         ],
                         readinessProbe: {
@@ -119,6 +133,15 @@ export default W.File(`${name}.yaml`, {
             }
         })
 
-        yield deploy
+        const service = new Service(name, {
+            $backend: deploy,
+            $ports: {
+                http: 80
+            },
+            $frontend: {
+                type: "LoadBalancer",
+                loadBalancerIP: "10.0.12.127"
+            }
+        })
     }
 })

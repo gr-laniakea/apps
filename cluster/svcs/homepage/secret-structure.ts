@@ -11,7 +11,7 @@ export const objHomepageSecretStructure = {
     HP_JELLYSEER_API_KEY: ""
 }
 export type EnvKeys = keyof typeof objHomepageSecretStructure
-export const ext_Secret = v1.Secret._.refKey({
+export const homepageApiKeys = v1.Secret._.refKey({
     name: "api-keys",
     namespace: "homepage"
 }).External({
