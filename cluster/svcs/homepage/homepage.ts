@@ -96,6 +96,7 @@ export default W.File(`${name}.yaml`, {
                         },
                         $env: {
                             HOMEPAGE_ALLOWED_HOSTS: "*",
+                            LOG_LEVEL: "debug",
                             ...userHomepage.toDockerEnv()
                         },
                         $resources: {

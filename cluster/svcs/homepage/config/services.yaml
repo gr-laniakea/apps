@@ -14,7 +14,7 @@
           type: speedtest
           url: http://speedtest.lk.host
           version: 1
-          key: "{{HP_SPEEDTEST_API_KEY}}"
+          key: "{{HOMEPAGE_VAR_SPEEDTEST_API_KEY}}"
     - traefik:
         icon: traefik
         href: http://traefik.lk.host
@@ -70,7 +70,7 @@
         widget:
           type: sabnzbd
           url: http://sabnzbd.lk.host
-          key: "{{HP_SABNZBD_API_KEY}}"
+          key: "{{HOMEPAGE_VAR_SABNZBD_API_KEY}}"
 - managers:
     - sonarr:
         icon: sonarr
@@ -81,7 +81,7 @@
         widget:
           type: sonarr
           url: http://sonarr.lk.host
-          key: "{{HP_SONARR_API_KEY}}"
+          key: "{{HOMEPAGE_VAR_SONARR_API_KEY}}"
     - radarr:
         icon: radarr
         href: http://radarr.lk.host
@@ -91,7 +91,7 @@
         widget:
           type: radarr
           url: http://radarr.lk.host
-          key: "{{HP_RADARR_API_KEY}}"
+          key: "{{HOMEPAGE_VAR_RADARR_API_KEY}}"
     - prowlarr:
         icon: prowlarr
         href: http://prowlarr.lk.host
@@ -101,7 +101,7 @@
         widget:
           type: prowlarr
           url: http://prowlarr.lk.host
-          key: "{{HP_PROWLARR_API_KEY}}"
+          key: "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}"
     - bazarr:
         icon: bazarr
         href: http://bazarr.lk.host
@@ -111,7 +111,7 @@
         widget:
           type: bazarr
           url: http://bazarr.lk.host
-          key: "{{HP_BAZARR_API_KEY}}"
+          key: "{{HOMEPAGE_VAR_BAZARR_API_KEY}}"
 
 - streaming:
     - jellyfin:
@@ -122,7 +122,7 @@
         app: jellyfin
         widget:
           type: jellyfin
-          key: "{{HP_JELLYFIN_API_KEY}}"
+          key: "{{HOMEPAGE_VAR_JELLYFIN_API_KEY}}"
           url: https://see.laniakea.boo
     - jellyseer:
         icon: jellyseer
@@ -133,7 +133,7 @@
         widget:
           type: jellyseer
           url: https://over.laniakea.boo
-          key: "{{HP_JELLYSEER_API_KEY}}"
+          key: "{{HOMEPAGE_VAR_JELLYSEER_API_KEY}}"
 - gaming:
     - minecraft:
         icon: minecraft
