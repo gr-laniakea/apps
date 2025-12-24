@@ -888,9 +888,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@k8ts/instruments@npm:^0.9.2":
-  version: 0.9.2
-  resolution: "@k8ts/instruments@npm:0.9.2"
+"@k8ts/instruments@portal:/C:/codegr/k8ts/packages/instruments::locator=%40laniakea%2Fapps%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@k8ts/instruments@portal:/C:/codegr/k8ts/packages/instruments::locator=%40laniakea%2Fapps%40workspace%3A."
   dependencies:
     chalk: "npm:4.1.2"
     dayjs: "npm:^1.11.13"
@@ -906,46 +906,31 @@ __metadata:
     timezone-enum: "npm:^1.0.4"
     what-are-you: "npm:^0.2.0"
   peerDependencies:
-    "@k8ts/metadata": ^0.7.2
-  checksum: 10c0/48e0287b77be85323bb7530df67c8c8e0d61feb982ae5fb8853ea18e66a4f3a595138a002ea8d4f71eb7124775e8d48b617bac14b4809eff61dac2065641ecd5
+    "@k8ts/metadata": "workspace:^"
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@k8ts/metadata@npm:^0.7.2":
-  version: 0.7.2
-  resolution: "@k8ts/metadata@npm:0.7.2"
+"@k8ts/metadata@portal:/C:/codegr/k8ts/packages/metadata::locator=%40laniakea%2Fapps%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@k8ts/metadata@portal:/C:/codegr/k8ts/packages/metadata::locator=%40laniakea%2Fapps%40workspace%3A."
   dependencies:
     doddle: "npm:^7.2.0"
     parjs: "npm:^1.3.9"
     what-are-you: "npm:^0.2.0"
-  checksum: 10c0/94e4378d6689c5686a09bdbdf03063ecd58222199845f4f6a68f508a759695dcdce55867baf12c180104af4cf60a08572fb4aafda65ece45007bc640fcbca5ef
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@k8ts/sample-interfaces@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "@k8ts/sample-interfaces@npm:0.1.3"
-  dependencies:
-    "@datreeio/datree-cdk8s": "npm:^1.3.5"
-    cdk8s: "npm:^2.69.48"
-    constructs: "npm:^10.4.2"
-    doddle: "npm:^7.2.0"
-  checksum: 10c0/98ce56b870a9c0e0462e2f08a99acd96b468513b369d657d35988b9a68fe39cccc66c05129a01c436172817d31f1e9e60c12a8247562821750bd8e4ecc30a03e
-  languageName: node
-  linkType: hard
-
-"@k8ts/sample-interfaces@npm:^0.4.2":
-  version: 0.4.2
-  resolution: "@k8ts/sample-interfaces@npm:0.4.2"
+"@k8ts/sample-interfaces@portal:/C:/codegr/k8ts/packages/sample-interfaces::locator=%40laniakea%2Fapps%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@k8ts/sample-interfaces@portal:/C:/codegr/k8ts/packages/sample-interfaces::locator=%40laniakea%2Fapps%40workspace%3A."
   dependencies:
     "@datreeio/datree-cdk8s": "npm:^1.3.5"
     cdk8s: "npm:^2.69.48"
     constructs: "npm:^10.4.2"
     doddle: "npm:^7.2.0"
     what-are-you: "npm:^0.2.0"
-  checksum: 10c0/e0bbc8d3e7919c4d110c481f86e5133508d1e168453bfe21327920712459043d25e6b24d91036dba9a6b399212e5c22a2267e534706ce9e460643e64fb2e49a0
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "@kwsites/file-exists@npm:^1.1.1":
   version: 1.1.1
@@ -967,8 +952,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@laniakea/apps@workspace:."
   dependencies:
-    "@k8ts/instruments": "npm:^0.9.2"
-    "@k8ts/metadata": "npm:^0.7.2"
+    "@k8ts/instruments": "npm:^0.9.3"
+    "@k8ts/metadata": "npm:^0.7.3"
     "@k8ts/sample-interfaces": "npm:^0.1.3"
     "@swc/core": "npm:^1.10.11"
     "@types/jest": "npm:^29.5.14"
@@ -979,7 +964,7 @@ __metadata:
     doddle: "npm:^7.2.0"
     husky: "npm:^9.1.7"
     jest: "npm:^29.7.0"
-    k8ts: "npm:^0.11.3"
+    k8ts: "npm:^0.11.4"
     lint-staged: "npm:^15.4.3"
     lodash: "npm:^4.17.21"
     npm-run-all: "npm:^4.1.5"
@@ -5561,11 +5546,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"k8ts@npm:^0.11.3":
-  version: 0.11.3
-  resolution: "k8ts@npm:0.11.3"
+"k8ts@portal:/C:/codegr/k8ts/packages/k8ts::locator=%40laniakea%2Fapps%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "k8ts@portal:/C:/codegr/k8ts/packages/k8ts::locator=%40laniakea%2Fapps%40workspace%3A."
   dependencies:
-    "@k8ts/sample-interfaces": "npm:^0.4.2"
+    "@k8ts/sample-interfaces": "workspace:^"
     chalk: "npm:4.1.2"
     dayjs: "npm:^1.11.13"
     doddle: "npm:^7.2.0"
@@ -5579,11 +5564,10 @@ __metadata:
     stacktracey: "npm:^2.1.8"
     what-are-you: "npm:^0.2.0"
   peerDependencies:
-    "@k8ts/instruments": ^0.9.2
-    "@k8ts/metadata": ^0.7.2
-  checksum: 10c0/8937aeb41aef0fffa254e10ca6c4f79ad6720b98315f62c8e8fb39be515428d0a0aa811acf5e7ff85897adff2def9942697c7f8fc561efbb04f1e366b04bc90d
+    "@k8ts/instruments": "workspace:^"
+    "@k8ts/metadata": "workspace:^"
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "keyv@npm:^3.0.0":
   version: 3.1.0

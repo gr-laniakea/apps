@@ -66,9 +66,7 @@ export default W.File(`${name}.yaml`, {
             $data: {
                 "settings.yaml": localRefFile("./config/settings.yaml").as("text"),
                 "services.yaml": localRefFile("./config/services.yaml").as("text"),
-                "widgets.yaml": localRefFile("./config/widgets.yaml").as("text"),
-                "kubernetes.yaml": localRefFile("./config/kubernetes.yaml").as("text"),
-                "docker.yaml": localRefFile("./config/docker.yaml").as("text")
+                "kubernetes.yaml": localRefFile("./config/kubernetes.yaml").as("text")
             }
         })
 
@@ -126,7 +124,15 @@ export default W.File(`${name}.yaml`, {
                         //     periodSeconds: 20
                         // },
                         $mounts: {
-                            "/app/config/": configVol.Mount(),
+                            "/app/config/services.yaml": configVol.Mount({
+                                subPath: "services.yaml"
+                            }),
+                            "/app/config/settings.yaml": configVol.Mount({
+                                subPath: "settings.yaml"
+                            }),
+                            "/app/config/kubernetes.yaml": configVol.Mount({
+                                subPath: "kubernetes.yaml"
+                            }),
                             "/app/config/logs": logsVol.Mount()
                         }
                     })
