@@ -33,13 +33,13 @@
 - acquisition:
     - transmission:
         icon: transmission
-        href: http://trans.lk.host
+        href: http://transmission.lk.host
         namespace: media
         app: transmission
         description: Torrent Downloader
         widget:
           type: transmission
-          url: http://trans.lk.host
+          url: http://transmission.lk.host
           rpcUrl: /transmission/
 
     - sabnzbd:
