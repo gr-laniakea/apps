@@ -112,7 +112,7 @@
         namespace: media
         app: jellyseer
         widget:
-          type: jellyseer
+          type: jellyseerr
           url: https://over.laniakea.boo
           key: "{{HOMEPAGE_VAR_JELLYSEER_API_KEY}}"
 - gaming:
