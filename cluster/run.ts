@@ -29,7 +29,14 @@ async function main() {
 
     runner.on("load", ({ resource }) => {})
     runner.on("manifest", ({ resource }) => {})
-
+    const secrets = [] as any[]
+    try {
+        const hpSecrets = require("./svcs/homepage/secret/secret.ts").default
+        const speedtestSecrets = require("./svcs/speedtest-tracker/secret/index.ts").default
+        secrets.push(hpSecrets, speedtestSecrets)
+    } catch (e: any) {
+        console.error(e.message)
+    }
     await runner.run([
         Jellyfin,
         TheLounge,
@@ -48,7 +55,8 @@ async function main() {
         factorio,
         minecraft,
         homepage,
-        speedtestTracker
+        speedtestTracker,
+        ...secrets
     ])
 }
 main()

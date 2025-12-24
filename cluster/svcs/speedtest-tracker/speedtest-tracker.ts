@@ -19,6 +19,7 @@ export default W.File(`${name}.yaml`, {
                 API_KEY: ""
             }
         })
+        // ADD secret after namespace is created
         extSecret.disabled = true
         const deploy = new Deployment(name, {
             replicas: 1,

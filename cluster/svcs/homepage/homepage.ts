@@ -96,7 +96,7 @@ export default W.File(`${name}.yaml`, {
                             http: 3000
                         },
                         $env: {
-                            HOMEPAGE_ALLOWED_HOSTS: "",
+                            HOMEPAGE_ALLOWED_HOSTS: "*",
                             ...userHomepage.toDockerEnv()
                         },
                         $resources: {
