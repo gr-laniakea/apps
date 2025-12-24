@@ -19,10 +19,12 @@ export namespace Images {
         export const laniakea = Host.ghcr.author("gr-laniakea")
         export const ajmandourah = Host.ghcr.author("ajmandourah")
         export const homepage = Host.ghcr.author("gethomepage")
+        export const flaresolverr = Host.ghcr.author("flaresolverr")
         export const _ = Host.docker.author("_")
     }
 
     export const factorio = Authors.laniakea.image("factorio-image").tag("latest")
+    export const flaresolverr = Authors.flaresolverr.image("flaresolverr").tag("latest")
     export const glances = Authors.nicolargo.image("glances").tag("latest-full")
     export const homepage = Authors.homepage.image("homepage").tag("latest")
     export const sabnzbd = Authors.linuxserver.image("sabnzbd").tag("latest")
