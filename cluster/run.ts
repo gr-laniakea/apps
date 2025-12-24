@@ -6,6 +6,7 @@ import { Pvc, Runner } from "k8ts"
 
 import Public from "./_storage/_media"
 import factorio from "./svcs/factorio"
+import flaresolverr from "./svcs/flaresolverr/flaresolverr"
 import homepage from "./svcs/homepage/homepage"
 import sabnzbd from "./svcs/media/downloaders/sabnzbd/sabnzbd"
 import transmission from "./svcs/media/downloaders/transmission/transmission"
@@ -56,6 +57,7 @@ async function main() {
         minecraft,
         homepage,
         speedtestTracker,
+        flaresolverr,
         ...secrets
     ])
 }
