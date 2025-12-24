@@ -108,22 +108,22 @@ export default W.File(`${name}.yaml`, {
                                 source: homepageApiKeys
                             }
                         ],
-                        readinessProbe: {
-                            httpGet: {
-                                path: "/",
-                                port: "http" as any
-                            },
-                            initialDelaySeconds: 5,
-                            periodSeconds: 10
-                        },
-                        livenessProbe: {
-                            httpGet: {
-                                path: "/",
-                                port: "http" as any
-                            },
-                            initialDelaySeconds: 15,
-                            periodSeconds: 20
-                        },
+                        // readinessProbe: {
+                        //     httpGet: {
+                        //         path: "/",
+                        //         port: "http" as any
+                        //     },
+                        //     initialDelaySeconds: 5,
+                        //     periodSeconds: 10
+                        // },
+                        // livenessProbe: {
+                        //     httpGet: {
+                        //         path: "/",
+                        //         port: "http" as any
+                        //     },
+                        //     initialDelaySeconds: 15,
+                        //     periodSeconds: 20
+                        // },
                         $mounts: {
                             "/app/config/": configVol.Mount(),
                             "/app/config/logs": logsVol.Mount()
