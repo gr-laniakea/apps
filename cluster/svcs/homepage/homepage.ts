@@ -67,7 +67,8 @@ export default W.File(`${name}.yaml`, {
                 "settings.yaml": localRefFile("./config/settings.yaml").as("text"),
                 "services.yaml": localRefFile("./config/services.yaml").as("text"),
                 "widgets.yaml": localRefFile("./config/widgets.yaml").as("text"),
-                "kubernetes.yaml": localRefFile("./config/kubernetes.yaml").as("text")
+                "kubernetes.yaml": localRefFile("./config/kubernetes.yaml").as("text"),
+                "docker.yaml": localRefFile("./config/docker.yaml").as("text")
             }
         })
 
