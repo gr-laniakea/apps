@@ -32,6 +32,8 @@ export function applyHooks(W: World) {
                     "%has-topolvm-pvc": "true"
                 })
             }
+            const labels = entity.meta.pick("app.kubernetes.io/")
+            entity.template.meta.add(labels)
         })
     })
 }
