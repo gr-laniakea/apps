@@ -8,6 +8,7 @@ import Public from "./_storage/_media"
 import factorio from "./svcs/factorio"
 import flaresolverr from "./svcs/flaresolverr/flaresolverr"
 import homepage from "./svcs/homepage/homepage"
+import jackett from "./svcs/media/arr/jackett"
 import sabnzbd from "./svcs/media/downloaders/sabnzbd/sabnzbd"
 import transmission from "./svcs/media/downloaders/transmission/transmission"
 import jellyseer from "./svcs/media/jellyseer"
@@ -58,6 +59,7 @@ async function main() {
         homepage,
         speedtestTracker,
         flaresolverr,
+        jackett,
         ...secrets
     ])
 }
