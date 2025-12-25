@@ -40,6 +40,7 @@ export namespace Images {
     export const bazarrSync = Authors.ajmandourah.image("bazarr-sync").tag("latest")
     export const jellyfin = Authors.linuxserver.image("jellyfin").tag("latest")
     export const prowlarr = Authors.linuxserver.image("prowlarr").tag("latest")
+    export const jackett = Authors.linuxserver.image("jackett").tag("latest")
     export const thelounge = Authors.thelounge.image("thelounge").tag("latest")
 
     export const wiki_js = Authors.requarks.image("wiki").tag("latest")
