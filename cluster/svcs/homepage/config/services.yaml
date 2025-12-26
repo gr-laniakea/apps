@@ -107,7 +107,7 @@
           url: https://see.laniakea.boo
     - jellyseer:
         icon: jellyseerr
-        href: https://over.laniakea.boo
+        href: https://seer.laniakea.boo
         description: Jellyseer Media Search
         namespace: media
         app: jellyseer
