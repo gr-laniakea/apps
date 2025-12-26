@@ -62,5 +62,11 @@ export default W.File(`${name}.yaml`, {
             $gateway: Gateways.laniakea,
             $hostname: "over.laniakea.boo"
         })
+
+        yield new HttpRoute(`${name}-2`, {
+            $backend: svc.portRef("web"),
+            $gateway: Gateways.laniakea,
+            $hostname: "seer.laniakea.boo"
+        })
     }
 })
