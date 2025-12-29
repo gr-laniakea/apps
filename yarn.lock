@@ -976,7 +976,7 @@ __metadata:
     "@types/node": "npm:^22.12.0"
     constructs: "npm:^10.4.2"
     declare-it: "npm:^2.1.0"
-    doddle: "npm:^7.2.0"
+    doddle: "npm:^7.3.1"
     husky: "npm:^9.1.7"
     jest: "npm:^29.7.0"
     k8ts: "npm:^0.11.5"
@@ -2882,12 +2882,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"doddle@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "doddle@npm:7.2.0"
+"doddle@npm:^7.2.0, doddle@npm:^7.3.1":
+  version: 7.3.1
+  resolution: "doddle@npm:7.3.1"
   dependencies:
     tslib: "npm:^2.8.1"
-  checksum: 10c0/298a5b774ab94cd496adef4ff9fa3028e6051bdb52a403d397c681bbb9316ccd3e714d4a3467e9b91f554b533e6bd87c50005d1b0a1a83d81f72632fd98aa76b
+  checksum: 10c0/fc72d1175577195a63e42a6e950d8a797abe32b8d64c72d046d143c54fd20f5a6cbcf1bbd9ba59749282b5ae1089b03ab2d18076b7c7098d67c5abbe602ee83d
   languageName: node
   linkType: hard
 

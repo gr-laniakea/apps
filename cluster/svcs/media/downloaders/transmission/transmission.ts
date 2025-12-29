@@ -51,7 +51,7 @@ export default W.File("transmission.yaml", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $storage: "=5Gi"
-                                }).with(setBackupMode("pvc-main-schedule"))
+                                }).with(setBackupMode("pvc-hdd-schedule"))
                             }).Mount()
                         }
                     })

@@ -36,7 +36,7 @@ export default W.File("sonarr.yaml", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $storage: "=10Gi"
-                                }).with(setBackupMode("pvc-main-schedule"))
+                                }).with(setBackupMode("pvc-hdd-schedule"))
                             }).Mount(),
                             "/media": POD.Volume("media", {
                                 $backend: Media["PersistentVolumeClaim/media"]

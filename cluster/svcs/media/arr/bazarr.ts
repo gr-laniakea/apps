@@ -36,7 +36,7 @@ export default W.File("bazarr.yaml", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $storage: "=3Gi"
-                                }).with(setBackupMode("pvc-main-schedule"))
+                                }).with(setBackupMode("pvc-hdd-schedule"))
                             }).Mount(),
                             "/media": POD.Volume("media", {
                                 $backend: media["PersistentVolumeClaim/media"]

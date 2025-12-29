@@ -57,7 +57,7 @@ export default W.File("syncthing.yaml", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $storage: "=200Gi"
-                                }).with(setBackupMode("pvc-data-schedule"))
+                                }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount()
                         }
                     })

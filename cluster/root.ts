@@ -4,7 +4,7 @@ import { applyHooks } from "./fix-output"
 export const W = new World("laniakea")
 applyHooks(W)
 
-export type BackupMode = "pvc-main-schedule" | "pvc-data-schedule"
+export type BackupMode = "pvc-main-schedule" | "pvc-hdd-schedule"
 export function setBackupMode(mode: BackupMode) {
     return <X extends Resource_Top>(x: X) => {
         x.meta.add({
