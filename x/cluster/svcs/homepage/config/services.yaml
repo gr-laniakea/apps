@@ -1,0 +1,126 @@
+- system:
+    - scrutiny:
+        icon: scrutiny
+        href: http://scrutiny.lk.host
+        description: Disk Health
+        widget:
+          type: scrutiny
+          url: http://scrutiny.lk.host
+    - speedtest:
+        icon: speedtest
+        href: http://speedtest.lk.host
+        description: Speedtest Tracker
+        widget:
+          type: speedtest
+          url: http://speedtest.lk.host
+          version: 2
+          key: "{{HOMEPAGE_VAR_SPEEDTEST_API_KEY}}"
+    - traefik:
+        icon: traefik
+        href: http://traefik.lk.host
+        description: Reverse Proxy Dashboard
+        widget:
+          type: traefik
+          url: http://traefik.lk.host
+    - netdata:
+        icon: netdata
+        href: http://netdata.lk.host
+        description: System Monitoring
+        widget:
+          type: netdata
+          url: http://netdata.lk.host
+
+- acquisition:
+    - transmission:
+        icon: transmission
+        href: http://transmission.lk.host
+        namespace: media
+        app: transmission
+        description: Torrent Downloader
+        widget:
+          type: transmission
+          url: http://transmission.lk.host
+          rpcUrl: /transmission/
+
+    - sabnzbd:
+        icon: sabnzbd
+        href: http://sabnzbd.lk.host
+        namespace: media
+        app: sabnzbd
+        description: Usenet Downloader
+        widget:
+          type: sabnzbd
+          url: http://sabnzbd.lk.host
+          key: "{{HOMEPAGE_VAR_SABNZBD_API_KEY}}"
+- managers:
+    - sonarr:
+        icon: sonarr
+        href: http://sonarr.lk.host
+        namespace: media
+        app: sonarr
+        description: Shows Manager
+        widget:
+          type: sonarr
+          url: http://sonarr.lk.host
+          key: "{{HOMEPAGE_VAR_SONARR_API_KEY}}"
+    - radarr:
+        icon: radarr
+        href: http://radarr.lk.host
+        namespace: media
+        app: radarr
+        description: Movies Manager
+        widget:
+          type: radarr
+          url: http://radarr.lk.host
+          key: "{{HOMEPAGE_VAR_RADARR_API_KEY}}"
+    - prowlarr:
+        icon: prowlarr
+        href: http://prowlarr.lk.host
+        description: Indexer Manager
+        namespace: media
+        app: prowlarr
+        widget:
+          type: prowlarr
+          url: http://prowlarr.lk.host
+          key: "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}"
+    - bazarr:
+        icon: bazarr
+        href: http://bazarr.lk.host
+        namespace: media
+        app: bazarr
+        description: Subtitle Manager
+        widget:
+          type: bazarr
+          url: http://bazarr.lk.host
+          key: "{{HOMEPAGE_VAR_BAZARR_API_KEY}}"
+
+- streaming:
+    - jellyfin:
+        icon: jellyfin
+        href: https://see.laniakea.boo
+        description: Media Server
+        namespace: media
+        app: jellyfin
+        widget:
+          type: jellyfin
+          key: "{{HOMEPAGE_VAR_JELLYFIN_API_KEY}}"
+          url: https://see.laniakea.boo
+    - jellyseer:
+        icon: jellyseerr
+        href: https://over.laniakea.boo
+        description: Jellyseer Media Search
+        namespace: media
+        app: jellyseer
+        widget:
+          type: jellyseerr
+          url: https://over.laniakea.boo
+          key: "{{HOMEPAGE_VAR_JELLYSEER_API_KEY}}"
+- gaming:
+    - minecraft:
+        icon: minecraft
+        description: Minecraft Server
+        namespace: minecraft
+        app: minecraft
+        widget:
+          type: minecraft
+          url: udp://laniakea.boo:25565

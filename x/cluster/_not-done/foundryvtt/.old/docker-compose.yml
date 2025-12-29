@@ -1,0 +1,21 @@
+---
+version: "3.8"
+
+services:
+
+  foundry:
+    container_name: foundryvtt
+    image: felddy/foundryvtt:release
+    hostname: foundryvtt
+    volumes:
+      - type: bind
+        source: /data/foundryvtt
+        target: /data
+    environment:
+      - FOUNDRY_PASSWORD=superspecialawesomegame
+      - FOUNDRY_USERNAME=recklessheroism
+      - FOUNDRY_ADMIN_KEY=atroposwasneveratropos
+    ports:
+      - target: 30000
+        published: 30000
+        protocol: tcp

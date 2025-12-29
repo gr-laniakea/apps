@@ -1,0 +1,9 @@
+{
+    "references": [
+        {
+            "path": "./cluster/tsconfig.json"
+        }
+    ],
+    "compilerOptions": {},
+    "files": []
+}

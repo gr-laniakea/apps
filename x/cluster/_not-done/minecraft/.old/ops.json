@@ -1,0 +1,13 @@
+[
+  {
+    "uuid": "c86258ed-929c-49fa-92a4-f7d4cedff9ce",
+    "name": "Lockofwar",
+    "level": 4,
+    "bypassesPlayerLimit": true
+  },   {
+    "uuid": "316424a2-4316-4652-a14d-a140c9db4d71",
+    "name": "RecklessHeroism",
+    "level": 4,
+    "bypassesPlayerLimit": true
+  }
+]

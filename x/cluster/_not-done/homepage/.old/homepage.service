@@ -1,0 +1,16 @@
+[Unit]
+Description=Homepage Service
+After=network.target
+
+[Service]
+User=homepage
+Group=homepage
+Nice=5
+Type=simple
+WorkingDirectory=/opt/homepage
+ExecStart=pnpm start -- -p 3050
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

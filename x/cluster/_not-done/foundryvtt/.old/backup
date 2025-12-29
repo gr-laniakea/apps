@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -ex
+echo BACKING UP
+restic backup --tag foundryvtt /data/foundryvtt

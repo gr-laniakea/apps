@@ -1,0 +1,94 @@
+- system:
+    - scrutiny:
+        icon: scrutiny
+        href: https://scrutiny.perdido.bond
+        description: Disk Health
+        widget:
+          type: scrutiny
+          url: http://localhost:8084
+    - speedtest-tracker:
+        icon: speedtest
+        href: https://speed.perdido.bond
+        description: Speedtest Tracker
+        widget:
+          type: speedtest
+          url: http://localhost:8095
+- acquisition:
+    - transmission:
+        icon: transmission
+        href: https://torrents.perdido.bond
+        description: Torrent Downloader
+        widget:
+          type: transmission
+          url: http://localhost:9091
+          rpcUrl: /transmission/
+
+    - sabnzbd:
+        icon: sabnzbd
+        href: https://sabnzbd.perdido.bond
+        description: Usenet Downloader
+        widget:
+          type: sabnzbd
+          url: http://127.0.0.1:8089
+          key: "${HP_SABNZBD_API_KEY}"
+- managers:
+    - sonarr:
+        icon: sonarr
+        href: https://shows.perdido.bond
+        description: Shows Manager
+        widget:
+          type: sonarr
+          url: http://127.0.0.1:8989
+          key: "${HP_SONARR_API_KEY}"
+    - radarr:
+        icon: radarr
+        href: https://movies.perdido.bond
+        description: Movies Manager
+        widget:
+          type: radarr
+          url: http://127.0.0.1:7878
+          key: "${HP_RADARR_API_KEY}"
+    - prowlarr:
+        icon: prowlarr
+        href: https://prowlarr.perdido.bond
+        description: Indexer Manager
+        widget:
+          type: prowlarr
+          url: http://127.0.0.1:9696
+          key: "${HP_PROWLARR_API_KEY}"
+    - bazarr:
+        icon: bazarr
+        href: https://bazarr.perdido.bond
+        description: Subtitle Manager
+        widget:
+          type: bazarr
+          url: http://localhost:6767
+          key: "${HP_BAZARR_API_KEY}"
+
+- streaming:
+    - jellyfin:
+        icon: jellyfin
+        href: https://jellyfin.perdido.bond
+        description: Media Server
+        widget:
+          type: jellyfin
+          key: "${HP_JELLYFIN_API_KEY}"
+          url: http://127.0.0.1:8096
+
+- infrastructure:
+    - watchtower:
+        icon: watchtower
+        widget:
+          type: watchtower
+          key: "${HP_WATCHTOWER_API_KEY}"
+          url: http://127.0.0.1:7892
+
+    - gitlab:
+        icon: gitlab
+        description: GitLab
+        href: https://gitlab.perdido.bond
+        widget:
+          type: gitlab
+          key: "${HP_GITLAB_API_KEY}"
+          url: http://127.0.0.1:12341
+          user_id: 2

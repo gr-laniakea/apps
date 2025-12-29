@@ -1,0 +1,6 @@
+#!/bin/bash
+jq \
+    --arg username "$FACTORIO_USERNAME" \
+    --arg token "$FACTORIO_TOKEN" \
+    '.["service-username"]=$username | .["service-token"]=$token' \
+    /factorio/player-data.json > /factorio/player-data.json

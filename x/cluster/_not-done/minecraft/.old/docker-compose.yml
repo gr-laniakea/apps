@@ -1,0 +1,19 @@
+version: "3"
+services:
+  minecraft:
+    image: my-minecraft:latest
+    container_name: minecraft
+    ports:
+      - "25565:25565"
+    volumes:
+      - /opt/minecraft:/data
+    environment:
+      EULA: "TRUE"
+      TYPE: "FABRIC"
+      VERSION: "1.20.1"
+      INIT_MEMORY: "2G"
+      MAX_MEMORY: "8G"
+      FABRIC_VERSION: "0.14.21"
+      PACKWIZ_URL: "https://xyz.gregros.dev/minecraft/perdido-modpack/pack.toml"
+      DATAPACKS: >
+        https://www.stardustlabs.net/s/Terralith_120_v240.zip

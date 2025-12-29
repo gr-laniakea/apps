@@ -72,12 +72,5 @@
     "typescript": "^5.7.3"
   },
   "packageManager": "yarn@4.12.0",
-  "sourcesRoot": "src",
-  "resolutions": {
-    "workspace": "portal:/C:/codegr/k8ts",
-    "@k8ts/instruments": "portal:/C:/codegr/k8ts/packages/instruments",
-    "k8ts": "portal:/C:/codegr/k8ts/packages/k8ts",
-    "@k8ts/metadata": "portal:/C:/codegr/k8ts/packages/metadata",
-    "@k8ts/sample-interfaces": "portal:/C:/codegr/k8ts/packages/sample-interfaces"
-  }
+  "sourcesRoot": "src"
 }

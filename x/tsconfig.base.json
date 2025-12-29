@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "composite": true,
+        "module": "es2022",
+        "target": "ES2020",
+        "lib": ["ES2020"],
+        "disableReferencedProjectLoad": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "noEmit": true,
+        "strict": true,
+        "skipDefaultLibCheck": true,
+        "incremental": true,
+        "skipLibCheck": true
+    },
+    "include": []
+}

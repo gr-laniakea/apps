@@ -1,0 +1,10 @@
+#!/bin/bash
+set -ex
+echo YOU ARE $(id -un)
+cd /opt/perdido/config/minecraft
+docker compose down || true
+docker compose up -d
+until [ "`docker inspect -f {{.State.Health.Status}} minecraft`"=="healthy" ]; do
+    sleep 0.1;
+done;
+

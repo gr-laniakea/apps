@@ -1,6 +1,7 @@
-import { nodeAffinity } from "@/_hdd-node"
+import { Gi, T } from "@k8ts/instruments"
 import { W } from "@/root"
-import { T } from "@k8ts/instruments"
+import { nodeAffinity } from "@/_hdd-node"
+import { getAppMeta } from "@/_meta/app-meta"
 import { Pv } from "k8ts"
 
 export default W.File("libraries.yaml", {
@@ -10,7 +11,7 @@ export default W.File("libraries.yaml", {
             $accessModes: ["RWO"],
             $capacity: T(10),
             $backend: {
-                kind: "Local",
+                type: "Local",
                 path: "/data/media"
             },
             reclaimPolicy: "Retain",
@@ -21,7 +22,7 @@ export default W.File("libraries.yaml", {
             $accessModes: ["ROX"],
             $capacity: T(10),
             $backend: {
-                kind: "NFS",
+                type: "NFS",
                 path: "/data/media",
                 server: "10.0.10.18"
             },

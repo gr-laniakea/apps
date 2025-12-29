@@ -1,0 +1,9 @@
+title: 🌌 LANIAKEA 🌌
+description: Mega cluster
+theme: dark
+color: slate
+language: en
+layout:
+  Media:
+    style: row
+    columns: 4

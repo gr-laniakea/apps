@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -ex
+echo BACKING UP MINECRAFT
+
+echo SAVING
+docker exec minecraft rcon-cli save-all
+
+echo BACKING UP
+restic backup --tag minecraft-world /opt/minecraft/world

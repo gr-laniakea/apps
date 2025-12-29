@@ -1,0 +1,18 @@
+#!/bin/bash
+set -ex
+echo YOU ARE $(id -un)
+echo UPDATING MODPACK
+name=minecraft-perdido-modpack
+if [ ! -d /opt/$name/.git ]; then
+  git clone https://github.com/GregRos/$name.git /opt/$name
+  cd /opt/$name
+else
+  cd /opt/$name
+  chown -R minecraft-modpack:minecraft-modpack .
+  chmod -R 775 .
+  git reset --hard HEAD
+  git pull --ff-only
+fi
+chown -R minecraft-modpack:minecraft-modpack .
+# Readable by all, writable by group
+chmod -R 775 .

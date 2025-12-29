@@ -1,0 +1,4 @@
+#!/bin/bash
+
+minecraft-sync
+minecraft-redeploy
