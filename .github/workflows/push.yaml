@@ -10,6 +10,10 @@ env:
   IMAGE_OWNER: ${{ github.repository_owner }}
 jobs:
   manifest:
+    strategy:
+      matrix:
+        node-version:
+          - 22.18.0
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -17,6 +21,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with: { fetch-depth: 0 }
+      - name: SETUP NODE.JS ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: yarn
+          registry-url: "https://registry.yarnpkg.com"
       - name: Manifesting
         run: chmod +x ./scripts/run.manifest.sh; ./scripts/run.manifest.sh
         env:
