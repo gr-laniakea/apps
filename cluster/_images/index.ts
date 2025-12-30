@@ -20,7 +20,7 @@ export namespace Images {
         export const ajmandourah = Host.ghcr.author("ajmandourah")
         export const homepage = Host.ghcr.author("gethomepage")
         export const flaresolverr = Host.ghcr.author("flaresolverr")
-        export const wgPortal = Host.ghcr.author("wgportal")
+        export const wgPortal = Host.docker.author("wgportal")
         export const _ = Host.docker.author("_")
     }
 

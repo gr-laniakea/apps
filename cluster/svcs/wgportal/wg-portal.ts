@@ -4,7 +4,7 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { scTopolvm } from "@/externals"
 import { setBackupMode, W } from "@/root"
-import { Deployment, Pvc, Service } from "k8ts"
+import { Deployment, Pvc } from "k8ts"
 
 const name = "wg-portal"
 const wgInterface = process.env.WG_INTERFACE_NAME || "wg0"
@@ -71,17 +71,5 @@ export default W.File(`${name}.yaml`, {
         })
 
         yield deploy
-
-        const svc = new Service(name, {
-            $backend: deploy,
-            $ports: {
-                web: 8888
-            },
-            $frontend: {
-                type: "ClusterIP"
-            }
-        })
-
-        yield svc
     }
 })
