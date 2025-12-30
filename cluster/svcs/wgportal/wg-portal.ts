@@ -2,7 +2,6 @@ import { Images } from "@/_images"
 import { ipWgPortal } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
-import { userWgPortal } from "@/_users"
 import { scTopolvm } from "@/externals"
 import { setBackupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
@@ -35,7 +34,6 @@ export default W.File(`${name}.yaml`, {
                             }
                         },
                         $env: {
-                            ...userWgPortal.toDockerEnv(),
                             WG_DEVICES: wgInterface,
                             WG_CONFIG_PATH: "/etc/wireguard",
                             WG_STATS_ENABLED: "true"
