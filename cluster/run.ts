@@ -17,7 +17,6 @@ import minecraft from "./svcs/minecraft"
 import mumble from "./svcs/mumble"
 import speedtestTracker from "./svcs/speedtest-tracker/speedtest-tracker"
 import { Syncthing } from "./svcs/syncthing"
-import { WgPortal } from "./svcs/wgportal"
 async function main() {
     const runner = new Runner({
         cwd: ".",
@@ -62,7 +61,6 @@ async function main() {
         speedtestTracker,
         flaresolverr,
         jackett,
-        WgPortal,
         ...secrets
     ])
 }

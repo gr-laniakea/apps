@@ -21,10 +21,9 @@ advanced:
   log_pretty: false
   log_json: false
   start_listen_port: 51820
-  start_cidr_v4: 10.0.0.0/24
-  start_cidr_v6: fdfd:d3ad:c0de:1234::0/64
+  start_cidr_v4: 10.0.0.0/32
   use_ip_v6: false
-  config_storage_path: ""
+  config_storage_path: /etc/wireguard
   expiry_check_interval: 15m
   rule_prio_offset: 20000
   route_table_offset: 20000
