@@ -15,6 +15,7 @@ export default W.File("namespaces.yaml", {
         yield new Namespace("speedtest-tracker")
         yield new Namespace("syncthing")
         yield new Namespace("thelounge")
+        yield new Namespace("wg-portal")
         yield new Namespace("wiki-js")
     }
 })
