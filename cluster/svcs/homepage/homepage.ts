@@ -86,8 +86,9 @@ export default W.File(`${name}.yaml`, {
                         $backend: settingsFilesConfigMap
                     })
                     const homepageApiKeys = new Secret(homepageSecretName, {
-                        $data: homepageSecretStructure
-                    }).with(x => (x.disabled = true))
+                        $data: homepageSecretStructure,
+                        $noEmit: true
+                    })
 
                     const logsVol = POD.Volume("logs", {
                         $backend: new Pvc("homepage-logs", {

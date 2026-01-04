@@ -15,11 +15,12 @@ export default W.File(`${name}.yaml`, {
     meta: getAppMeta(name),
     *FILE() {
         const secret = new Secret("wg-portal", {
+            $noEmit: true,
             $data: {
                 username: "gr",
                 password: ""
             }
-        }).with(x => (x.disabled = true))
+        })
 
         const config = new ConfigMap("wg-portal-config", {
             $data: {
