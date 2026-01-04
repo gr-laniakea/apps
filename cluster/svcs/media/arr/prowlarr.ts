@@ -33,7 +33,9 @@ export default W.File("prowlarr.yaml", {
                                 $backend: new Pvc("prowlarr-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=1Gi"
+                                    $resources: {
+                                        storage: "=1Gi"
+                                    }
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount()
                         }

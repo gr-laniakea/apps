@@ -15,8 +15,10 @@ export default W.File("jellyfin.yaml", {
         const deploy = new Deployment("jellyfin", {
             replicas: 1,
             $template: {
-                securityContext: {
-                    supplementalGroups: [105, 44]
+                $overrides: {
+                    securityContext: {
+                        supplementalGroups: [105, 44]
+                    }
                 },
                 *$POD(POD) {
                     yield POD.Container("jellyfin", {
@@ -24,7 +26,6 @@ export default W.File("jellyfin.yaml", {
                         $ports: {
                             web: "8096"
                         },
-                        securityContext: {},
                         $resources: {
                             cpu: "100m -> 6000m",
                             memory: "1Gi -> 12Gi",
@@ -39,7 +40,9 @@ export default W.File("jellyfin.yaml", {
                                 $backend: new Pvc("jellyfin-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=25Gi"
+                                    $resources: {
+                                        storage: "=25Gi"
+                                    }
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount(),
                             "/media": POD.Volume("media", {

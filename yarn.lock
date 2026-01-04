@@ -888,9 +888,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@k8ts/instruments@npm:^0.11.4":
-  version: 0.11.4
-  resolution: "@k8ts/instruments@npm:0.11.4"
+"@k8ts/instruments@portal:/C:/codegr/k8ts/packages/instruments::locator=%40laniakea%2Fapps%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@k8ts/instruments@portal:/C:/codegr/k8ts/packages/instruments::locator=%40laniakea%2Fapps%40workspace%3A."
   dependencies:
     chalk: "npm:4.1.2"
     dayjs: "npm:^1.11.13"
@@ -904,48 +904,33 @@ __metadata:
     simple-git: "npm:^3.27.0"
     stacktracey: "npm:^2.1.8"
     timezone-enum: "npm:^1.0.4"
-    what-are-you: "npm:^0.2.0"
+    what-are-you: "npm:^0.3.0"
   peerDependencies:
-    "@k8ts/metadata": ^0.10.3
-  checksum: 10c0/6b483baacfb869043b5c73e3ca8f1d0cf2fa201b49fa4d0f6798542aab8432906cd58fd366e2a9743d9890ea64fc106630fe86ab1d3de832dbc178b522adb9fb
+    "@k8ts/metadata": "workspace:^"
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@k8ts/metadata@npm:^0.10.3":
-  version: 0.10.3
-  resolution: "@k8ts/metadata@npm:0.10.3"
+"@k8ts/metadata@portal:/C:/codegr/k8ts/packages/metadata::locator=%40laniakea%2Fapps%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@k8ts/metadata@portal:/C:/codegr/k8ts/packages/metadata::locator=%40laniakea%2Fapps%40workspace%3A."
   dependencies:
     doddle: "npm:^7.3.1"
     parjs: "npm:^1.3.9"
-    what-are-you: "npm:^0.2.0"
-  checksum: 10c0/09b28fa1b7b9ce1a1d60839a27be8b19cb1c93258ed1052850a00c37041640c29ce6191d89c7a164d09eab92c78bc534847493e9df58517d3f9620b35af44cbd
+    what-are-you: "npm:^0.3.0"
   languageName: node
-  linkType: hard
+  linkType: soft
 
-"@k8ts/sample-interfaces@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "@k8ts/sample-interfaces@npm:0.1.3"
-  dependencies:
-    "@datreeio/datree-cdk8s": "npm:^1.3.5"
-    cdk8s: "npm:^2.69.48"
-    constructs: "npm:^10.4.2"
-    doddle: "npm:^7.2.0"
-  checksum: 10c0/98ce56b870a9c0e0462e2f08a99acd96b468513b369d657d35988b9a68fe39cccc66c05129a01c436172817d31f1e9e60c12a8247562821750bd8e4ecc30a03e
-  languageName: node
-  linkType: hard
-
-"@k8ts/sample-interfaces@npm:^0.6.3":
-  version: 0.6.3
-  resolution: "@k8ts/sample-interfaces@npm:0.6.3"
+"@k8ts/sample-interfaces@portal:/C:/codegr/k8ts/packages/sample-interfaces::locator=%40laniakea%2Fapps%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "@k8ts/sample-interfaces@portal:/C:/codegr/k8ts/packages/sample-interfaces::locator=%40laniakea%2Fapps%40workspace%3A."
   dependencies:
     "@datreeio/datree-cdk8s": "npm:^1.3.5"
     cdk8s: "npm:^2.69.48"
     constructs: "npm:^10.4.2"
     doddle: "npm:^7.3.1"
-    what-are-you: "npm:^0.2.0"
-  checksum: 10c0/37e09e80b4730efc88c8f24045a5e3aab751596f65532752232aafc3c8e8197285501a604d9c997d660abed94c6c0f0f0faf1518a62cdb8902c771d6276f2912
+    what-are-you: "npm:^0.3.0"
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "@kwsites/file-exists@npm:^1.1.1":
   version: 1.1.1
@@ -2882,7 +2867,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"doddle@npm:^7.2.0, doddle@npm:^7.3.1":
+"doddle@npm:^7.3.1":
   version: 7.3.1
   resolution: "doddle@npm:7.3.1"
   dependencies:
@@ -2969,7 +2954,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"emittery@npm:0.13.1, emittery@npm:^0.13.1":
+"emittery@npm:^0.13.1":
   version: 0.13.1
   resolution: "emittery@npm:0.13.1"
   checksum: 10c0/1573d0ae29ab34661b6c63251ff8f5facd24ccf6a823f19417ae8ba8c88ea450325788c67f16c99edec8de4b52ce93a10fe441ece389fd156e88ee7dab9bfa35
@@ -5561,15 +5546,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"k8ts@npm:^0.13.3":
-  version: 0.13.3
-  resolution: "k8ts@npm:0.13.3"
+"k8ts@portal:/C:/codegr/k8ts/packages/k8ts::locator=%40laniakea%2Fapps%40workspace%3A.":
+  version: 0.0.0-use.local
+  resolution: "k8ts@portal:/C:/codegr/k8ts/packages/k8ts::locator=%40laniakea%2Fapps%40workspace%3A."
   dependencies:
-    "@k8ts/sample-interfaces": "npm:^0.6.3"
+    "@k8ts/sample-interfaces": "workspace:^"
     chalk: "npm:4.1.2"
     dayjs: "npm:^1.11.13"
     doddle: "npm:^7.3.1"
-    emittery: "npm:0.13.1"
+    eventemitter3: "npm:^5.0.1"
     ip-address: "npm:^10.0.1"
     js-yaml: "npm:^4.1.0"
     lodash: "npm:^4.17.21"
@@ -5577,13 +5562,12 @@ __metadata:
     parjs: "npm:^1.3.9"
     simple-git: "npm:^3.27.0"
     stacktracey: "npm:^2.1.8"
-    what-are-you: "npm:^0.2.0"
+    what-are-you: "npm:^0.3.0"
   peerDependencies:
-    "@k8ts/instruments": ^0.11.4
-    "@k8ts/metadata": ^0.10.3
-  checksum: 10c0/a3954043eec06acbf92229553242ec89a332a90c29e0ec2604866de56d8fd3109a0f0b3d4aca50f6c8f2279ca6aad56fd905dc5c3c59c350fb28bb44d77d6b8d
+    "@k8ts/instruments": "workspace:^"
+    "@k8ts/metadata": "workspace:^"
   languageName: node
-  linkType: hard
+  linkType: soft
 
 "keyv@npm:^3.0.0":
   version: 3.1.0
@@ -9194,10 +9178,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"what-are-you@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "what-are-you@npm:0.2.0"
-  checksum: 10c0/37eba53f1caf788372cd2bb28de46f39ca201fb1406a488798bfe6ee9bf5f78fc4fed6d90efe5aceb282eb6c82ffda8f0eac65903206789a32206f19177d85eb
+"what-are-you@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "what-are-you@npm:0.3.0"
+  checksum: 10c0/9e01e09013cbea8c1e39a6aff81668b95bd7e44723f35d305d0de740b026fc0e686582144aff9ead2db859a9ab5f918c37fed6186f407a325355caaa4453a6c3
   languageName: node
   linkType: hard
 

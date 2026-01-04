@@ -35,7 +35,9 @@ export default W.File("radarr.yaml", {
                                 $backend: new Pvc("radarr-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=10Gi"
+                                    $resources: {
+                                        storage: "=10Gi"
+                                    }
                                 }).with(setBackupMode("pvc-hdd-schedule"))
                             }).Mount(),
                             "/media": POD.Volume("media", {

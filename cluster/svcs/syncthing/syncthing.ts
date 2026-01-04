@@ -49,14 +49,18 @@ export default W.File("syncthing.yaml", {
                                 $backend: new Pvc("syncthing-config", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=5Gi"
+                                    $resources: {
+                                        storage: "=5Gi"
+                                    }
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount(),
                             "/data": POD.Volume("data", {
                                 $backend: new Pvc("data", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=200Gi"
+                                    $resources: {
+                                        storage: "=200Gi"
+                                    }
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount()
                         }

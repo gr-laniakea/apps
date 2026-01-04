@@ -32,7 +32,9 @@ export default W.File("thelounge.yaml", {
                                 $backend: new Pvc("thelounge-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=7Gi"
+                                    $resources: {
+                                        storage: "=7Gi"
+                                    }
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount()
                         }

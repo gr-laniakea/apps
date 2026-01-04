@@ -13,7 +13,7 @@ export default W.File("libraries.yaml", {
                 kind: "Local",
                 path: "/data/media"
             },
-            reclaimPolicy: "Retain",
+            $reclaimPolicy: "Retain",
             nodeAffinity
         })
 

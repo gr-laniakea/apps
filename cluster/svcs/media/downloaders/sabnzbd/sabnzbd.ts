@@ -38,7 +38,9 @@ export default W.File("sabnzbd.yaml", {
                                 $backend: new Pvc("sabnzbd-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=5Gi"
+                                    $resources: {
+                                        storage: "=5Gi"
+                                    }
                                 }).with(setBackupMode("pvc-hdd-schedule"))
                             }).Mount()
                         }

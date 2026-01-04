@@ -52,7 +52,9 @@ export default W.File(`${name}.yaml`, {
                                 $backend: new Pvc("minecraft-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=35Gi"
+                                    $resources: {
+                                        storage: "=35Gi"
+                                    }
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount()
                         }

@@ -21,7 +21,9 @@ export default W.File(`${name}.yaml`, {
                         $backend: new Pvc(`${name}-var`, {
                             $accessModes: "RWO",
                             $storageClass: scTopolvm,
-                            $storage: "=25Gi"
+                            $resources: {
+                                storage: "=25Gi"
+                            }
                         }).with(setBackupMode("pvc-main-schedule"))
                     })
                     yield POD.Container(name, {

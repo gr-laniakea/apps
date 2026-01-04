@@ -50,7 +50,9 @@ export default W.File("transmission.yaml", {
                                 $backend: new Pvc("transmission-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=5Gi"
+                                    $resources: {
+                                        storage: "=5Gi"
+                                    }
                                 }).with(setBackupMode("pvc-hdd-schedule"))
                             }).Mount()
                         }

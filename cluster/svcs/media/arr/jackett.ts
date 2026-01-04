@@ -33,7 +33,9 @@ export default W.File("jackett.yaml", {
                                 $backend: new Pvc("jackett-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=1Gi"
+                                    $resources: {
+                                        storage: "=1Gi"
+                                    }
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount()
                         }

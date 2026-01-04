@@ -35,7 +35,9 @@ export default W.File("sonarr.yaml", {
                                 $backend: new Pvc("sonarr-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=10Gi"
+                                    $resources: {
+                                        storage: "=10Gi"
+                                    }
                                 }).with(setBackupMode("pvc-hdd-schedule"))
                             }).Mount(),
                             "/media": POD.Volume("media", {

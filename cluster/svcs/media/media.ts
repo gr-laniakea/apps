@@ -10,12 +10,16 @@ export default W.File("media-pvc.yaml", {
         yield new Pvc("media", {
             $accessModes: "RWO",
             $bind: Public["PersistentVolume/media"],
-            $storage: "=1Gi"
+            $resources: {
+                storage: "=1Gi"
+            }
         })
         yield new Pvc("nfs-media", {
             $accessModes: "ROX",
             $bind: Public["PersistentVolume/nfs-media"],
-            $storage: "=1Gi"
+            $resources: {
+                storage: "=1Gi"
+            }
         })
     }
 })

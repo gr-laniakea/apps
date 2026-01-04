@@ -48,7 +48,9 @@ export default W.File(`${name}.yaml`, {
                                 $backend: new Pvc(`${name}-config`, {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=5Gi"
+                                    $resources: {
+                                        storage: "=5Gi"
+                                    }
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount()
                         }

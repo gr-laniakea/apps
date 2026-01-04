@@ -77,3 +77,4 @@ jspm_packages
 **/.obsidian/workspace.json
 k8s.out/
 .k8ts/
+# a workspace file that relies on local paths

@@ -19,7 +19,9 @@ export default W.File("mumble.yaml", {
                         $backend: new Pvc("mumble-var", {
                             $accessModes: "RWO",
                             $storageClass: scTopolvm,
-                            $storage: "=3Gi"
+                            $resources: {
+                                storage: "=3Gi"
+                            }
                         }).with(setBackupMode("pvc-main-schedule"))
                     })
                     yield POD.Container("mumble", {

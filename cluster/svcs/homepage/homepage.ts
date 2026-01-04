@@ -16,7 +16,7 @@ import {
     ServiceAccount
 } from "k8ts"
 import { gateway, metrics, v1 } from "k8ts/kinds"
-import { homepageApiKeys } from "./secret-structure"
+import { homepageSecretName, homepageSecretStructure } from "./secret-structure"
 
 const name = "homepage"
 
@@ -25,7 +25,7 @@ export default W.File(`${name}.yaml`, {
     meta: getAppMeta(name),
     *FILE() {
         const serviceAccount = new ServiceAccount(name, {
-            automountToken: true
+            $automountToken: true
         })
 
         yield serviceAccount
@@ -75,19 +75,27 @@ export default W.File(`${name}.yaml`, {
         const deploy = new Deployment(name, {
             replicas: 1,
             $template: {
-                serviceAccountName: name,
-                dnsPolicy: "ClusterFirst",
-                enableServiceLinks: true,
-                automountServiceAccountToken: true,
+                $overrides: {
+                    serviceAccountName: name,
+                    dnsPolicy: "ClusterFirst",
+                    enableServiceLinks: true,
+                    automountServiceAccountToken: true
+                },
                 *$POD(POD) {
                     const configVol = POD.Volume("homepage-config", {
                         $backend: settingsFilesConfigMap
                     })
+                    const homepageApiKeys = new Secret(homepageSecretName, {
+                        $data: homepageSecretStructure
+                    }).with(x => (x.disabled = true))
+
                     const logsVol = POD.Volume("logs", {
                         $backend: new Pvc("homepage-logs", {
                             $accessModes: "RWO",
                             $storageClass: scTopolvm,
-                            $storage: "=1Gi"
+                            $resources: {
+                                storage: "=1Gi"
+                            }
                         })
                     })
 

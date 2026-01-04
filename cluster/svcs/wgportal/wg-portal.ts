@@ -29,14 +29,18 @@ export default W.File(`${name}.yaml`, {
         const deploy = new Deployment(name, {
             replicas: 1,
             $template: {
-                hostNetwork: true,
+                $overrides: {
+                    hostNetwork: true
+                },
                 *$POD(POD) {
                     yield POD.Container(name, {
                         $image: Images.wgPortal,
-                        securityContext: {
-                            privileged: true,
-                            capabilities: {
-                                add: ["NET_ADMIN", "SYS_MODULE"]
+                        $overrides: {
+                            securityContext: {
+                                privileged: true,
+                                capabilities: {
+                                    add: ["NET_ADMIN", "SYS_MODULE"]
+                                }
                             }
                         },
                         $ports: {
@@ -80,7 +84,7 @@ export default W.File(`${name}.yaml`, {
                                 $backend: new Pvc(`${name}-data`, {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=1Gi"
+                                    $resources: { storage: "=1Gi" }
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount(),
                             "/etc/wireguard": POD.Volume("wg-config", {
