@@ -16,7 +16,7 @@ export default W.File("sabnzbd.yaml", {
         const deploy = new Deployment("sabnzbd", {
             replicas: 1,
             $template: {
-                ...scheduleOnHdd,
+                $overrides: scheduleOnHdd,
                 *$POD(POD) {
                     yield POD.Container("sabnzbd", {
                         $image: Images.sabnzbd,

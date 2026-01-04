@@ -16,7 +16,7 @@ export default W.File("transmission.yaml", {
         const deploy = new Deployment("transmission", {
             replicas: 1,
             $template: {
-                ...scheduleOnHdd,
+                $overrides: scheduleOnHdd,
                 *$POD(POD) {
                     yield POD.Container("transmission", {
                         $image: Images.transmission,

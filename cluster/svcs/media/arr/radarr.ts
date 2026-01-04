@@ -16,7 +16,7 @@ export default W.File("radarr.yaml", {
         const deploy = new Deployment("radarr", {
             replicas: 1,
             $template: {
-                ...scheduleOnHdd,
+                $overrides: scheduleOnHdd,
                 *$POD(POD) {
                     yield POD.Container("radarr", {
                         $image: Images.radarr,

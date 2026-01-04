@@ -16,7 +16,7 @@ export default W.File("sonarr.yaml", {
         const deploy = new Deployment("sonarr", {
             replicas: 1,
             $template: {
-                ...scheduleOnHdd,
+                $overrides: scheduleOnHdd,
                 *$POD(POD) {
                     yield POD.Container("sonarr", {
                         $image: Images.sonarr,
