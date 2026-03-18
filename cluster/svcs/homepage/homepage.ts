@@ -22,8 +22,8 @@ const name = "homepage"
 
 export default W.File(`${name}.yaml`, {
     namespace: namespaces[`Namespace/${name}`],
-    meta: getAppMeta(name),
-    *FILE() {
+    metadata: getAppMeta(name),
+    *resources$() {
         const serviceAccount = new ServiceAccount(name, {
             $automountToken: true
         })
@@ -35,14 +35,14 @@ export default W.File(`${name}.yaml`, {
         })
 
         // Set annotations for service account token secret
-        secret.meta.add({
-            "^kubernetes.io/service-account.name": serviceAccount.name
+        secret.metadata.add({
+            "^kubernetes.io/service-account.name": serviceAccount.ident.name
         })
 
         yield secret
 
         const clusterRole = new ClusterRole(name, {
-            *rules(ROLE) {
+            *rules$(ROLE) {
                 // Core API group: namespaces, pods, nodes
                 yield ROLE.Rule(v1.Namespace._, v1.Pod._, v1.Node._).verbs("get", "list")
 
@@ -73,15 +73,15 @@ export default W.File(`${name}.yaml`, {
         })
 
         const deploy = new Deployment(name, {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                $overrides: {
+                $manifest: {
                     serviceAccountName: name,
                     dnsPolicy: "ClusterFirst",
                     enableServiceLinks: true,
                     automountServiceAccountToken: true
                 },
-                *$POD(POD) {
+                *containers$(POD) {
                     const configVol = POD.Volume("homepage-config", {
                         $backend: settingsFilesConfigMap
                     })

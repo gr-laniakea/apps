@@ -4,7 +4,7 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userSyncthing } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { backupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
 
 /*
@@ -14,12 +14,12 @@ so NAT or dynamic IP don't matter.
 
 export default W.File("syncthing.yaml", {
     namespace: namespaces["Namespace/syncthing"],
-    meta: getAppMeta("syncthing"),
-    *FILE() {
+    metadata: getAppMeta("syncthing"),
+    *resources$() {
         const deploy = new Deployment("syncthing", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container("syncthing", {
                         $image: Images.syncthing,
                         $ports: {
@@ -47,21 +47,23 @@ export default W.File("syncthing.yaml", {
                         $mounts: {
                             "/config": POD.Volume("config", {
                                 $backend: new Pvc("syncthing-config", {
+                                    $metadata: backupMode("pvc-main-schedule"),
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $resources: {
                                         storage: "=5Gi"
                                     }
-                                }).with(setBackupMode("pvc-main-schedule"))
+                                })
                             }).Mount(),
                             "/data": POD.Volume("data", {
                                 $backend: new Pvc("data", {
+                                    $metadata: backupMode("pvc-main-schedule"),
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $resources: {
                                         storage: "=200Gi"
                                     }
-                                }).with(setBackupMode("pvc-main-schedule"))
+                                })
                             }).Mount()
                         }
                     })

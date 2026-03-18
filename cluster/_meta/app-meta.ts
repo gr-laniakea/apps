@@ -1,6 +1,6 @@
-import type { Meta } from "@k8ts/metadata"
+import type { Metadata_Input } from "@k8ts/metadata"
 
-export function getAppMeta(name: string, parent?: string): Meta.Input {
+export function getAppMeta(name: string, parent?: string): Metadata_Input {
     return {
         "app.kubernetes.io/": {
             "%instance": name,

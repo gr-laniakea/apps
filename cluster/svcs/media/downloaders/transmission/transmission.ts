@@ -5,19 +5,19 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { backupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
 import Media from "../../media"
 
 export default W.File("transmission.yaml", {
     namespace: namespaces["Namespace/media"],
-    meta: getAppMeta("transmission"),
-    *FILE() {
+    metadata: getAppMeta("transmission"),
+    *resources$() {
         const deploy = new Deployment("transmission", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                $overrides: scheduleOnHdd,
-                *$POD(POD) {
+                $manifest: scheduleOnHdd,
+                *containers$(POD) {
                     yield POD.Container("transmission", {
                         $image: Images.transmission,
                         $ports: {
@@ -48,12 +48,13 @@ export default W.File("transmission.yaml", {
                             }).Mount(),
                             "/config": POD.Volume("var", {
                                 $backend: new Pvc("transmission-var", {
+                                    $metadata: backupMode("pvc-hdd-schedule"),
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $resources: {
                                         storage: "=5Gi"
                                     }
-                                }).with(setBackupMode("pvc-hdd-schedule"))
+                                })
                             }).Mount()
                         }
                     })

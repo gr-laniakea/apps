@@ -1,15 +1,15 @@
-import type { CDK } from "k8ts"
+import type { K8S } from "k8ts"
 
 export const _tolerations = [
     {
         key: "laniakea/storage",
         value: "hdd"
     }
-] as CDK.Toleration[]
-export const _nodeSelector: CDK.PodSpec["nodeSelector"] = {
+] as K8S.Toleration[]
+export const _nodeSelector: K8S.PodSpec["nodeSelector"] = {
     "laniakea/storage": "hdd"
 }
-export const nodeAffinity: CDK.VolumeNodeAffinity = {
+export const nodeAffinity: K8S.VolumeNodeAffinity = {
     required: {
         nodeSelectorTerms: [
             {
@@ -28,4 +28,4 @@ export const nodeAffinity: CDK.VolumeNodeAffinity = {
 export const scheduleOnHdd = {
     tolerations: _tolerations,
     nodeSelector: _nodeSelector
-} satisfies Partial<CDK.PodSpec>
+} satisfies Partial<K8S.PodSpec>

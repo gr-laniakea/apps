@@ -3,19 +3,19 @@ import { ipFlaresolverr } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { backupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
 
 const name = "flaresolverr"
 
 export default W.File(`${name}.yaml`, {
     namespace: namespaces[`Namespace/${name}`],
-    meta: getAppMeta(name),
-    *FILE() {
+    metadata: getAppMeta(name),
+    *resources$() {
         const deploy = new Deployment(name, {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container(name, {
                         $image: Images.flaresolverr,
                         $ports: {
@@ -34,12 +34,13 @@ export default W.File(`${name}.yaml`, {
                         $mounts: {
                             "/config": POD.Volume("config", {
                                 $backend: new Pvc(`${name}-config`, {
+                                    $metadata: backupMode("pvc-main-schedule"),
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $resources: {
                                         storage: "=1Gi"
                                     }
-                                }).with(setBackupMode("pvc-main-schedule"))
+                                })
                             }).Mount()
                         }
                     })

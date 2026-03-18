@@ -4,27 +4,28 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userFactorio } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { backupMode, W } from "@/root"
 import { Deployment, Pvc } from "k8ts"
 
 const name = "factorio"
 
 export default W.File(`${name}.yaml`, {
     namespace: namespaces[`Namespace/${name}`],
-    meta: getAppMeta(name),
-    *FILE() {
+    metadata: getAppMeta(name),
+    *resources$() {
         const deploy = new Deployment(name, {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                *$POD(POD) {
+                *containers$(POD) {
                     const vol = POD.Volume("var", {
                         $backend: new Pvc(`${name}-var`, {
+                            $metadata: backupMode("pvc-main-schedule"),
                             $accessModes: "RWO",
                             $storageClass: scTopolvm,
                             $resources: {
                                 storage: "=25Gi"
                             }
-                        }).with(setBackupMode("pvc-main-schedule"))
+                        })
                     })
                     yield POD.Container(name, {
                         $image: Images.factorio,

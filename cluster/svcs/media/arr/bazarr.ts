@@ -5,19 +5,19 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { backupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
 import media from "../media"
 
 export default W.File("bazarr.yaml", {
     namespace: namespaces["Namespace/media"],
-    meta: getAppMeta("bazarr"),
-    *FILE() {
+    metadata: getAppMeta("bazarr"),
+    *resources$() {
         const deploy = new Deployment("bazarr", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                $overrides: scheduleOnHdd,
-                *$POD(POD) {
+                $manifest: scheduleOnHdd,
+                *containers$(POD) {
                     yield POD.Container("bazarr", {
                         $image: Images.bazarr,
                         $ports: {
@@ -33,12 +33,13 @@ export default W.File("bazarr.yaml", {
                         $mounts: {
                             "/config": POD.Volume("var", {
                                 $backend: new Pvc("bazarr-var", {
+                                    $metadata: backupMode("pvc-hdd-schedule"),
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $resources: {
                                         storage: "=3Gi"
                                     }
-                                }).with(setBackupMode("pvc-hdd-schedule"))
+                                })
                             }).Mount(),
                             "/media": POD.Volume("media", {
                                 $backend: media["PersistentVolumeClaim/media"]

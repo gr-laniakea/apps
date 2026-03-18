@@ -1,6 +1,6 @@
-import { CDK } from "k8ts"
+import { K8S } from "k8ts"
 
-export const nodeAffinity: CDK.VolumeNodeAffinity = {
+export const nodeAffinity: K8S.VolumeNodeAffinity = {
     required: {
         nodeSelectorTerms: [
             {

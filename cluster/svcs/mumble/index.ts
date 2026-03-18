@@ -4,25 +4,26 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMumble } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { backupMode, W } from "@/root"
 import { Deployment, Pvc } from "k8ts"
 
 export default W.File("mumble.yaml", {
     namespace: namespaces["Namespace/mumble"],
-    meta: getAppMeta("mumble"),
-    *FILE() {
+    metadata: getAppMeta("mumble"),
+    *resources$() {
         const deploy = new Deployment("mumble", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                *$POD(POD) {
+                *containers$(POD) {
                     const vol = POD.Volume("var", {
                         $backend: new Pvc("mumble-var", {
+                            $metadata: backupMode("pvc-main-schedule"),
                             $accessModes: "RWO",
                             $storageClass: scTopolvm,
                             $resources: {
                                 storage: "=3Gi"
                             }
-                        }).with(setBackupMode("pvc-main-schedule"))
+                        })
                     })
                     yield POD.Container("mumble", {
                         $image: Images.mumble,

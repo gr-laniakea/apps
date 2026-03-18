@@ -4,17 +4,17 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userTheLounge } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { backupMode, W } from "@/root"
 import { Deployment, HttpRoute, Pvc, Service } from "k8ts"
 
 export default W.File("thelounge.yaml", {
     namespace: namespaces["Namespace/thelounge"],
-    meta: getAppMeta("thelounge"),
-    *FILE() {
+    metadata: getAppMeta("thelounge"),
+    *resources$() {
         const deploy = new Deployment("thelounge", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container("thelounge", {
                         $image: Images.thelounge,
                         $ports: {
@@ -30,12 +30,13 @@ export default W.File("thelounge.yaml", {
                         $mounts: {
                             "/var/opt/thelounge": POD.Volume("var", {
                                 $backend: new Pvc("thelounge-var", {
+                                    $metadata: backupMode("pvc-main-schedule"),
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $resources: {
                                         storage: "=7Gi"
                                     }
-                                }).with(setBackupMode("pvc-main-schedule"))
+                                })
                             }).Mount()
                         }
                     })

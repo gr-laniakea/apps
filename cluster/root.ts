@@ -1,14 +1,12 @@
-import type { ResourceTop } from "@k8ts/instruments"
-import { World } from "k8ts"
+import { Metadata } from "@k8ts/metadata"
+import { K8tsWorld } from "k8ts"
 import { applyHooks } from "./fix-output"
-export const W = new World("laniakea")
+export const W = new K8tsWorld("laniakea")
 applyHooks(W)
 
 export type BackupMode = "pvc-main-schedule" | "pvc-hdd-schedule"
-export function setBackupMode(mode: BackupMode) {
-    return <X extends ResourceTop>(x: X) => {
-        x.meta.add({
-            "%backup-mode": mode
-        })
-    }
+export function backupMode(mode: BackupMode) {
+    return new Metadata({
+        "%backup-mode": mode
+    })
 }

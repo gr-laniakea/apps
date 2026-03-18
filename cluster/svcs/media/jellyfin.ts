@@ -4,23 +4,23 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { backupMode, W } from "@/root"
 import { Deployment, HttpRoute, Pvc, Service } from "k8ts"
 import Media from "./media"
 
 export default W.File("jellyfin.yaml", {
     namespace: namespaces["Namespace/media"],
-    meta: getAppMeta("jellyfin"),
-    *FILE() {
+    metadata: getAppMeta("jellyfin"),
+    *resources$() {
         const deploy = new Deployment("jellyfin", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                $overrides: {
+                $manifest: {
                     securityContext: {
                         supplementalGroups: [105, 44]
                     }
                 },
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container("jellyfin", {
                         $image: Images.jellyfin,
                         $ports: {
@@ -38,12 +38,13 @@ export default W.File("jellyfin.yaml", {
                         $mounts: {
                             "/config": POD.Volume("var", {
                                 $backend: new Pvc("jellyfin-var", {
+                                    $metadata: backupMode("pvc-main-schedule"),
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $resources: {
                                         storage: "=25Gi"
                                     }
-                                }).with(setBackupMode("pvc-main-schedule"))
+                                })
                             }).Mount(),
                             "/media": POD.Volume("media", {
                                 $backend: Media["PersistentVolumeClaim/nfs-media"]

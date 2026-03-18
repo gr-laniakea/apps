@@ -1,9 +1,9 @@
-import type { CDK } from "k8ts"
+import type { K8S } from "k8ts"
 
-export const _nodeSelector: CDK.PodSpec["nodeSelector"] = {
+export const _nodeSelector: K8S.PodSpec["nodeSelector"] = {
     "laniakea/storage": "ssd"
 }
-export const nodeAffinity: CDK.VolumeNodeAffinity = {
+export const nodeAffinity: K8S.VolumeNodeAffinity = {
     required: {
         nodeSelectorTerms: [
             {

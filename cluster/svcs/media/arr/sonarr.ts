@@ -5,19 +5,19 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { backupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
 import Media from "../media"
 
 export default W.File("sonarr.yaml", {
     namespace: namespaces["Namespace/media"],
-    meta: getAppMeta("sonarr"),
-    *FILE() {
+    metadata: getAppMeta("sonarr"),
+    *resources$() {
         const deploy = new Deployment("sonarr", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                $overrides: scheduleOnHdd,
-                *$POD(POD) {
+                $manifest: scheduleOnHdd,
+                *containers$(POD) {
                     yield POD.Container("sonarr", {
                         $image: Images.sonarr,
                         $ports: {
@@ -33,12 +33,13 @@ export default W.File("sonarr.yaml", {
                         $mounts: {
                             "/config": POD.Volume("var", {
                                 $backend: new Pvc("sonarr-var", {
+                                    $metadata: backupMode("pvc-hdd-schedule"),
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $resources: {
                                         storage: "=10Gi"
                                     }
-                                }).with(setBackupMode("pvc-hdd-schedule"))
+                                })
                             }).Mount(),
                             "/media": POD.Volume("media", {
                                 $backend: Media["PersistentVolumeClaim/media"]

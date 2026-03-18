@@ -3,7 +3,7 @@ import { ipWgPortal } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { backupMode, W } from "@/root"
 import { localRefFile } from "@k8ts/instruments"
 import { ConfigMap, Deployment, Pvc, Secret } from "k8ts"
 
@@ -12,8 +12,8 @@ const wgInterface = process.env.WG_INTERFACE_NAME || "wg0"
 
 export default W.File(`${name}.yaml`, {
     namespace: namespaces[`Namespace/${name}`],
-    meta: getAppMeta(name),
-    *FILE() {
+    metadata: getAppMeta(name),
+    *resources$() {
         const secret = new Secret("wg-portal", {
             $noEmit: true,
             $data: {
@@ -28,15 +28,15 @@ export default W.File(`${name}.yaml`, {
             }
         })
         const deploy = new Deployment(name, {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                $overrides: {
+                $manifest: {
                     hostNetwork: true
                 },
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container(name, {
                         $image: Images.wgPortal,
-                        $overrides: {
+                        $manifest: {
                             securityContext: {
                                 privileged: true,
                                 capabilities: {
@@ -83,10 +83,11 @@ export default W.File(`${name}.yaml`, {
                             }),
                             "/app/data": POD.Volume("data", {
                                 $backend: new Pvc(`${name}-data`, {
+                                    $metadata: backupMode("pvc-main-schedule"),
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $resources: { storage: "=1Gi" }
-                                }).with(setBackupMode("pvc-main-schedule"))
+                                })
                             }).Mount(),
                             "/etc/wireguard": POD.Volume("wg-config", {
                                 $backend: {

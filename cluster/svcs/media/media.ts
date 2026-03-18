@@ -5,8 +5,8 @@ import { Pvc } from "k8ts"
 
 export default W.File("media-pvc.yaml", {
     namespace: namespaces["Namespace/media"],
-    meta: {},
-    *FILE() {
+    metadata: {},
+    *resources$() {
         yield new Pvc("media", {
             $accessModes: "RWO",
             $bind: Public["PersistentVolume/media"],
