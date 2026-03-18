@@ -39,7 +39,7 @@ export default W.File("jellyfin.yaml", {
                                 $backend: new Pvc("jellyfin-var2", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "125Gi -> ?"
+                                    $storage: "=125Gi"
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount(),
                             "/media": POD.Volume("media", {
