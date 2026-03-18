@@ -36,10 +36,10 @@ export default W.File("jellyfin.yaml", {
 
                         $mounts: {
                             "/config": POD.Volume("var", {
-                                $backend: new Pvc("jellyfin-var", {
+                                $backend: new Pvc("jellyfin-var2", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=125Gi"
+                                    $storage: "125Gi -> ?"
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount(),
                             "/media": POD.Volume("media", {
