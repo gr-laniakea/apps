@@ -21,6 +21,7 @@ export namespace Images {
         export const homepage = Host.ghcr.author("gethomepage")
         export const flaresolverr = Host.ghcr.author("flaresolverr")
         export const wgPortal = Host.docker.author("wgportal")
+        export const wgEasy = Host.ghcr.author("wg-easy")
         export const _ = Host.docker.author("_")
     }
 
@@ -44,6 +45,7 @@ export namespace Images {
     export const jackett = Authors.linuxserver.image("jackett").tag("latest")
     export const thelounge = Authors.thelounge.image("thelounge").tag("latest")
     export const wgPortal = Authors.wgPortal.image("wg-portal").tag("latest")
+    export const wgEasy = Authors.wgEasy.image("wg-easy").tag("15")
 
     export const wiki_js = Authors.requarks.image("wiki").tag("latest")
     export const jellyseer = Authors.fallenbagel.image("jellyseerr").tag("latest")

@@ -17,6 +17,7 @@ import minecraft from "./svcs/minecraft"
 import mumble from "./svcs/mumble"
 import speedtestTracker from "./svcs/speedtest-tracker/speedtest-tracker"
 import { Syncthing } from "./svcs/syncthing"
+import wgClient from "./svcs/wg-easy"
 async function main() {
     const runner = new Runner({
         cwd: ".",
@@ -36,7 +37,8 @@ async function main() {
         const hpSecrets = require("./svcs/homepage/secret/secret.ts").default
         const speedtestSecrets = require("./svcs/speedtest-tracker/secret/index.ts").default
         const wgPortalSecrets = require("./svcs/wgportal/secret/index.ts").default
-        secrets.push(hpSecrets, speedtestSecrets, wgPortalSecrets)
+        const wgClientSecrets = require("./svcs/wg-easy/secret/index.ts").default
+        secrets.push(hpSecrets, speedtestSecrets, wgPortalSecrets, wgClientSecrets)
     } catch (e: any) {
         console.error(e.message)
     }
@@ -58,6 +60,7 @@ async function main() {
         factorio,
         minecraft,
         homepage,
+        wgClient,
         speedtestTracker,
         flaresolverr,
         jackett,
