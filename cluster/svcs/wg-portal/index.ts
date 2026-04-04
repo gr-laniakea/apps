@@ -23,7 +23,9 @@ export default W.File(`${name}.yaml`, {
         const webPort = 51831
         const deploy = new Deployment(name, {
             replicas: 1,
+
             $template: {
+                hostNetwork: true,
                 *$POD(POD) {
                     yield POD.Container(name, {
                         $image: Images.wgPortal,
@@ -34,7 +36,12 @@ export default W.File(`${name}.yaml`, {
                                 hostIp: ssdNodePublicIp,
                                 hostPort: udpPort
                             },
-                            web: webPort
+                            web: {
+                                port: webPort,
+                                protocol: "TCP",
+                                hostIp: ipWgClientPortal,
+                                hostPort: 80
+                            }
                         },
                         securityContext: {
                             capabilities: {

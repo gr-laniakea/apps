@@ -17,7 +17,7 @@ import minecraft from "./svcs/minecraft"
 import mumble from "./svcs/mumble"
 import speedtestTracker from "./svcs/speedtest-tracker/speedtest-tracker"
 import { Syncthing } from "./svcs/syncthing"
-import wgClient from "./svcs/wg-easy"
+import wgClient from "./svcs/wg-portal"
 async function main() {
     const runner = new Runner({
         cwd: ".",
