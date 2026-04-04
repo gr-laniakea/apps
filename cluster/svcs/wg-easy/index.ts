@@ -63,14 +63,14 @@ export default W.File(`${name}.yaml`, {
                         },
                         $mounts: {
                             "/etc/wireguard": POD.Volume("wireguard", {
-                                $backend: new Pvc(`${name}-wireguard`, {
+                                $backend: new Pvc(`${name}-wireguard-2`, {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $storage: "=1Gi"
                                 }).with(setBackupMode("pvc-main-schedule"))
                             }).Mount(),
                             "/app/data": POD.Volume("data", {
-                                $backend: new Pvc(`${name}-data`, {
+                                $backend: new Pvc(`${name}-data-2`, {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $storage: "=1Gi"
