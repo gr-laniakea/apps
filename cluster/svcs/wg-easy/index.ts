@@ -14,8 +14,8 @@ export default W.File(`${name}.yaml`, {
     *FILE() {
         const extSecret = new Secret(name, {
             $data: {
-                INIT_USERNAME: "",
-                INIT_PASSWORD: ""
+                ADMIN_USER: "",
+                ADMIN_PASSWORD: ""
             }
         })
         extSecret.disabled = true
@@ -26,7 +26,7 @@ export default W.File(`${name}.yaml`, {
             $template: {
                 *$POD(POD) {
                     yield POD.Container(name, {
-                        $image: Images.wgEasy,
+                        $image: Images.wgPortal,
                         $ports: {
                             wireguard: {
                                 port: udpPort,
@@ -38,36 +38,39 @@ export default W.File(`${name}.yaml`, {
                         },
                         securityContext: {
                             capabilities: {
-                                add: ["NET_ADMIN", "SYS_MODULE"]
+                                add: ["NET_ADMIN"]
                             }
                         },
                         $env: {
-                            PORT: webPort,
-                            INIT_ENABLED: "true",
-                            INIT_USERNAME: {
+                            WG_PORTAL_BACKEND_IGNORED_LOCAL_INTERFACES: "wg0",
+                            WG_PORTAL_CORE_ADMIN_USER: {
                                 $backend: extSecret,
-                                key: "INIT_USERNAME"
+                                key: "ADMIN_USER"
                             },
-                            INIT_PASSWORD: {
+                            WG_PORTAL_CORE_ADMIN_PASSWORD: {
                                 $backend: extSecret,
-                                key: "INIT_PASSWORD"
+                                key: "ADMIN_PASSWORD"
                             },
-                            INIT_IPV4_CIDR: "10.0.32.0/24",
-                            INIT_IPV6_CIDR: "2001:0db8::/32",
-                            INIT_HOST: ssdNodePublicIp,
-                            INIT_PORT: udpPort,
-                            INIT_DNS: "10.0.12.10,8.8.8.8,8.8.4.4",
-                            INIT_ALLOWED_IPS: "10.0.0.0/19",
-                            DISABLE_IPV6: "true",
-                            INSECURE: "true"
+                            WG_PORTAL_WEB_LISTENING_ADDRESS: `:${webPort}`,
+                            WG_PORTAL_WEB_EXTERNAL_URL: `http://${ipWgClientPortal}`,
+                            WG_PORTAL_ADVANCED_START_LISTEN_PORT: udpPort,
+                            WG_PORTAL_ADVANCED_USE_IP_V6: "false",
+                            WG_PORTAL_ADVANCED_CONFIG_STORAGE_PATH: "/etc/wireguard"
                         },
                         $resources: {
                             cpu: "100m -> 500m",
                             memory: "128Mi -> 512Mi"
                         },
                         $mounts: {
-                            "/etc/wireguard": POD.Volume("config", {
-                                $backend: new Pvc(`${name}-config-2`, {
+                            "/etc/wireguard": POD.Volume("wireguard", {
+                                $backend: new Pvc(`${name}-wireguard`, {
+                                    $accessModes: "RWO",
+                                    $storageClass: scTopolvm,
+                                    $storage: "=1Gi"
+                                }).with(setBackupMode("pvc-main-schedule"))
+                            }).Mount(),
+                            "/app/data": POD.Volume("data", {
+                                $backend: new Pvc(`${name}-data`, {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $storage: "=1Gi"
