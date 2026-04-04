@@ -52,10 +52,12 @@ export default W.File(`${name}.yaml`, {
                                 $backend: extSecret,
                                 key: "INIT_PASSWORD"
                             },
+                            INIT_IPV4_CIDR: "10.0.32.0/24",
+                            INIT_IPV6_CIDR: "2001:0db8::/32",
                             INIT_HOST: "0.0.0.0",
                             INIT_PORT: udpPort,
                             INIT_DNS: "10.0.12.10,8.8.8.8,8.8.4.4",
-                            INIT_ALLOWED_IPS: "10.0.32.1/32,10.0.0.0/19",
+                            INIT_ALLOWED_IPS: "10.0.0.0/19",
                             DISABLE_IPV6: "true",
                             INSECURE: "true"
                         },
