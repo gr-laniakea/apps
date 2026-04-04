@@ -4,7 +4,7 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { scTopolvm } from "@/externals"
 import { setBackupMode, W } from "@/root"
-import { Deployment, Pvc, Secret, Service } from "k8ts"
+import { Deployment, Pvc, Secret } from "k8ts"
 
 const name = "wg-client"
 
@@ -20,7 +20,7 @@ export default W.File(`${name}.yaml`, {
         })
         extSecret.disabled = true
         const udpPort = 51830
-        const webPort = 51831
+        const webPort = 80
         const deploy = new Deployment(name, {
             replicas: 1,
 
@@ -37,7 +37,7 @@ export default W.File(`${name}.yaml`, {
                                 hostPort: udpPort
                             },
                             web: {
-                                port: webPort,
+                                port: 80,
                                 protocol: "TCP",
                                 hostIp: ipWgClientPortal,
                                 hostPort: 80
@@ -91,18 +91,5 @@ export default W.File(`${name}.yaml`, {
         })
 
         yield deploy
-
-        const svc = new Service(`${name}-dashboard`, {
-            $backend: deploy,
-            $ports: {
-                web: 80
-            },
-            $frontend: {
-                type: "LoadBalancer",
-                loadBalancerIP: ipWgClientPortal
-            }
-        })
-
-        yield svc
     }
 })
