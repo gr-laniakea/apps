@@ -25,10 +25,7 @@ export default W.File(`${name}.yaml`, {
             replicas: 1,
             $template: {
                 securityContext: {
-                    sysctls: [
-                        { name: "net.ipv4.ip_forward", value: "1" },
-                        { name: "net.ipv4.conf.all.src_valid_mark", value: "1" }
-                    ]
+                    sysctls: []
                 },
                 *$POD(POD) {
                     yield POD.Container(name, {
