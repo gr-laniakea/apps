@@ -52,9 +52,10 @@ export default W.File(`${name}.yaml`, {
                                 key: "ADMIN_PASSWORD"
                             },
                             WG_PORTAL_WEB_LISTENING_ADDRESS: `:${webPort}`,
-                            WG_PORTAL_WEB_EXTERNAL_URL: `http://${ipWgClientPortal}`,
+                            WG_PORTAL_WEB_EXTERNAL_URL: `http://wg-client.lk.host`,
                             WG_PORTAL_ADVANCED_START_LISTEN_PORT: udpPort,
                             WG_PORTAL_ADVANCED_USE_IP_V6: "false",
+                            WG_CLIENT_DASHBOARD_SERVICE_HOST: "wg-client.lk.host",
                             WG_PORTAL_ADVANCED_CONFIG_STORAGE_PATH: "/etc/wireguard"
                         },
                         $resources: {
