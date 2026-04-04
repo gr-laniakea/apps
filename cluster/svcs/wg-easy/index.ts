@@ -54,7 +54,7 @@ export default W.File(`${name}.yaml`, {
                             },
                             INIT_IPV4_CIDR: "10.0.32.0/24",
                             INIT_IPV6_CIDR: "2001:0db8::/32",
-                            INIT_HOST: "0.0.0.0",
+                            INIT_HOST: ssdNodePublicIp,
                             INIT_PORT: udpPort,
                             INIT_DNS: "10.0.12.10,8.8.8.8,8.8.4.4",
                             INIT_ALLOWED_IPS: "10.0.0.0/19",
