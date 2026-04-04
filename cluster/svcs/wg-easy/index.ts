@@ -24,9 +24,6 @@ export default W.File(`${name}.yaml`, {
         const deploy = new Deployment(name, {
             replicas: 1,
             $template: {
-                securityContext: {
-                    sysctls: []
-                },
                 *$POD(POD) {
                     yield POD.Container(name, {
                         $image: Images.wgEasy,

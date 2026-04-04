@@ -36,9 +36,8 @@ async function main() {
     try {
         const hpSecrets = require("./svcs/homepage/secret/secret.ts").default
         const speedtestSecrets = require("./svcs/speedtest-tracker/secret/index.ts").default
-        const wgPortalSecrets = require("./svcs/wgportal/secret/index.ts").default
         const wgClientSecrets = require("./svcs/wg-easy/secret/index.ts").default
-        secrets.push(hpSecrets, speedtestSecrets, wgPortalSecrets, wgClientSecrets)
+        secrets.push(hpSecrets, speedtestSecrets, wgClientSecrets)
     } catch (e: any) {
         console.error(e.message)
     }
