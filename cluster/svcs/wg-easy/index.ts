@@ -1,5 +1,5 @@
 import { Images } from "@/_images"
-import { ipWgClient, ssdNodePublicIp } from "@/_ips"
+import { ipWgClientPortal, ssdNodePublicIp } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { scTopolvm } from "@/externals"
@@ -29,7 +29,7 @@ export default W.File(`${name}.yaml`, {
                         $image: Images.wgEasy,
                         $ports: {
                             wireguard: {
-                                port: 51820,
+                                port: udpPort,
                                 protocol: "UDP",
                                 hostIp: ssdNodePublicIp,
                                 hostPort: udpPort
@@ -65,7 +65,7 @@ export default W.File(`${name}.yaml`, {
                         },
                         $mounts: {
                             "/etc/wireguard": POD.Volume("config", {
-                                $backend: new Pvc(`${name}-config`, {
+                                $backend: new Pvc(`${name}-config-2`, {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
                                     $storage: "=1Gi"
@@ -86,7 +86,7 @@ export default W.File(`${name}.yaml`, {
             },
             $frontend: {
                 type: "LoadBalancer",
-                loadBalancerIP: ipWgClient
+                loadBalancerIP: ipWgClientPortal
             }
         })
 
