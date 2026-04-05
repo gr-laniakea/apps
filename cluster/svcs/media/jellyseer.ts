@@ -4,19 +4,19 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { getBackupMode, W } from "@/root"
 import { Deployment, HttpRoute, Pvc, Service } from "k8ts"
 
 const name = "jellyseer"
 
 export default W.File(`${name}.yaml`, {
     namespace: namespaces["Namespace/media"],
-    meta: getAppMeta(name),
-    *FILE() {
+    metadata: getAppMeta(name),
+    *resources$() {
         const deploy = new Deployment(name, {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container(name, {
                         $image: Images.jellyseer,
                         $ports: {
@@ -27,16 +27,19 @@ export default W.File(`${name}.yaml`, {
                             memory: "1Gi -> 2Gi"
                         },
                         $env: {
-                            ...userMedia.toDockerEnv()
+                            ...userMedia.sameGroup().toDockerEnv()
                         },
                         $mounts: {
                             "/app/config": POD.Volume("var", {
                                 $backend: new Pvc(`${name}-var`, {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=7Gi"
-                                }).with(setBackupMode("pvc-main-schedule"))
-                            }).Mount()
+                                    $resources: {
+                                        storage: "=7Gi"
+                                    },
+                                    $metadata: getBackupMode("pvc-main-schedule")
+                                })
+                            }).mount()
                         }
                     })
                 }

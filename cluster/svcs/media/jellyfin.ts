@@ -4,34 +4,38 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { getBackupMode, W } from "@/root"
 import { Deployment, HttpRoute, Pvc, Service } from "k8ts"
 import Media from "./media"
 
 export default W.File("jellyfin.yaml", {
     namespace: namespaces["Namespace/media"],
-    meta: getAppMeta("jellyfin"),
-    *FILE() {
+    metadata: getAppMeta("jellyfin"),
+    *resources$() {
         const deploy = new Deployment("jellyfin", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                securityContext: {
-                    supplementalGroups: [105, 44]
+                $$manifest: {
+                    securityContext: {
+                        supplementalGroups: [105, 44]
+                    }
                 },
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container("jellyfin", {
                         $image: Images.jellyfin,
                         $ports: {
                             web: "8096"
                         },
-                        securityContext: {},
+                        $$manifest: {
+                            securityContext: {}
+                        },
                         $resources: {
                             cpu: "100m -> 6000m",
                             memory: "1Gi -> 12Gi",
                             "gpu.intel.com/i915": "=1"
                         },
                         $env: {
-                            ...userMedia.toDockerEnv()
+                            ...userMedia.sameGroup().toDockerEnv()
                         },
 
                         $mounts: {
@@ -39,12 +43,15 @@ export default W.File("jellyfin.yaml", {
                                 $backend: new Pvc("jellyfin-var2", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=125Gi"
-                                }).with(setBackupMode("pvc-main-schedule"))
-                            }).Mount(),
+                                    $resources: {
+                                        storage: "=125Gi"
+                                    },
+                                    $metadata: getBackupMode("pvc-main-schedule")
+                                })
+                            }).mount(),
                             "/media": POD.Volume("media", {
                                 $backend: Media["PersistentVolumeClaim/nfs-media"]
-                            }).Mount({
+                            }).mount({
                                 readOnly: true
                             })
                         }

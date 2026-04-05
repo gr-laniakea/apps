@@ -3,7 +3,7 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userSpeedtestTracker } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { getBackupMode, W } from "@/root"
 import { Cron } from "@k8ts/instruments"
 import { Deployment, Pvc, Secret, Service } from "k8ts"
 
@@ -12,26 +12,26 @@ const ipSpeedtestTracker = "10.0.12.72"
 
 export default W.File(`${name}.yaml`, {
     namespace: namespaces[`Namespace/${name}`],
-    meta: getAppMeta(name),
-    *FILE() {
+    metadata: getAppMeta(name),
+    *resources$() {
         const extSecret = new Secret("speedtest-tracker", {
+            $noEmit: true,
             $data: {
                 API_KEY: ""
             }
         })
         // ADD secret after namespace is created
-        extSecret.disabled = true
         const deploy = new Deployment(name, {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container(name, {
                         $image: Images.speedtestTracker,
                         $ports: {
                             web: 80
                         },
                         $env: {
-                            ...userSpeedtestTracker.toDockerEnv(),
+                            ...userSpeedtestTracker.sameGroup().toDockerEnv(),
                             APP_KEY: {
                                 $backend: extSecret,
                                 key: "API_KEY"
@@ -48,9 +48,12 @@ export default W.File(`${name}.yaml`, {
                                 $backend: new Pvc(`${name}-config`, {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=5Gi"
-                                }).with(setBackupMode("pvc-main-schedule"))
-                            }).Mount()
+                                    $resources: {
+                                        storage: "=5Gi"
+                                    },
+                                    $metadata: getBackupMode("pvc-main-schedule")
+                                })
+                            }).mount()
                         }
                     })
                 }

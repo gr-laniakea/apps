@@ -4,7 +4,7 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userSyncthing } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { getBackupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
 
 /*
@@ -14,12 +14,12 @@ so NAT or dynamic IP don't matter.
 
 export default W.File("syncthing.yaml", {
     namespace: namespaces["Namespace/syncthing"],
-    meta: getAppMeta("syncthing"),
-    *FILE() {
+    metadata: getAppMeta("syncthing"),
+    *resources$() {
         const deploy = new Deployment("syncthing", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container("syncthing", {
                         $image: Images.syncthing,
                         $ports: {
@@ -38,7 +38,7 @@ export default W.File("syncthing.yaml", {
                             }
                         },
                         $env: {
-                            ...userSyncthing.toDockerEnv()
+                            ...userSyncthing.sameGroup().toDockerEnv()
                         },
                         $resources: {
                             cpu: "300m -> 1000m",
@@ -49,16 +49,22 @@ export default W.File("syncthing.yaml", {
                                 $backend: new Pvc("syncthing-config", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=5Gi"
-                                }).with(setBackupMode("pvc-main-schedule"))
-                            }).Mount(),
+                                    $resources: {
+                                        storage: "=5Gi"
+                                    },
+                                    $metadata: getBackupMode("pvc-main-schedule")
+                                })
+                            }).mount(),
                             "/data": POD.Volume("data", {
                                 $backend: new Pvc("data", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=200Gi"
-                                }).with(setBackupMode("pvc-main-schedule"))
-                            }).Mount()
+                                    $resources: {
+                                        storage: "=200Gi"
+                                    },
+                                    $metadata: getBackupMode("pvc-main-schedule")
+                                })
+                            }).mount()
                         }
                     })
                 }

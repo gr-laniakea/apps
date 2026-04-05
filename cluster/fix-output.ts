@@ -1,39 +1,37 @@
-import { Deployment, Pvc, Service, type CDK, type World } from "k8ts"
+import type { K8S } from "@k8ts/sample-interfaces"
+import { Deployment, Pvc, Service, type K8tsWorld_Base } from "k8ts"
 import { scTopolvm } from "./externals"
-export function applyHooks(W: World) {
+export function applyHooks(W: K8tsWorld_Base) {
     W.on("resource/manifested", ({ resource, manifest }) => {
-        resource.node.when(Service, svc => {
+        resource.__vertex__.when(Service, svc => {
             if (svc.props.$frontend.type === "LoadBalancer") {
-                const mService = manifest as CDK.KubeServiceProps
+                const mService = manifest as K8S.KubeServiceProps
                 mService.spec!.allocateLoadBalancerNodePorts = false
                 mService.spec!.externalTrafficPolicy = "Local"
             }
         })
     })
     W.on("resource/loaded", ({ resource }) => {
-        resource.node.when(Pvc, entity => {
-            if (entity.props.$storageClass?.name === "topolvm") {
-                entity.name += "-topo"
-                entity.meta.overwrite("name", entity.name)
+        resource.__vertex__.when(Pvc, entity => {
+            if (entity.props.$storageClass?.ident.name === "topolvm") {
+                entity.ident.name += "-topo"
             }
         })
-        resource.node.when(Deployment, entity => {
+        resource.__vertex__.when(Deployment, entity => {
             entity.props.$strategy = {
                 type: "Recreate"
             }
-            const hasTopolvmPvc = entity.node.recursiveRelationsSubtree
+            const hasTopolvmPvc = entity.__vertex__.recursiveRelationsSubtree
                 .first(x => {
                     const ent = x.needed.entity
                     return ent instanceof Pvc && ent.props.$storageClass === scTopolvm
                 })
                 .pull()
             if (hasTopolvmPvc) {
-                entity.meta.add({
+                entity.metadata.add({
                     "%has-topolvm-pvc": "true"
                 })
             }
-            const labels = entity.meta.pick("app.kubernetes.io/")
-            entity.template.meta.add(labels)
         })
     })
 }

@@ -4,28 +4,37 @@ import { T } from "@k8ts/instruments"
 import { Pv } from "k8ts"
 
 export default W.File("libraries.yaml", {
-    meta: {},
-    *FILE() {
+    metadata: {},
+    *resources$() {
         yield new Pv("media", {
             $accessModes: ["RWO"],
-            $capacity: T(10),
+            $capacity: {
+                storage: T(10)
+            },
             $backend: {
                 kind: "Local",
                 path: "/data/media"
             },
-            reclaimPolicy: "Retain",
-            nodeAffinity
+            $reclaimPolicy: "Retain",
+            $$manifest: {
+                nodeAffinity
+            }
         })
 
         yield new Pv("nfs-media", {
             $accessModes: ["ROX"],
-            $capacity: T(10),
+            $capacity: {
+                storage: T(10)
+            },
             $backend: {
                 kind: "NFS",
                 path: "/data/media",
                 server: "10.0.10.18"
             },
-            mountOptions: ["ro", "nfsvers=4.2"]
+            $$manifest: {
+                mountOptions: ["ro", "nfsvers=4.2"],
+                nodeAffinity
+            }
         })
     }
 })

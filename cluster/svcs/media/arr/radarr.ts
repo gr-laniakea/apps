@@ -3,28 +3,28 @@ import { Images } from "@/_images"
 import { ipRadarr } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
-import { userMedia } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { getBackupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
 import media from "../media"
+import { userMedia } from "@/_users"
 
 export default W.File("radarr.yaml", {
     namespace: namespaces["Namespace/media"],
-    meta: getAppMeta("radarr"),
-    *FILE() {
+    metadata: getAppMeta("radarr"),
+    *resources$() {
         const deploy = new Deployment("radarr", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
                 ...scheduleOnHdd,
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container("radarr", {
                         $image: Images.radarr,
                         $ports: {
                             web: 7878
                         },
                         $env: {
-                            ...userMedia.toDockerEnv()
+                            ...userMedia.sameGroup().toDockerEnv()
                         },
                         $resources: {
                             cpu: "300m -> 1000m",
@@ -35,12 +35,15 @@ export default W.File("radarr.yaml", {
                                 $backend: new Pvc("radarr-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=10Gi"
-                                }).with(setBackupMode("pvc-hdd-schedule"))
-                            }).Mount(),
+                                    $resources: {
+                                        storage: "=10Gi"
+                                    },
+                                    $metadata: getBackupMode("pvc-hdd-schedule")
+                                })
+                            }).mount(),
                             "/media": POD.Volume("media", {
                                 $backend: media["PersistentVolumeClaim/media"]
-                            }).Mount()
+                            }).mount()
                         }
                     })
                 }

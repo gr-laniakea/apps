@@ -4,30 +4,32 @@ import { ipWgClientPortal, ssdNodePublicIp } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { getBackupMode, W } from "@/root"
 import { Deployment, HttpRoute, Pvc, Secret, Service } from "k8ts"
 
 const name = "wg-client"
 
 export default W.File(`${name}.yaml`, {
     namespace: namespaces["Namespace/wg-client"],
-    meta: getAppMeta(name),
-    *FILE() {
+    metadata: getAppMeta(name),
+    *resources$() {
         const extSecret = new Secret(name, {
+            $noEmit: true,
             $data: {
                 ADMIN_USER: "",
                 ADMIN_PASSWORD: ""
             }
         })
-        extSecret.disabled = true
         const udpPort = 51830
         const webPort = 80
         const deploy = new Deployment(name, {
-            replicas: 1,
+            $replicas: 1,
 
             $template: {
-                hostNetwork: true,
-                *$POD(POD) {
+                $$manifest: {
+                    hostNetwork: true
+                },
+                *containers$(POD) {
                     yield POD.Container(name, {
                         $image: Images.wgPortal,
                         $ports: {
@@ -44,9 +46,11 @@ export default W.File(`${name}.yaml`, {
                                 hostPort: 80
                             }
                         },
-                        securityContext: {
-                            capabilities: {
-                                add: ["NET_ADMIN"]
+                        $$manifest: {
+                            securityContext: {
+                                capabilities: {
+                                    add: ["NET_ADMIN"]
+                                }
                             }
                         },
                         $env: {
@@ -75,16 +79,22 @@ export default W.File(`${name}.yaml`, {
                                 $backend: new Pvc(`${name}-wireguard-2`, {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=1Gi"
-                                }).with(setBackupMode("pvc-main-schedule"))
-                            }).Mount(),
+                                    $resources: {
+                                        storage: "=1Gi"
+                                    },
+                                    $metadata: getBackupMode("pvc-main-schedule")
+                                })
+                            }).mount(),
                             "/app/data": POD.Volume("data", {
                                 $backend: new Pvc(`${name}-data-2`, {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=1Gi"
-                                }).with(setBackupMode("pvc-main-schedule"))
-                            }).Mount()
+                                    $resources: {
+                                        storage: "=1Gi"
+                                    },
+                                    $metadata: getBackupMode("pvc-main-schedule")
+                                })
+                            }).mount()
                         }
                     })
                 }

@@ -5,19 +5,19 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { getBackupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
 import media from "../media"
 
 export default W.File("bazarr.yaml", {
     namespace: namespaces["Namespace/media"],
-    meta: getAppMeta("bazarr"),
-    *FILE() {
+    metadata: getAppMeta("bazarr"),
+    *resources$() {
         const deploy = new Deployment("bazarr", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
                 ...scheduleOnHdd,
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container("bazarr", {
                         $image: Images.bazarr,
                         $ports: {
@@ -28,19 +28,22 @@ export default W.File("bazarr.yaml", {
                             memory: "1Gi -> 8Gi"
                         },
                         $env: {
-                            ...userMedia.toDockerEnv()
+                            ...userMedia.sameGroup().toDockerEnv()
                         },
                         $mounts: {
                             "/config": POD.Volume("var", {
                                 $backend: new Pvc("bazarr-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=3Gi"
-                                }).with(setBackupMode("pvc-hdd-schedule"))
-                            }).Mount(),
+                                    $resources: {
+                                        storage: "=3Gi"
+                                    },
+                                    $metadata: getBackupMode("pvc-hdd-schedule")
+                                })
+                            }).mount(),
                             "/media": POD.Volume("media", {
                                 $backend: media["PersistentVolumeClaim/media"]
-                            }).Mount()
+                            }).mount()
                         }
                     })
                 }

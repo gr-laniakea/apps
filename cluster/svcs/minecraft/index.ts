@@ -4,19 +4,19 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMinecraft } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { getBackupMode, W } from "@/root"
 import { Deployment, Pvc } from "k8ts"
 
 const name = "minecraft"
 
 export default W.File(`${name}.yaml`, {
     namespace: namespaces[`Namespace/${name}`],
-    meta: getAppMeta(name),
-    *FILE() {
+    metadata: getAppMeta(name),
+    *resources$() {
         const deploy = new Deployment(name, {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container(name, {
                         $image: Images.minecraft,
                         $ports: {
@@ -38,7 +38,7 @@ export default W.File(`${name}.yaml`, {
                             memory: "1Gi -> 12Gi"
                         },
                         $env: {
-                            ...userMinecraft.toDockerEnv(""),
+                            ...userMinecraft.sameGroup().toDockerEnv(""),
                             EULA: "TRUE",
                             TYPE: "FABRIC",
                             VERSION: "1.20.1",
@@ -52,9 +52,12 @@ export default W.File(`${name}.yaml`, {
                                 $backend: new Pvc("minecraft-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=35Gi"
-                                }).with(setBackupMode("pvc-main-schedule"))
-                            }).Mount()
+                                    $resources: {
+                                        storage: "=35Gi"
+                                    },
+                                    $metadata: getBackupMode("pvc-main-schedule")
+                                })
+                            }).mount()
                         }
                     })
                 }

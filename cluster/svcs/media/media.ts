@@ -5,17 +5,21 @@ import { Pvc } from "k8ts"
 
 export default W.File("media-pvc.yaml", {
     namespace: namespaces["Namespace/media"],
-    meta: {},
-    *FILE() {
+    metadata: {},
+    *resources$() {
         yield new Pvc("media", {
             $accessModes: "RWO",
-            $bind: Public["PersistentVolume/media"],
-            $storage: "=1Gi"
+            $volume: Public["PersistentVolume/media"],
+            $resources: {
+                storage: "=1Gi"
+            }
         })
         yield new Pvc("nfs-media", {
             $accessModes: "ROX",
-            $bind: Public["PersistentVolume/nfs-media"],
-            $storage: "=1Gi"
+            $volume: Public["PersistentVolume/nfs-media"],
+            $resources: {
+                storage: "=1Gi"
+            }
         })
     }
 })

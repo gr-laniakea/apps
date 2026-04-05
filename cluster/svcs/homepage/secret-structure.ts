@@ -14,6 +14,4 @@ export type EnvKeys = keyof typeof objHomepageSecretStructure
 export const homepageApiKeys = v1.Secret._.refKey({
     name: "api-keys",
     namespace: "homepage"
-}).External({
-    keys: Object.keys(objHomepageSecretStructure) as EnvKeys[]
-})
+}).DummyResource()

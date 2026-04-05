@@ -4,25 +4,25 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { getBackupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
 
 export default W.File("prowlarr.yaml", {
     namespace: namespaces["Namespace/media"],
-    meta: getAppMeta("prowlarr"),
-    *FILE() {
+    metadata: getAppMeta("prowlarr"),
+    *resources$() {
         const deploy = new Deployment("prowlarr", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
                 // This should not run on the HDD node since it doesn't touch media directly
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container("prowlarr", {
                         $image: Images.prowlarr,
                         $ports: {
                             web: 9696
                         },
                         $env: {
-                            ...userMedia.toDockerEnv()
+                            ...userMedia.sameGroup().toDockerEnv()
                         },
                         $resources: {
                             cpu: "300m -> 500m",
@@ -33,9 +33,12 @@ export default W.File("prowlarr.yaml", {
                                 $backend: new Pvc("prowlarr-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=1Gi"
-                                }).with(setBackupMode("pvc-main-schedule"))
-                            }).Mount()
+                                    $resources: {
+                                        storage: "=1Gi"
+                                    },
+                                    $metadata: getBackupMode("pvc-main-schedule")
+                                })
+                            }).mount()
                         }
                     })
                 }

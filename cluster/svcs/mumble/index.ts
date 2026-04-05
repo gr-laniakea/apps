@@ -4,23 +4,26 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMumble } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { getBackupMode, W } from "@/root"
 import { Deployment, Pvc } from "k8ts"
 
 export default W.File("mumble.yaml", {
     namespace: namespaces["Namespace/mumble"],
-    meta: getAppMeta("mumble"),
-    *FILE() {
+    metadata: getAppMeta("mumble"),
+    *resources$() {
         const deploy = new Deployment("mumble", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                *$POD(POD) {
+                *containers$(POD) {
                     const vol = POD.Volume("var", {
                         $backend: new Pvc("mumble-var", {
                             $accessModes: "RWO",
                             $storageClass: scTopolvm,
-                            $storage: "=3Gi"
-                        }).with(setBackupMode("pvc-main-schedule"))
+                            $resources: {
+                                storage: "=3Gi"
+                            },
+                            $metadata: getBackupMode("pvc-main-schedule")
+                        })
                     })
                     yield POD.Container("mumble", {
                         $image: Images.mumble,
@@ -39,7 +42,7 @@ export default W.File("mumble.yaml", {
                             }
                         },
                         $env: {
-                            ...userMumble.toDockerEnv(),
+                            ...userMumble.sameGroup().toDockerEnv(),
                             MUMBLE_CONFIG_SERVER_PASSWORD: "superspecialawesomegame",
                             MUMBLE_SERVER_USERNAME: "greg",
                             MUMBLE_SERVER_ADMIN_KEY: "atroposwasneveratropos",
@@ -50,7 +53,7 @@ export default W.File("mumble.yaml", {
                             memory: "1Gi -> 4Gi"
                         },
                         $mounts: {
-                            "/data": vol.Mount()
+                            "/data": vol.mount()
                         }
                     })
                 }

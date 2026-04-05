@@ -2,8 +2,8 @@ import { W } from "@/root"
 import { Namespace } from "k8ts"
 
 export default W.File("namespaces.yaml", {
-    meta: {},
-    *FILE() {
+    metadata: {},
+    *resources$() {
         yield new Namespace("factorio")
         yield new Namespace("flaresolverr")
         yield new Namespace("glances")

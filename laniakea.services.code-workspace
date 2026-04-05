@@ -38,7 +38,7 @@
             "code": true,
             "**/k8s.out/": false
         },
-        "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+        "js/ts.tsserver.experimental.enableProjectDiagnostics": true,
         "powershell.cwd": "root"
     }
 }

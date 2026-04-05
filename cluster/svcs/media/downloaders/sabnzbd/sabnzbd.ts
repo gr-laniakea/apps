@@ -5,26 +5,26 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { getBackupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
 import media from "../../media"
 
 export default W.File("sabnzbd.yaml", {
     namespace: namespaces["Namespace/media"],
-    meta: getAppMeta("sabnzbd"),
-    *FILE() {
+    metadata: getAppMeta("sabnzbd"),
+    *resources$() {
         const deploy = new Deployment("sabnzbd", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
                 ...scheduleOnHdd,
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container("sabnzbd", {
                         $image: Images.sabnzbd,
                         $ports: {
                             http: 8080
                         },
                         $env: {
-                            ...userMedia.toDockerEnv()
+                            ...userMedia.sameGroup().toDockerEnv()
                         },
                         $resources: {
                             cpu: "500m -> 2000m",
@@ -33,14 +33,17 @@ export default W.File("sabnzbd.yaml", {
                         $mounts: {
                             "/media": POD.Volume("downs", {
                                 $backend: media["PersistentVolumeClaim/media"]
-                            }).Mount(),
+                            }).mount(),
                             "/config": POD.Volume("var", {
                                 $backend: new Pvc("sabnzbd-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=5Gi"
-                                }).with(setBackupMode("pvc-hdd-schedule"))
-                            }).Mount()
+                                    $resources: {
+                                        storage: "=5Gi"
+                                    },
+                                    $metadata: getBackupMode("pvc-hdd-schedule")
+                                })
+                            }).mount()
                         }
                     })
                 }

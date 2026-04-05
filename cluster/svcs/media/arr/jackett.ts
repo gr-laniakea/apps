@@ -4,25 +4,25 @@ import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { userMedia } from "@/_users"
 import { scTopolvm } from "@/externals"
-import { setBackupMode, W } from "@/root"
+import { getBackupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
 
 export default W.File("jackett.yaml", {
     namespace: namespaces["Namespace/media"],
-    meta: getAppMeta("jackett"),
-    *FILE() {
+    metadata: getAppMeta("jackett"),
+    *resources$() {
         const deploy = new Deployment("jackett", {
-            replicas: 1,
+            $replicas: 1,
             $template: {
                 // This should not run on the HDD node since it doesn't touch media directly
-                *$POD(POD) {
+                *containers$(POD) {
                     yield POD.Container("jackett", {
                         $image: Images.jackett,
                         $ports: {
                             web: 9117
                         },
                         $env: {
-                            ...userMedia.toDockerEnv()
+                            ...userMedia.sameGroup().toDockerEnv()
                         },
                         $resources: {
                             cpu: "300m -> 500m",
@@ -33,9 +33,12 @@ export default W.File("jackett.yaml", {
                                 $backend: new Pvc("jackett-var", {
                                     $accessModes: "RWO",
                                     $storageClass: scTopolvm,
-                                    $storage: "=1Gi"
-                                }).with(setBackupMode("pvc-main-schedule"))
-                            }).Mount()
+                                    $resources: {
+                                        storage: "=1Gi"
+                                    },
+                                    $metadata: getBackupMode("pvc-main-schedule")
+                                })
+                            }).mount()
                         }
                     })
                 }

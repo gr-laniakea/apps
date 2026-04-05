@@ -1,7 +1,7 @@
-import { Rsc_Top } from "@k8ts/instruments"
-import { World } from "k8ts"
+import { K8sResource } from "@k8ts/instruments"
+import { K8tsWorld } from "k8ts"
 import { applyHooks } from "./fix-output"
-export const W = new World("laniakea")
+export const W = K8tsWorld("laniakea")
 applyHooks(W)
 
 export type BackupMode = "pvc-main-schedule" | "pvc-hdd-schedule"
@@ -11,7 +11,7 @@ export function getBackupMode(mode: BackupMode) {
     } as const
 }
 export function setBackupMode(mode: BackupMode) {
-    return <X extends Rsc_Top>(x: X) => {
-        x.meta.add(getBackupMode(mode))
+    return <X extends K8sResource>(x: X) => {
+        x.metadata.add(getBackupMode(mode))
     }
 }

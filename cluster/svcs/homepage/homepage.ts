@@ -4,7 +4,7 @@ import namespaces from "@/_namespaces/namespaces"
 import { userHomepage } from "@/_users"
 import { scTopolvm } from "@/externals"
 import { W } from "@/root"
-import { localRefFile } from "@k8ts/instruments"
+import { LocalFile } from "@k8ts/instruments"
 import {
     ClusterRole,
     ClusterRoleBinding,
@@ -22,27 +22,25 @@ const name = "homepage"
 
 export default W.File(`${name}.yaml`, {
     namespace: namespaces[`Namespace/${name}`],
-    meta: getAppMeta(name),
-    *FILE() {
+    metadata: getAppMeta(name),
+    *resources$() {
         const serviceAccount = new ServiceAccount(name, {
-            automountToken: true
+            $automountToken: true
         })
 
         yield serviceAccount
 
         const secret = new Secret("homepage-account", {
-            $type: "kubernetes.io/service-account-token"
-        })
-
-        // Set annotations for service account token secret
-        secret.meta.add({
-            "^kubernetes.io/service-account.name": serviceAccount.name
+            $type: "kubernetes.io/service-account-token",
+            $metadata: {
+                "^kubernetes.io/service-account.name": serviceAccount.ident.name
+            }
         })
 
         yield secret
 
         const clusterRole = new ClusterRole(name, {
-            *rules(ROLE) {
+            *rules$(ROLE) {
                 // Core API group: namespaces, pods, nodes
                 yield ROLE.Rule(v1.Namespace._, v1.Pod._, v1.Node._).verbs("get", "list")
 
@@ -64,22 +62,25 @@ export default W.File(`${name}.yaml`, {
 
         const settingsFilesConfigMap = new ConfigMap(name, {
             $data: {
-                "settings.yaml": localRefFile("./config/settings.yaml").as("text"),
-                "services.yaml": localRefFile("./config/services.yaml").as("text"),
-                "kubernetes.yaml": localRefFile("./config/kubernetes.yaml").as("text"),
-                "widgets.yaml": localRefFile("./config/widgets.yaml").as("text"),
-                "bookmarks.yaml": localRefFile("./config/bookmarks.yaml").as("text")
+                "settings.yaml": LocalFile("./config/settings.yaml").as("text"),
+                "services.yaml": LocalFile("./config/services.yaml").as("text"),
+                "kubernetes.yaml": LocalFile("./config/kubernetes.yaml").as("text"),
+                "widgets.yaml": LocalFile("./config/widgets.yaml").as("text"),
+                "bookmarks.yaml": LocalFile("./config/bookmarks.yaml").as("text")
             }
         })
 
         const deploy = new Deployment(name, {
-            replicas: 1,
+            $replicas: 1,
             $template: {
-                serviceAccountName: name,
-                dnsPolicy: "ClusterFirst",
-                enableServiceLinks: true,
-                automountServiceAccountToken: true,
-                *$POD(POD) {
+                $$manifest: {
+                    serviceAccountName: name,
+                    dnsPolicy: "ClusterFirst",
+                    enableServiceLinks: true,
+                    automountServiceAccountToken: true
+                },
+
+                *containers$(POD) {
                     const configVol = POD.Volume("homepage-config", {
                         $backend: settingsFilesConfigMap
                     })
@@ -87,7 +88,9 @@ export default W.File(`${name}.yaml`, {
                         $backend: new Pvc("homepage-logs", {
                             $accessModes: "RWO",
                             $storageClass: scTopolvm,
-                            $storage: "=1Gi"
+                            $resources: {
+                                storage: "=1Gi"
+                            }
                         })
                     })
 
@@ -99,7 +102,7 @@ export default W.File(`${name}.yaml`, {
                         $env: {
                             HOMEPAGE_ALLOWED_HOSTS: "*",
                             LOG_LEVEL: "debug",
-                            ...userHomepage.toDockerEnv()
+                            ...userHomepage.sameGroup().toDockerEnv()
                         },
                         $resources: {
                             cpu: "50m -> 500m",
@@ -127,22 +130,22 @@ export default W.File(`${name}.yaml`, {
                         //     periodSeconds: 20
                         // },
                         $mounts: {
-                            "/app/config/bookmarks.yaml": configVol.Mount({
+                            "/app/config/bookmarks.yaml": configVol.mount({
                                 subPath: "bookmarks.yaml"
                             }),
-                            "/app/config/services.yaml": configVol.Mount({
+                            "/app/config/services.yaml": configVol.mount({
                                 subPath: "services.yaml"
                             }),
-                            "/app/config/settings.yaml": configVol.Mount({
+                            "/app/config/settings.yaml": configVol.mount({
                                 subPath: "settings.yaml"
                             }),
-                            "/app/config/kubernetes.yaml": configVol.Mount({
+                            "/app/config/kubernetes.yaml": configVol.mount({
                                 subPath: "kubernetes.yaml"
                             }),
-                            "/app/config/widgets.yaml": configVol.Mount({
+                            "/app/config/widgets.yaml": configVol.mount({
                                 subPath: "widgets.yaml"
                             }),
-                            "/app/config/logs": logsVol.Mount()
+                            "/app/config/logs": logsVol.mount()
                         }
                     })
                 }
