@@ -1,10 +1,11 @@
+import { Gateways } from "@/_externals/gateways"
 import { Images } from "@/_images"
 import { ipWgClientPortal, ssdNodePublicIp } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
 import { scTopolvm } from "@/externals"
 import { setBackupMode, W } from "@/root"
-import { Deployment, Pvc, Secret } from "k8ts"
+import { Deployment, HttpRoute, Pvc, Secret, Service } from "k8ts"
 
 const name = "wg-client"
 
@@ -89,7 +90,19 @@ export default W.File(`${name}.yaml`, {
                 }
             }
         })
-
-        yield deploy
+        const service = new Service(name, {
+            $backend: deploy,
+            $ports: {
+                web: 80
+            },
+            $frontend: {
+                type: "ClusterIP"
+            }
+        })
+        const route = new HttpRoute(name, {
+            $backend: service.portRef("web"),
+            $gateway: Gateways.laniakea,
+            $hostname: "wg.laniakea.boo"
+        })
     }
 })
