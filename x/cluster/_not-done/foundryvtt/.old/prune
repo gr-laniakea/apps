@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-restic forget --tag foundryvtt \
-              --keep-last 5
