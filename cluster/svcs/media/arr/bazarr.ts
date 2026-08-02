@@ -16,7 +16,7 @@ export default W.File("bazarr.yaml", {
         const deploy = new Deployment("bazarr", {
             $replicas: 1,
             $template: {
-                ...scheduleOnHdd,
+                $$manifest: scheduleOnHdd,
                 *containers$(POD) {
                     yield POD.Container("bazarr", {
                         $image: Images.bazarr,

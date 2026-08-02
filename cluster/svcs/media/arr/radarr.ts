@@ -3,11 +3,11 @@ import { Images } from "@/_images"
 import { ipRadarr } from "@/_ips"
 import { getAppMeta } from "@/_meta/app-meta"
 import namespaces from "@/_namespaces/namespaces"
+import { userMedia } from "@/_users"
 import { scTopolvm } from "@/externals"
 import { getBackupMode, W } from "@/root"
 import { Deployment, Pvc, Service } from "k8ts"
 import media from "../media"
-import { userMedia } from "@/_users"
 
 export default W.File("radarr.yaml", {
     namespace: namespaces["Namespace/media"],
@@ -16,7 +16,7 @@ export default W.File("radarr.yaml", {
         const deploy = new Deployment("radarr", {
             $replicas: 1,
             $template: {
-                ...scheduleOnHdd,
+                $$manifest: scheduleOnHdd,
                 *containers$(POD) {
                     yield POD.Container("radarr", {
                         $image: Images.radarr,
