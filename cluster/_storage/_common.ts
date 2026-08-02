@@ -1,4 +1,4 @@
-import { K8S } from "@k8ts/sample-interfaces"
+import { K8S } from "k8ts"
 
 export const nodeAffinity: K8S.VolumeNodeAffinity = {
     required: {

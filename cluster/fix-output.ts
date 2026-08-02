@@ -1,4 +1,4 @@
-import type { K8S } from "@k8ts/sample-interfaces"
+import type { K8S } from "k8ts"
 import { Deployment, Pvc, Service, type K8tsWorld_Base } from "k8ts"
 import { scTopolvm } from "./externals"
 export function applyHooks(W: K8tsWorld_Base) {

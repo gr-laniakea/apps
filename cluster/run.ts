@@ -6,6 +6,9 @@ import "./svcs/factorio"
 import "./svcs/flaresolverr/flaresolverr"
 import "./svcs/homepage/homepage"
 import "./svcs/media/arr/jackett"
+import "./svcs/media/arr/prowlarr"
+import "./svcs/media/arr/shelfmark"
+import "./svcs/media/calibre-web-automated"
 import "./svcs/media/downloaders/sabnzbd/sabnzbd"
 import "./svcs/media/downloaders/transmission/transmission"
 import "./svcs/media/jellyseer"
@@ -31,6 +34,7 @@ async function main() {
     runner.on("manifest", ({ resource }) => {})
     try {
         await import("./svcs/homepage/secret/secret")
+        await import("./svcs/media/arr/secret/index")
         await import("./svcs/speedtest-tracker/secret/index")
         await import("./svcs/wg-portal/secret/index")
     } catch (e: any) {

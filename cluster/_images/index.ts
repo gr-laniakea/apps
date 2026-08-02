@@ -22,6 +22,8 @@ export namespace Images {
         export const flaresolverr = Host.ghcr.namespace("flaresolverr")
         export const wgPortal = Host.docker.namespace("wgportal")
         export const wgEasy = Host.ghcr.namespace("wg-easy")
+        export const crocodilestick = Host.docker.namespace("crocodilestick")
+        export const calibrain = Host.ghcr.namespace("calibrain")
         export const _ = Host.docker.namespace("_")
     }
 
@@ -46,6 +48,10 @@ export namespace Images {
     export const thelounge = Authors.thelounge.repo("thelounge").tag("latest")
     export const wgPortal = Authors.wgPortal.repo("wg-portal").tag("latest")
     export const wgEasy = Authors.wgEasy.repo("wg-easy").tag("15")
+    export const calibreWebAutomated = Authors.crocodilestick
+        .repo("calibre-web-automated")
+        .tag("latest")
+    export const shelfmark = Authors.calibrain.repo("shelfmark").tag("latest")
 
     export const wiki_js = Authors.requarks.repo("wiki").tag("latest")
     export const jellyseer = Authors.fallenbagel.repo("jellyseerr").tag("latest")
