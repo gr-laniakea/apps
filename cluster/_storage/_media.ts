@@ -33,7 +33,8 @@ export default W.File("libraries.yaml", {
                 server: "10.0.10.18"
             },
             $$manifest: {
-                mountOptions: ["ro", "nfsvers=4.2"]
+                mountOptions: ["ro", "nfsvers=4.2"],
+                nodeAffinity: {}
             }
         })
 
