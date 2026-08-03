@@ -967,7 +967,7 @@ __metadata:
     doddle: "npm:^7.3.1"
     husky: "npm:^9.1.7"
     jest: "npm:^29.7.0"
-    k8ts: "npm:^0.14.3"
+    k8ts: "npm:^0.14.4"
     lint-staged: "npm:^15.4.3"
     lodash: "npm:^4.17.21"
     npm-run-all: "npm:^4.1.5"
@@ -5558,9 +5558,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"k8ts@npm:^0.14.3":
-  version: 0.14.3
-  resolution: "k8ts@npm:0.14.3"
+"k8ts@npm:^0.14.4":
+  version: 0.14.4
+  resolution: "k8ts@npm:0.14.4"
   dependencies:
     "@k8ts/sample-interfaces": "npm:^0.7.0"
     chalk: "npm:4.1.2"
@@ -5578,7 +5578,7 @@ __metadata:
   peerDependencies:
     "@k8ts/instruments": ^0.12.3
     "@k8ts/metadata": ^0.11.1
-  checksum: 10c0/79550829e869107ea11d541967b0777fd7aedf620bfcd28666a16c9e401d6eb48293bb14194174ddbd88f971b3bea5ab3334d994242c66df8c950dae1b456ef9
+  checksum: 10c0/3ad27b4afa95ad488570f6a3dbd42e581c5466097590c9c1631e70bfae823afd50ad0040538496f75635b0c2e88102a10ade02776c2461fb2d5890da2ef1433c
   languageName: node
   linkType: hard
 
