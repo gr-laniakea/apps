@@ -34,7 +34,7 @@ export default W.File("libraries.yaml", {
             },
             $$manifest: {
                 mountOptions: ["ro", "nfsvers=4.2"],
-                nodeAffinity: hddNodeAffinity
+                nodeAffinity: ssdNodeAffinity
             }
         })
 
