@@ -50,7 +50,7 @@ export default W.File("jellyfin.yaml", {
                                 })
                             }).mount(),
                             "/media": POD.Volume("media", {
-                                $backend: Media["PersistentVolumeClaim/nfs-media"]
+                                $backend: Media["PersistentVolumeClaim/nfs-media2"]
                             }).mount({
                                 readOnly: true
                             })

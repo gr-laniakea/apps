@@ -21,6 +21,13 @@ export default W.File("media-pvc.yaml", {
                 storage: "=1Gi"
             }
         })
+        yield new Pvc("nfs-media2", {
+            $accessModes: "ROX",
+            $volume: Public["PersistentVolume/nfs-media2"],
+            $resources: {
+                storage: "=1Gi"
+            }
+        })
         yield new Pvc("ebooks", {
             $accessModes: "RWO",
             $volume: Public["PersistentVolume/ebooks"],

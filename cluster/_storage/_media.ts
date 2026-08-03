@@ -33,6 +33,21 @@ export default W.File("libraries.yaml", {
                 server: "10.0.10.18"
             },
             $$manifest: {
+                mountOptions: ["ro", "nfsvers=4.2"],
+                nodeAffinity: hddNodeAffinity
+            }
+        })
+        yield new Pv("nfs-media2", {
+            $accessModes: ["ROX"],
+            $capacity: {
+                storage: T(10)
+            },
+            $backend: {
+                kind: "NFS",
+                path: "/data/media",
+                server: "10.0.10.18"
+            },
+            $$manifest: {
                 mountOptions: ["ro", "nfsvers=4.2"]
             }
         })
